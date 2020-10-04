@@ -3,7 +3,18 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  // Initialize Firebase
+  firebase: {
+    apiKey: 'AIzaSyDm_alV36a6Cg32AfVlpPvKG8S8ugI07iA',
+    authDomain: 'stonegateselfassessment-dfcba.firebaseapp.com',
+    databaseURL: 'https://stonegateselfassessment-dfcba.firebaseio.com',
+    projectId: 'stonegateselfassessment-dfcba',
+    storageBucket: 'stonegateselfassessment-dfcba.appspot.com',
+    messagingSenderId: '780967869255',
+    appId: '1:780967869255:web:7aafb2a89ad281ab822a62',
+    measurementId: 'G-RW7MN3TB14'
+  }
 };
 
 /*
