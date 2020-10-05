@@ -1,5 +1,8 @@
+import { User } from '../models/user';
 
-export interface State {
-    plants: any;
-    lists: any;
+export interface AppState {
+    user: User;
+    // plants: Plant[];
+    // selectedPlant: Plant;
+    // plantsLoading: boolean;
 }

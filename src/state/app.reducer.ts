@@ -1,69 +1,45 @@
 import { AppActions, AppActionTypes } from './app.actions';
-//import { Lists } from '../models/app/list';
-
+import { User } from '../models/user';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-//import { Plant } from '../models/plant/plant';
+import { act } from '@ngrx/effects';
 
 export interface AppState {
-    // lists: Lists[];
-    // plants: Plant[];
-    // selectedPlant: Plant;
-    plantsLoading: boolean;
+    user: User;
 }
 
 const initialState: AppState = {
+    user: null
     //lists: undefined,
     //plants: undefined,
     //selectedPlant: undefined,
-    plantsLoading: false
 };
 
 const getAppFeatureState = createFeatureSelector<AppState>('app');
-// export const getLists = state => state.lists;
 
-// export const getLists = createSelector(
-//      getAppFeatureState,
-//      state => state.lists
-//  );
-
-// export const getPlants = createSelector(
-//     getAppFeatureState,
-//     state => state.plants
-// );
-
-// export const getSelectedPlant = createSelector(
-//     getAppFeatureState,
-//     state => state.selectedPlant
-// );
-
-export const getPlantsLoading = createSelector(
+export const getSignedInUser = createSelector(
     getAppFeatureState,
-    state => state.plantsLoading
+    state => state.user
 );
 
 export function reducer(state = initialState, action: AppActions): AppState {
     switch (action.type) {
 
-        case AppActionTypes.LoadLists:
-            return {
-                ...state
-            };
-
-        // case AppActionTypes.LoadListsSuccess:
-        //     return {
-        //         ...state,
-        //         lists: action.payload
-        //     };
-
-        case AppActionTypes.LoadListsError:
-            return {
-                ...state
-            };
-
-        case AppActionTypes.LoadPlants:
+        case AppActionTypes.SignUpUser:
             return {
                 ...state,
-                plantsLoading: true
+                user: action.payload
+            };
+
+        case AppActionTypes.SignInUser:
+            return {
+                ...state,
+                user: action.payload
+            };
+
+        case AppActionTypes.LogoutUser:
+            return {
+                ...state,
+                user: null
             };
 
         // case AppActionTypes.LoadPlantsSuccess:
@@ -72,12 +48,6 @@ export function reducer(state = initialState, action: AppActions): AppState {
         //         plants: action.payload,
         //         plantsLoading: false
         //     };
-
-        case AppActionTypes.LoadPlantsError:
-            return {
-                ...state,
-                plantsLoading: false
-            };
 
         // case AppActionTypes.SelectPlant:
         //     return{
