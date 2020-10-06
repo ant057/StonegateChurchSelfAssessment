@@ -48,7 +48,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.store.pipe(select(fromApp.getSignedInUser)).subscribe(
       user => {
-        if (user) { this.user = user; console.log(this.user); }
+        if (user) {
+          this.user = user;
+        }
       }
     );
   }

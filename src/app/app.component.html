@@ -1,16 +1,10 @@
-<div class="container">
-  <mat-toolbar class="header">StonegateChurch Self Assessment 
-    <span class="spacer"></span>
-    <button mat-raised-button *ngIf="user" (click)="logout()">Logout</button>
-  </mat-toolbar>
-  <div class="sidenav-container">
-    <div *ngIf="user; else showLogin">
-      <assessment-home></assessment-home>
-    </div>
+<div class="container h-100">
+  <div *ngIf="user; else showLogin">
+    <assessment-home></assessment-home>
+  </div>
+  <div>
     <ng-template #showLogin>
       <assessment-login></assessment-login>
     </ng-template>
   </div>
-
-  <mat-toolbar class="footer">Powered by anthonycunningham.io</mat-toolbar>
 </div>

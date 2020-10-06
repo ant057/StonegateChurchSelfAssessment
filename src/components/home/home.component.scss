@@ -1,0 +1,39 @@
+.sidenav-card {
+  max-width: 200px;
+  min-width: 100px;
+}
+
+.sidenav-container {
+  position: absolute;
+  top: 60px;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+}
+
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #33a69b;
+    color:white;
+  }
+  
+  .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #262626;
+    color:white;
+  }
+
+  .logout {
+    padding: 0 14px;
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+  

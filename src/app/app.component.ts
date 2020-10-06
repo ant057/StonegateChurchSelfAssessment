@@ -22,17 +22,28 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.afAuth.authState.subscribe({
+      next: (response) => {
+        if (response) {
+          console.log('Logged in :)');
+          this.store.dispatch(new appActions.SignInUser(
+            {
+              userId: response.uid,
+              emailAddress: response.email,
+              fullName: response.displayName
+            }));
+        } else {
+          console.log('Logged out :(');
+        }
+      }
+    });
+
     this.store.pipe(select(fromApp.getSignedInUser)).subscribe(
       user => {
         this.user = user;
       }
     );
-
-    console.log(this.user);
   }
 
-  logout(): void {
-    this.afAuth.signOut();
-    this.store.dispatch(new appActions.LogoutUser());
-  }
 }

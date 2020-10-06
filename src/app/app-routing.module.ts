@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from '../components/home/home.component';
 
 const routes: Routes = [
+  { path: 'app', component: AppComponent },
   { path: 'home', component: HomeComponent }
   // { path: '**', component: AppComponent }
 ];
