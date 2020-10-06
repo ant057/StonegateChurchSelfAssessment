@@ -1,5 +1,6 @@
 // angular
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
 // ngrx store
@@ -11,15 +12,16 @@ import * as appActions from '../../state/app.actions';
 import { User } from '../../models/user';
 
 @Component({
-  selector: 'assessment-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'assessment-landing',
+  templateUrl: './landing.component.html',
+  styleUrls: ['./landing.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class LandingComponent implements OnInit {
 
   user: User;
 
-  constructor(private store: Store<fromApp.AppState>,
+  constructor(public afAuth: AngularFireAuth,
+              private store: Store<fromApp.AppState>,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -31,11 +33,13 @@ export class HomeComponent implements OnInit {
         }
       }
     );
-
   }
 
-  toAssessment(): void {
-    this.router.navigate(['/selfassessment']);
+  logout(): void {
+    this.afAuth.signOut();
+    this.store.dispatch(new appActions.LogoutUser());
+
+    this.router.navigate(['/']);
   }
 
 }

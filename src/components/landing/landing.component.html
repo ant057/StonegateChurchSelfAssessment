@@ -1,0 +1,17 @@
+
+<mat-toolbar class="header">StonegateChurch Self Assessment
+    <span class="spacer"></span>
+    <button mat-raised-button *ngIf="user" (click)="logout()">Logout</button>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav opened mode="side">
+        <mat-card class="sidenav-card">
+            <assessment-nav></assessment-nav>
+        </mat-card>
+    </mat-sidenav>
+    <router-outlet></router-outlet>
+    
+</mat-sidenav-container>
+
+<mat-toolbar class="footer">© www.stonegate.selfassessment, all rights reserved.</mat-toolbar>

@@ -26,7 +26,6 @@ export class AppComponent implements OnInit {
     this.afAuth.authState.subscribe({
       next: (response) => {
         if (response) {
-          console.log('Logged in :)');
           this.store.dispatch(new appActions.SignInUser(
             {
               userId: response.uid,
@@ -34,7 +33,7 @@ export class AppComponent implements OnInit {
               fullName: response.displayName
             }));
         } else {
-          console.log('Logged out :(');
+
         }
       }
     });

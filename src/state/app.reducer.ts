@@ -9,9 +9,6 @@ export interface AppState {
 
 const initialState: AppState = {
     user: null
-    //lists: undefined,
-    //plants: undefined,
-    //selectedPlant: undefined,
 };
 
 const getAppFeatureState = createFeatureSelector<AppState>('app');

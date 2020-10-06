@@ -50,6 +50,11 @@ import { firebaseUiAuthConfig } from '../firebase/firebaseui.config';
 import { AppComponent } from './app.component';
 import { LoginComponent } from '../components/login/login.component';
 import { HomeComponent } from 'src/components/home/home.component';
+import { NavComponent } from 'src/components/nav/nav.component';
+import { AdminComponent } from 'src/components/admin/admin.component';
+import { SelfAssessmentComponent } from 'src/components/self-assessment/self-assessment.component';
+import { PeerAssessmentComponent } from 'src/components/peer-assessment/peer-assessment.component';
+import { LandingComponent } from 'src/components/landing/landing.component';
 
 // utility
 import { HttpCacheService } from '../core/http-cache.service';
@@ -63,7 +68,12 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    NavComponent,
+    AdminComponent,
+    SelfAssessmentComponent,
+    PeerAssessmentComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,

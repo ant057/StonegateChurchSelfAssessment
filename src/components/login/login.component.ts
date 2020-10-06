@@ -1,5 +1,6 @@
 // angular
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 // angular ui
 import { FirebaseUISignInSuccessWithAuthResult, FirebaseUISignInFailure } from 'firebaseui-angular';
@@ -18,6 +19,7 @@ import { auth } from 'firebase/app';
 import { pipe } from 'rxjs';
 import { map, tap, switchMap } from 'rxjs/operators';
 
+
 @Component({
   selector: 'assessment-login',
   templateUrl: './login.component.html',
@@ -28,7 +30,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   user: User;
 
   constructor(public afAuth: AngularFireAuth,
-              private store: Store<fromApp.AppState>) { }
+              private store: Store<fromApp.AppState>,
+              private router: Router) { }
 
   ngOnInit(): void {
 
@@ -63,6 +66,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         emailAddress: signInSuccessData.authResult.user.email,
         fullName: signInSuccessData.authResult.user.displayName
       }));
+
+    this.router.navigate(['/home']);
   }
 
   errorCallback(errorData: FirebaseUISignInFailure): void {

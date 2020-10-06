@@ -1,36 +1,19 @@
-HomeComponent
-<mat-toolbar class="header">StonegateChurch Self Assessment
-    <span class="spacer"></span>
-    <button mat-raised-button *ngIf="user" (click)="logout()">Logout</button>
-</mat-toolbar>
+<section class="container h-75" style="padding-top:15px;">
+    <h2 *ngIf="user" class="mat-display-1">Hello, {{user.fullName}}! Welcome.</h2>
+    <h3>The Goal of This Exercise</h3>
+    <p class="mat-body">Paul Tripp summarizes the universal human problem by saying, “Our self-perception is as
+        accurate as a carnival mirror.” It is so easy to think one thing about ourself, while the opposite is
+        actually true. Simply put, all of us have a need to grow in self-awareness. To state it even more strongly,
+        there are few things as important as adequate self-awareness in a person’s life, especially if you are a
+        leader of people. We want to serve you by urging you to consider the questions in the following exercise.
+        The goal of this exercise is simple, we want this leader to see (with more accuracy) who they are and who
+        they are not, and then (by the grace of God) be content with who it is that God has made them to be. With
+        your help, this person can gain more insight into who they are through someone other than themselves. We
+        consider this a mercy from God and a beautiful picture of what it means to be known. </p>
+    <div class="h-25"></div>
+    <div class="row justify-content-center">
+        <button mat-raised-button *ngIf="user" (click)="toAssessment()">Start my Self Assessment</button>
+    </div>
+    <div></div>
 
-<mat-sidenav-container class="sidenav-container">
-    <mat-sidenav opened mode="side">
-        <mat-card class="sidenav-card">
-
-        </mat-card>
-    </mat-sidenav>
-    <section class="container h-75" style="padding-top:15px;">
-        <h1 *ngIf="user" class="mat-display-1">Hello, {{user.fullName}}! Welcome.</h1>
-        <h3>The Goal of This Exercise</h3>
-        <p class="mat-body">Paul Tripp summarizes the universal human problem by saying, “Our self-perception is as
-            accurate as a carnival mirror.” It is so easy to think one thing about ourself, while the opposite is
-            actually true. Simply put, all of us have a need to grow in self-awareness. To state it even more strongly,
-            there are few things as important as adequate self-awareness in a person’s life, especially if you are a
-            leader of people. We want to serve you by urging you to consider the questions in the following exercise.
-            The goal of this exercise is simple, we want this leader to see (with more accuracy) who they are and who
-            they are not, and then (by the grace of God) be content with who it is that God has made them to be. With
-            your help, this person can gain more insight into who they are through someone other than themselves. We
-            consider this a mercy from God and a beautiful picture of what it means to be known. </p>
-        <div class="h-25"></div>
-        <div class="row justify-content-center">
-            <button mat-raised-button *ngIf="user" (click)="logout()">Start my Self Assessment</button>
-        </div>
-        <div></div>
-        <router-outlet></router-outlet>
-
-    </section>
-</mat-sidenav-container>
-
-<router-outlet></router-outlet>
-<mat-toolbar class="footer">© www.stonegate.selfassessment, all rights reserved.</mat-toolbar>
+</section>
