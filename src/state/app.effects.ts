@@ -3,8 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { FirebaseService } from '../services/firebase.service';
 import * as appActions from './app.actions';
 import { mergeMap, map } from 'rxjs/operators';
-// import { Lists } from '../models/app/list';
-// import { Plant } from '../models/plant/plant';
+import { Question } from '../models/question';
 
 @Injectable()
 export class AppEffects {
@@ -21,11 +20,11 @@ export class AppEffects {
     //     ))
     // );
 
-    // @Effect()
-    // loadPlants$ = this.actions$.pipe(
-    //     ofType(appActions.AppActionTypes.LoadPlants),
-    //     mergeMap((action: appActions.LoadPlants) => this.firebase.getMyPlants(action.payload).pipe(
-    //         map((plants: Plant[]) => (new appActions.LoadPlantsSuccess(plants)))
-    //     ))
-    // );
+    @Effect()
+    loadQuestions$ = this.actions$.pipe(
+        ofType(appActions.AppActionTypes.LoadSelfAssessmentQuestions),
+        mergeMap((action: appActions.LoadSelfAssessmentQuestions) => this.firebase.getSelfAssessmentQuestions().pipe(
+            map((questions: Question[]) => (new appActions.LoadSelfAssessmentQuestionsSuccess(questions)))
+        ))
+    );
 }

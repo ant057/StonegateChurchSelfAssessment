@@ -1,6 +1,7 @@
 <section class="container h-75" style="padding-top:15px;">
-    <h1 *ngIf="user" class="mat-display-1">Hello, {{user.fullName}}! Welcome.</h1>
+    <h1 *ngIf="user" class="mat-display-1">Welcome, {{user.fullName}}!</h1>
     <div class="row">
+        <div class="col-sm-3"></div>
         <div class="col-sm-6">
             <mat-card>
             <h2>The Goal of This Exercise</h2>
@@ -25,8 +26,7 @@
                 <button mat-raised-button *ngIf="user" (click)="toAssessment()">Start my Self Assessment</button>
             </div>
         </div>
-        <div class="col-sm-6">
-        </div>
+        <div class="col-sm-3"></div>
     </div>
 
 

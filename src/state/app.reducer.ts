@@ -1,14 +1,20 @@
+// ngrx
 import { AppActions, AppActionTypes } from './app.actions';
-import { User } from '../models/user';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { act } from '@ngrx/effects';
 
+// models
+import { User } from '../models/user';
+import { Question } from '../models/question';
+
 export interface AppState {
     user: User;
+    selfAssessmentQuestions: Question[];
 }
 
 const initialState: AppState = {
-    user: null
+    user: null,
+    selfAssessmentQuestions: null
 };
 
 const getAppFeatureState = createFeatureSelector<AppState>('app');
@@ -16,6 +22,11 @@ const getAppFeatureState = createFeatureSelector<AppState>('app');
 export const getSignedInUser = createSelector(
     getAppFeatureState,
     state => state.user
+);
+
+export const getSelfAssessmentQuestions = createSelector(
+    getAppFeatureState,
+    state => state.selfAssessmentQuestions
 );
 
 export function reducer(state = initialState, action: AppActions): AppState {
@@ -39,17 +50,27 @@ export function reducer(state = initialState, action: AppActions): AppState {
                 user: null
             };
 
-        // case AppActionTypes.LoadPlantsSuccess:
-        //     return {
-        //         ...state,
-        //         plants: action.payload,
-        //         plantsLoading: false
-        //     };
+        case AppActionTypes.LoadSelfAssessmentQuestions:
+            return {
+                ...state
+            };
 
-        // case AppActionTypes.SelectPlant:
+        case AppActionTypes.LoadSelfAssessmentQuestionsSuccess:
+            return {
+                ...state,
+                selfAssessmentQuestions: action.payload
+            };
+
+        case AppActionTypes.LoadSelfAssessmentQuestionsError:
+            return {
+                ...state
+            };
+
+
+        // case AppActionTypes.SelectQuestion:
         //     return{
         //         ...state,
-        //         selectedPlant: action.payload
+        //         selectedQuestion: action.payload
         //     };
 
         default:

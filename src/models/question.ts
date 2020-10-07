@@ -2,6 +2,10 @@ export interface Question {
     questionId: string;
     text: string;
     type: string;
-    requiredYN: boolean;
+    required: boolean;
     sectionId: string;
+    orderBy: number;
+    multiField: boolean;
+    numberFields: number;
+    assessmentType: string;
 }

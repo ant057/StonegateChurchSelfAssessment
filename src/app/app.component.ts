@@ -7,6 +7,12 @@ import { Store, select } from '@ngrx/store';
 import * as fromApp from '../state/app.reducer';
 import * as appActions from '../state/app.actions';
 
+// rxjs
+import { Observable } from 'rxjs';
+
+// models
+import { Question } from '../models/question';
+
 
 @Component({
   selector: 'app-root',
@@ -14,9 +20,10 @@ import * as appActions from '../state/app.actions';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'StonegateChurchSelfAssessment';
+
   user: any = null;
   showLoader: boolean = true;
+  questions$: Observable<Question[]>;
 
   constructor(private store: Store<fromApp.AppState>,
               public afAuth: AngularFireAuth) {
@@ -25,6 +32,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
 
     setTimeout(() => this.showLoader = false, 1000);
+    this.initalizeAppData();
 
     this.afAuth.authState.subscribe({
       next: (response) => {
@@ -46,6 +54,12 @@ export class AppComponent implements OnInit {
         this.user = user;
       }
     );
+
+    this.questions$ = this.store.pipe(select(fromApp.getSelfAssessmentQuestions));
+  }
+
+  initalizeAppData(): void {
+    this.store.dispatch(new appActions.LoadSelfAssessmentQuestions());
   }
 
 }

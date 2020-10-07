@@ -20,11 +20,11 @@ export class FirebaseService {
               private afstorage: AngularFireStorage) {
   }
 
-  /*
-  getLists() {
-    return this.afs.collection(`/lists`).valueChanges();
+  getSelfAssessmentQuestions() {
+    return this.afs.collection(`/questions`).valueChanges();
   }
 
+/*
   getPlants() {
     return this.afs.collection('/plants').snapshotChanges();
   }
