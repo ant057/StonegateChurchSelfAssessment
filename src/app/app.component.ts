@@ -16,12 +16,15 @@ import * as appActions from '../state/app.actions';
 export class AppComponent implements OnInit {
   title = 'StonegateChurchSelfAssessment';
   user: any = null;
+  showLoader: boolean = true;
 
   constructor(private store: Store<fromApp.AppState>,
               public afAuth: AngularFireAuth) {
   }
 
   ngOnInit(): void {
+
+    setTimeout(() => this.showLoader = false, 1000);
 
     this.afAuth.authState.subscribe({
       next: (response) => {

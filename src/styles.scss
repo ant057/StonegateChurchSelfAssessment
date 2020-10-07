@@ -9,7 +9,10 @@ body {
     margin: 0; 
     font-family: Roboto, "Helvetica Neue", sans-serif; 
     height: 100%;
-    background-image: url("./assets/subtle-web-background-9.jpg");
+    background-image: url("./assets/subtle-web-background-3.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
