@@ -1,13 +1,17 @@
 <div class="" [formGroup]="form">
-    <label [attr.for]="question.key">{{question.label}}</label>
+    <mat-card>
 
+    <label [attr.for]="question.key">#{{question.orderBy}} {{question.label}}</label>
+    
     <div [ngSwitch]="question.type">
+        
         <mat-form-field *ngSwitchCase="'short answer'">
             <mat-label></mat-label>
             <input matInput [formControlName]="question.key" [id]="question.key" [type]="text" [placeholder]="question.placeholder">
         </mat-form-field>
-
+    
     </div>
-
+    </mat-card>
+    <br /><br />
     <div class="errorMessage" *ngIf="!isValid"></div>
 </div>
