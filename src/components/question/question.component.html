@@ -1,1 +1,13 @@
-<p>question works!</p>
+<div class="" [formGroup]="form">
+    <label [attr.for]="question.key">{{question.label}}</label>
+
+    <div [ngSwitch]="question.type">
+        <mat-form-field *ngSwitchCase="'short answer'">
+            <mat-label></mat-label>
+            <input matInput [formControlName]="question.key" [id]="question.key" [type]="text" [placeholder]="question.placeholder">
+        </mat-form-field>
+
+    </div>
+
+    <div class="errorMessage" *ngIf="!isValid"></div>
+</div>

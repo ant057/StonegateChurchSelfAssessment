@@ -20,8 +20,107 @@ export class FirebaseService {
               private afstorage: AngularFireStorage) {
   }
 
-  getSelfAssessmentQuestions() {
-    return this.afs.collection(`/questions`).valueChanges();
+  getSelfAssessmentQuestions(): Observable<any[]> {
+    return this.afs.collection('/questions', ref => ref.orderBy('orderBy')).valueChanges();
+  }
+
+  createQuestions(): void {
+
+    this.afs.collection('/questions').add({
+      key: 'greatestStrengthTwo',
+      label: '',
+      showLabel: false,
+      type: 'short answer',
+      required: true,
+      placeholder: 'Greatest Strength #2',
+      sectionId: 'TCcYNQJ1gwwA0CgVzOWF',
+      orderBy: 2,
+      assessmentType: 'self'
+    });
+
+    this.afs.collection('/questions').add({
+      key: 'greatestStrengthThree',
+      label: '',
+      showLabel: false,
+      type: 'short answer',
+      required: true,
+      placeholder: 'Greatest Strength #3',
+      sectionId: 'TCcYNQJ1gwwA0CgVzOWF',
+      orderBy: 3,
+      assessmentType: 'self'
+    });
+
+    this.afs.collection('/questions').add({
+      key: 'greatestWeaknessOne',
+      label: 'What would you say are your three greatest weaknesses?',
+      showLabel: true,
+      type: 'short answer',
+      required: true,
+      placeholder: 'Greatest Weakness #1',
+      sectionId: 'TCcYNQJ1gwwA0CgVzOWF',
+      orderBy: 4,
+      assessmentType: 'self'
+    });
+
+    this.afs.collection('/questions').add({
+      key: 'greatestWeaknessTwo',
+      label: '',
+      showLabel: false,
+      type: 'short answer',
+      required: true,
+      placeholder: 'Greatest Weakness #2',
+      sectionId: 'TCcYNQJ1gwwA0CgVzOWF',
+      orderBy: 5,
+      assessmentType: 'self'
+    });
+
+    this.afs.collection('/questions').add({
+      key: 'greatestWeaknessOne',
+      label: '',
+      showLabel: false,
+      type: 'short answer',
+      required: true,
+      placeholder: 'Greatest Weakness #3',
+      sectionId: 'TCcYNQJ1gwwA0CgVzOWF',
+      orderBy: 6,
+      assessmentType: 'self'
+    });
+
+    this.afs.collection('/questions').add({
+      key: 'firstImpression',
+      label: 'What first impression do you normally leave with people?',
+      showLabel: true,
+      type: 'short answer',
+      required: true,
+      placeholder: '',
+      sectionId: 'TCcYNQJ1gwwA0CgVzOWF',
+      orderBy: 7,
+      assessmentType: 'self'
+    });
+
+    this.afs.collection('/questions').add({
+      key: 'wrongWay',
+      label: 'Over time, what about you most rubs people the wrong the way?',
+      showLabel: true,
+      type: 'short answer',
+      required: true,
+      placeholder: '',
+      sectionId: 'TCcYNQJ1gwwA0CgVzOWF',
+      orderBy: 8,
+      assessmentType: 'self'
+    });
+
+    this.afs.collection('/questions').add({
+      key: 'blindSpots',
+      label: 'What would you consider to be potential or real blind spots in your life?',
+      showLabel: true,
+      type: 'short answer',
+      required: true,
+      placeholder: '',
+      sectionId: 'TCcYNQJ1gwwA0CgVzOWF',
+      orderBy: 9,
+      assessmentType: 'self'
+    });
   }
 
 /*

@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 
 // models
 import { Question } from '../models/question';
+import { FirebaseService } from '../services/firebase.service';
 
 
 @Component({
@@ -26,10 +27,12 @@ export class AppComponent implements OnInit {
   questions$: Observable<Question[]>;
 
   constructor(private store: Store<fromApp.AppState>,
-              public afAuth: AngularFireAuth) {
+              public afAuth: AngularFireAuth,
+              private fbs: FirebaseService) {
   }
 
   ngOnInit(): void {
+    // this.fbs.createQuestions();
 
     setTimeout(() => this.showLoader = false, 1000);
     this.initalizeAppData();

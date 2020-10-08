@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+// angular
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+
+// models
+import { Question } from '../../models/question';
 
 @Component({
   selector: 'assessment-question',
@@ -7,9 +12,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuestionComponent implements OnInit {
 
+  @Input() question: Question;
+  @Input() form: FormGroup;
+
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  get isValid() { return this.form.controls[this.question.key].valid; }
 
 }

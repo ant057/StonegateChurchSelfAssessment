@@ -21,7 +21,7 @@ export class AppEffects {
     // );
 
     @Effect()
-    loadQuestions$ = this.actions$.pipe(
+    loadSelfAssesementQuestions$ = this.actions$.pipe(
         ofType(appActions.AppActionTypes.LoadSelfAssessmentQuestions),
         mergeMap((action: appActions.LoadSelfAssessmentQuestions) => this.firebase.getSelfAssessmentQuestions().pipe(
             map((questions: Question[]) => (new appActions.LoadSelfAssessmentQuestionsSuccess(questions)))

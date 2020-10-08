@@ -1,11 +1,12 @@
 export interface Question {
     questionId: string;
-    text: string;
+    key: string;
+    label: string;
+    showLabel: boolean;
     type: string;
     required: boolean;
+    placeholder: string;
     sectionId: string;
     orderBy: number;
-    multiField: boolean;
-    numberFields: number;
     assessmentType: string;
 }

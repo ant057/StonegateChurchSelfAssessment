@@ -28,6 +28,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 // services
 import { FirebaseService } from '../services/firebase.service';
+import { QuestionControlService } from '../services/question-control.service';
 
 // ngrx store
 import { StoreModule } from '@ngrx/store';
@@ -49,12 +50,13 @@ import { firebaseUiAuthConfig } from '../firebase/firebaseui.config';
 // components
 import { AppComponent } from './app.component';
 import { LoginComponent } from '../components/login/login.component';
-import { HomeComponent } from 'src/components/home/home.component';
-import { NavComponent } from 'src/components/nav/nav.component';
-import { AdminComponent } from 'src/components/admin/admin.component';
-import { SelfAssessmentComponent } from 'src/components/self-assessment/self-assessment.component';
-import { PeerAssessmentComponent } from 'src/components/peer-assessment/peer-assessment.component';
-import { LandingComponent } from 'src/components/landing/landing.component';
+import { HomeComponent } from '../components/home/home.component';
+import { NavComponent } from '../components/nav/nav.component';
+import { AdminComponent } from '../components/admin/admin.component';
+import { SelfAssessmentComponent } from '../components/self-assessment/self-assessment.component';
+import { PeerAssessmentComponent } from '../components/peer-assessment/peer-assessment.component';
+import { LandingComponent } from '../components/landing/landing.component';
+import { QuestionComponent } from '../components/question/question.component';
 
 // utility
 import { HttpCacheService } from '../core/http-cache.service';
@@ -73,7 +75,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     AdminComponent,
     SelfAssessmentComponent,
     PeerAssessmentComponent,
-    LandingComponent
+    LandingComponent,
+    QuestionComponent
   ],
   imports: [
     BrowserModule,
@@ -107,7 +110,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
       logOnly: environment.production
     })
   ],
-  providers: [FirebaseService],
+  providers:
+    [FirebaseService,
+    QuestionControlService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
