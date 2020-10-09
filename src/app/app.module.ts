@@ -22,6 +22,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatRadioModule } from '@angular/material/radio';
 
 // routing
 import { AppRoutingModule } from './app-routing.module';
@@ -110,6 +111,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     MatSelectModule,
     MatProgressSpinnerModule,
     MatBadgeModule,
+    MatRadioModule,
     StoreDevtoolsModule.instrument({
       name: 'StoneGateAssessment Dev tools',
       maxAge: 25,

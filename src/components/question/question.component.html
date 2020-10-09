@@ -11,9 +11,20 @@
 
                 <mat-form-field *ngSwitchCase="'long answer'" class="full-width-field">
                     <mat-label>{{question.placeholder}}</mat-label>
-                    <textarea class="field-long-answer" matInput [formControlName]="question.key" [id]="question.key"
+                    <textarea class="long-answer-field" matInput [formControlName]="question.key" [id]="question.key"
                         [type]="text"></textarea>
                 </mat-form-field>
+
+                    <div *ngSwitchCase="'rating'" class="full-width-field">
+                    <mat-label>{{question.placeholder}}</mat-label><br /><br />
+                    <mat-radio-group aria-label="Select an option" class="full-width-field" [formControlName]="question.key" [id]="question.key">
+                        Low&nbsp;&nbsp;&nbsp;<mat-radio-button value="1">1&nbsp;&nbsp;&nbsp;</mat-radio-button>
+                        <mat-radio-button value="2">2&nbsp;&nbsp;&nbsp;</mat-radio-button>
+                        <mat-radio-button value="3">3&nbsp;&nbsp;&nbsp;</mat-radio-button>
+                        <mat-radio-button value="4">4&nbsp;&nbsp;&nbsp;</mat-radio-button>
+                        <mat-radio-button value="5">5&nbsp;&nbsp;&nbsp;</mat-radio-button>&nbsp;&nbsp;High
+                      </mat-radio-group>
+                    </div>
 
             </div>
         </mat-card>
