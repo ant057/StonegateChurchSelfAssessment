@@ -12,6 +12,7 @@ import { QuestionControlService } from '../../services/question-control.service'
 
 // models
 import { Question } from '../../models/question';
+import { Section } from '../../models/section';
 
 @Component({
   selector: 'assessment-self-assessment',
@@ -21,6 +22,7 @@ import { Question } from '../../models/question';
 export class SelfAssessmentComponent implements OnInit {
 
   questions: Question[] = [];
+  sections: Section[] = [];
   form: FormGroup;
   payLoad = '';
 
@@ -38,6 +40,12 @@ export class SelfAssessmentComponent implements OnInit {
     if (this.questions) {
       this.form = this.questionControlService.toFormGroup(this.questions);
     }
+
+    this.store.pipe(select(fromApp.getSelfAssessmentSections)).subscribe(
+      sections => {
+        this.sections = sections;
+      }
+    );
   }
 
   onSubmit(): void {

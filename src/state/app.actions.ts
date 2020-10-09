@@ -1,6 +1,10 @@
+// ngrx
 import { Action } from '@ngrx/store';
+
+// models
 import { Question } from '../models/question';
 import { User } from '../models/user';
+import { Section } from '../models/section';
 
 export enum AppActionTypes {
     SignUpUser = '[SignUpUser] Successful',
@@ -10,8 +14,10 @@ export enum AppActionTypes {
     LoadSelfAssessmentQuestions = '[Load Questions] Try',
     LoadSelfAssessmentQuestionsSuccess = '[Load Questions] Successful',
     LoadSelfAssessmentQuestionsError = '[Load Questions] Error',
+    LoadSelfAssessmentSections = '[Load Sections] Try',
+    LoadSelfAssessmentSectionsSuccess = '[Load Sections] Successful',
+    LoadSelfAssessmentSectionsError = '[Load Sections] Error'
 }
-
 
 export class SignUpUser implements Action {
     readonly type = AppActionTypes.SignUpUser;
@@ -49,9 +55,30 @@ export class LoadSelfAssessmentQuestionsError implements Action {
     constructor() { }
 }
 
+export class LoadSelfAssessmentSections implements Action {
+    readonly type = AppActionTypes.LoadSelfAssessmentSections;
+
+    constructor() { }
+}
+
+export class LoadSelfAssessmentSectionsSuccess implements Action {
+    readonly type = AppActionTypes.LoadSelfAssessmentSectionsSuccess;
+
+    constructor(public payload: Section[]) { }
+}
+
+export class LoadSelfAssessmentSectionsError implements Action {
+    readonly type = AppActionTypes.LoadSelfAssessmentSectionsError;
+
+    constructor() { }
+}
+
 export type AppActions = SignUpUser
     | SignInUser
     | LogoutUser
     | LoadSelfAssessmentQuestions
     | LoadSelfAssessmentQuestionsError
-    | LoadSelfAssessmentQuestionsSuccess;
+    | LoadSelfAssessmentQuestionsSuccess
+    | LoadSelfAssessmentSections
+    | LoadSelfAssessmentSectionsError
+    | LoadSelfAssessmentSectionsSuccess;

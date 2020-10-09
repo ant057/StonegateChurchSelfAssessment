@@ -63,6 +63,7 @@ export class AppComponent implements OnInit {
 
   initalizeAppData(): void {
     this.store.dispatch(new appActions.LoadSelfAssessmentQuestions());
+    this.store.dispatch(new appActions.LoadSelfAssessmentSections());
   }
 
 }

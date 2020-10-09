@@ -4,6 +4,7 @@ import { FirebaseService } from '../services/firebase.service';
 import * as appActions from './app.actions';
 import { mergeMap, map } from 'rxjs/operators';
 import { Question } from '../models/question';
+import { Section } from '../models/section';
 
 @Injectable()
 export class AppEffects {
@@ -25,6 +26,14 @@ export class AppEffects {
         ofType(appActions.AppActionTypes.LoadSelfAssessmentQuestions),
         mergeMap((action: appActions.LoadSelfAssessmentQuestions) => this.firebase.getSelfAssessmentQuestions().pipe(
             map((questions: Question[]) => (new appActions.LoadSelfAssessmentQuestionsSuccess(questions)))
+        ))
+    );
+
+    @Effect()
+    loadSelfAssesementSections$ = this.actions$.pipe(
+        ofType(appActions.AppActionTypes.LoadSelfAssessmentSections),
+        mergeMap((action: appActions.LoadSelfAssessmentSections) => this.firebase.getSelfAssessmentSections().pipe(
+            map((Sections: Section[]) => (new appActions.LoadSelfAssessmentSectionsSuccess(Sections)))
         ))
     );
 }

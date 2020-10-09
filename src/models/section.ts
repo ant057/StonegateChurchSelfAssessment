@@ -3,4 +3,5 @@ export interface Section {
     text: string;
     subText: string;
     orderBy: number;
+    type: string;
 }

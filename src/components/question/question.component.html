@@ -1,17 +1,23 @@
 <div class="" [formGroup]="form">
-    <mat-card>
+    <div *ngIf="question">
+        <mat-card>
+            <strong [attr.for]="question.key">#{{question.orderBy}} {{question.label}}</strong>
+            <div [ngSwitch]="question.type">
 
-    <label [attr.for]="question.key">#{{question.orderBy}} {{question.label}}</label>
-    
-    <div [ngSwitch]="question.type">
-        
-        <mat-form-field *ngSwitchCase="'short answer'">
-            <mat-label></mat-label>
-            <input matInput [formControlName]="question.key" [id]="question.key" [type]="text" [placeholder]="question.placeholder">
-        </mat-form-field>
-    
+                <mat-form-field *ngSwitchCase="'short answer'" class="full-width-field">
+                    <mat-label>{{question.placeholder}}</mat-label>
+                    <textarea matInput [formControlName]="question.key" [id]="question.key" [type]="text"></textarea>
+                </mat-form-field>
+
+                <mat-form-field *ngSwitchCase="'long answer'" class="full-width-field">
+                    <mat-label>{{question.placeholder}}</mat-label>
+                    <textarea class="field-long-answer" matInput [formControlName]="question.key" [id]="question.key"
+                        [type]="text"></textarea>
+                </mat-form-field>
+
+            </div>
+        </mat-card>
+        <br /><br />
+        <div class="errorMessage" *ngIf="!isValid"></div>
     </div>
-    </mat-card>
-    <br /><br />
-    <div class="errorMessage" *ngIf="!isValid"></div>
 </div>

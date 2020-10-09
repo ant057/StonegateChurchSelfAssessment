@@ -1,16 +1,20 @@
 <div style="padding-top:15px;">
-    <form (ngSubmit)="onSubmit()" [formGroup]="form">
-        <div *ngFor="let question of questions" class="form-row">
-            <div class="col-7">
-                <assessment-question [question]="question" [form]="form">
-                </assessment-question>
-            </div>
+  <h1 class="mat-display-1">Stonegate Self-Awareness Assessment</h1>
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+    <div *ngIf="sections">
+      <div *ngFor="let section of sections" class="form-row">
+        <div class="col-7">
+          <assessment-section [section]="section" [questions]="questions" [form]="form">
+          </assessment-section>
         </div>
-        <div class="form-row">
-            <button type="submit" [disabled]="!form.valid">Save</button>
-        </div>
-    </form>
-    <div *ngIf="payLoad" class="form-row">
-        <strong>Saved the following values</strong><br>{{payLoad}}
+      </div>
     </div>
+    <div class="form-row">
+      <button mat-raised-button type="submit" [disabled]="!form.valid">Finish</button>
+    </div>
+    <br /><br /><br /><br /><br />
+  </form>
+  <div *ngIf="payLoad" class="form-row">
+    <strong>Saved the following values</strong><br>{{payLoad}}
+  </div>
 </div>

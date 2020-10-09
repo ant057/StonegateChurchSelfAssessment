@@ -57,6 +57,10 @@ import { SelfAssessmentComponent } from '../components/self-assessment/self-asse
 import { PeerAssessmentComponent } from '../components/peer-assessment/peer-assessment.component';
 import { LandingComponent } from '../components/landing/landing.component';
 import { QuestionComponent } from '../components/question/question.component';
+import { SectionComponent } from '../components/section/section.component';
+
+// directives
+import { MatElevationHoverDirective } from '../directives/mat-elevation-hover.directive';
 
 // utility
 import { HttpCacheService } from '../core/http-cache.service';
@@ -76,7 +80,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     SelfAssessmentComponent,
     PeerAssessmentComponent,
     LandingComponent,
-    QuestionComponent
+    QuestionComponent,
+    SectionComponent,
+    MatElevationHoverDirective
   ],
   imports: [
     BrowserModule,

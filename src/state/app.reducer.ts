@@ -6,15 +6,18 @@ import { act } from '@ngrx/effects';
 // models
 import { User } from '../models/user';
 import { Question } from '../models/question';
+import { Section } from '../models/section';
 
 export interface AppState {
     user: User;
     selfAssessmentQuestions: Question[];
+    selfAssessmentSections: Section[];
 }
 
 const initialState: AppState = {
     user: null,
-    selfAssessmentQuestions: null
+    selfAssessmentQuestions: null,
+    selfAssessmentSections: null
 };
 
 const getAppFeatureState = createFeatureSelector<AppState>('app');
@@ -27,6 +30,11 @@ export const getSignedInUser = createSelector(
 export const getSelfAssessmentQuestions = createSelector(
     getAppFeatureState,
     state => state.selfAssessmentQuestions
+);
+
+export const getSelfAssessmentSections = createSelector(
+    getAppFeatureState,
+    state => state.selfAssessmentSections
 );
 
 export function reducer(state = initialState, action: AppActions): AppState {
@@ -62,6 +70,22 @@ export function reducer(state = initialState, action: AppActions): AppState {
             };
 
         case AppActionTypes.LoadSelfAssessmentQuestionsError:
+            return {
+                ...state
+            };
+
+        case AppActionTypes.LoadSelfAssessmentSections:
+            return {
+                ...state
+            };
+
+        case AppActionTypes.LoadSelfAssessmentSectionsSuccess:
+            return {
+                ...state,
+                selfAssessmentSections: action.payload
+            };
+
+        case AppActionTypes.LoadSelfAssessmentSectionsError:
             return {
                 ...state
             };

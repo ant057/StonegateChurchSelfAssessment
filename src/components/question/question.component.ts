@@ -1,5 +1,5 @@
 // angular
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 // models
@@ -18,8 +18,12 @@ export class QuestionComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    // console.log(this.form);
+    // this.form.statusChanges.subscribe(
+    //   result => console.log(result)
+    // );
   }
 
-  get isValid() { return this.form.controls[this.question.key].valid; }
+  get isValid(): boolean { return this.form.controls[this.question.key].valid; }
 
 }

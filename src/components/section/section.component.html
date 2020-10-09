@@ -1,0 +1,10 @@
+<h2>{{section.text}}</h2>
+<p class="mat-small">{{section.subText}}</p>
+<div *ngIf="sectionQuestions">
+    <div *ngFor="let question of sectionQuestions" class="form-row">
+        <div class="col-12">
+            <assessment-question [question]="question" [form]="form">
+            </assessment-question>
+        </div>
+    </div>
+</div>

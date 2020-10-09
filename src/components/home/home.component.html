@@ -1,4 +1,4 @@
-<section class="h-75" style="padding-top:15px;">
+<section style="padding-top:15px;">
     <h1 *ngIf="user" class="mat-display-1">Welcome, {{user.fullName}}!</h1>
     <div class="row">
         <div class="col-sm-3"></div>
@@ -21,7 +21,7 @@
                 your help, this person can gain more insight into who they are through someone other than themselves. We
                 consider this a mercy from God and a beautiful picture of what it means to be known. </p>
             </mat-card>
-            <div class="h-25"></div>
+            <br /><br />
             <div class="row justify-content-center">
                 <button mat-raised-button *ngIf="user" (click)="toAssessment()">Start my Self Assessment</button>
             </div>

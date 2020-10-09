@@ -12,6 +12,7 @@ import { map, tap, take, switchMap, mergeMap, expand, takeWhile } from 'rxjs/ope
 
 // Models
 // import { Payment } from '../models/payment/payment';
+import { Section } from '../models/section';
 
 @Injectable()
 export class FirebaseService {
@@ -24,103 +25,190 @@ export class FirebaseService {
     return this.afs.collection('/questions', ref => ref.orderBy('orderBy')).valueChanges();
   }
 
+  getSelfAssessmentSections(): Observable<Section[]> {
+    return this.afs.collection('/sections', ref => ref.orderBy('orderBy')).snapshotChanges().pipe(
+      map(q => {
+        const data: Section[] = [];
+        q.forEach(x => {
+          const item = x.payload.doc.data() as Section;
+          item.sectionId = x.payload.doc.id;
+          data.push(item);
+        });
+        return data;
+      })
+    );
+  }
+
   createQuestions(): void {
 
     this.afs.collection('/questions').add({
-      key: 'greatestStrengthTwo',
-      label: '',
-      showLabel: false,
-      type: 'short answer',
+      key: 'gospelCentered',
+      label: 'Gospel-Centered (Are you proficient in applying the good news of Jesus to your life and others?)',
+      showLabel: true,
+      type: 'rating',
       required: true,
-      placeholder: 'Greatest Strength #2',
-      sectionId: 'TCcYNQJ1gwwA0CgVzOWF',
+      placeholder: '',
+      sectionId: 'd5GZxKbEvq5wdcEdmECR',
+      orderBy: 1,
+      assessmentType: 'self'
+    });
+
+    this.afs.collection('/questions').add({
+      key: 'gospelCenteredExplain',
+      label: 'Explain, if necessary.',
+      showLabel: true,
+      type: 'long answer',
+      required: false,
+      placeholder: '',
+      sectionId: 'd5GZxKbEvq5wdcEdmECR',
       orderBy: 2,
       assessmentType: 'self'
     });
 
     this.afs.collection('/questions').add({
-      key: 'greatestStrengthThree',
-      label: '',
-      showLabel: false,
-      type: 'short answer',
+      key: 'spiritualLeadership',
+      label: 'Spiritual Leadership (Do you lead people closer to Jesus?)',
+      showLabel: true,
+      type: 'rating',
       required: true,
-      placeholder: 'Greatest Strength #3',
-      sectionId: 'TCcYNQJ1gwwA0CgVzOWF',
+      placeholder: '',
+      sectionId: 'd5GZxKbEvq5wdcEdmECR',
       orderBy: 3,
       assessmentType: 'self'
     });
 
     this.afs.collection('/questions').add({
-      key: 'greatestWeaknessOne',
-      label: 'What would you say are your three greatest weaknesses?',
+      key: 'spiritualLeadershipExplain',
+      label: 'Explain, if necessary.',
       showLabel: true,
-      type: 'short answer',
-      required: true,
-      placeholder: 'Greatest Weakness #1',
-      sectionId: 'TCcYNQJ1gwwA0CgVzOWF',
+      type: 'long answer',
+      required: false,
+      placeholder: '',
+      sectionId: 'd5GZxKbEvq5wdcEdmECR',
       orderBy: 4,
       assessmentType: 'self'
     });
 
     this.afs.collection('/questions').add({
-      key: 'greatestWeaknessTwo',
-      label: '',
-      showLabel: false,
-      type: 'short answer',
+      key: 'humility',
+      label: 'Humility (Do you typically think of yourself as "needy" before God?)',
+      showLabel: true,
+      type: 'rating',
       required: true,
-      placeholder: 'Greatest Weakness #2',
-      sectionId: 'TCcYNQJ1gwwA0CgVzOWF',
+      placeholder: '',
+      sectionId: 'd5GZxKbEvq5wdcEdmECR',
       orderBy: 5,
       assessmentType: 'self'
     });
 
     this.afs.collection('/questions').add({
-      key: 'greatestWeaknessOne',
-      label: '',
-      showLabel: false,
-      type: 'short answer',
-      required: true,
-      placeholder: 'Greatest Weakness #3',
-      sectionId: 'TCcYNQJ1gwwA0CgVzOWF',
+      key: 'humilityExplain',
+      label: 'Explain, if necessary.',
+      showLabel: true,
+      type: 'long answer',
+      required: false,
+      placeholder: '',
+      sectionId: 'd5GZxKbEvq5wdcEdmECR',
       orderBy: 6,
       assessmentType: 'self'
     });
 
     this.afs.collection('/questions').add({
-      key: 'firstImpression',
-      label: 'What first impression do you normally leave with people?',
+      key: 'fear',
+      label: 'Fear of God (Do you have a fear of God that tends to release yourself from a fear of man?)',
       showLabel: true,
-      type: 'short answer',
+      type: 'rating',
       required: true,
       placeholder: '',
-      sectionId: 'TCcYNQJ1gwwA0CgVzOWF',
+      sectionId: 'd5GZxKbEvq5wdcEdmECR',
       orderBy: 7,
       assessmentType: 'self'
     });
 
     this.afs.collection('/questions').add({
-      key: 'wrongWay',
-      label: 'Over time, what about you most rubs people the wrong the way?',
+      key: 'fearExplain',
+      label: 'Explain, if necessary.',
       showLabel: true,
-      type: 'short answer',
-      required: true,
+      type: 'long answer',
+      required: false,
       placeholder: '',
-      sectionId: 'TCcYNQJ1gwwA0CgVzOWF',
+      sectionId: 'd5GZxKbEvq5wdcEdmECR',
       orderBy: 8,
       assessmentType: 'self'
     });
 
     this.afs.collection('/questions').add({
-      key: 'blindSpots',
-      label: 'What would you consider to be potential or real blind spots in your life?',
+      key: 'faith',
+      label: 'Faith (Do you find joy in risk-taking or are you risk-averse?)',
       showLabel: true,
-      type: 'short answer',
+      type: 'rating',
       required: true,
       placeholder: '',
-      sectionId: 'TCcYNQJ1gwwA0CgVzOWF',
+      sectionId: 'd5GZxKbEvq5wdcEdmECR',
       orderBy: 9,
       assessmentType: 'self'
     });
+
+    this.afs.collection('/questions').add({
+      key: 'faithExplain',
+      label: 'Explain, if necessary.',
+      showLabel: true,
+      type: 'long answer',
+      required: false,
+      placeholder: '',
+      sectionId: 'd5GZxKbEvq5wdcEdmECR',
+      orderBy: 10,
+      assessmentType: 'self'
+    });
+
+    this.afs.collection('/questions').add({
+      key: 'missional',
+      label: 'Missional (Do you often share the good news of Jesus with others?)',
+      showLabel: true,
+      type: 'rating',
+      required: true,
+      placeholder: '',
+      sectionId: 'd5GZxKbEvq5wdcEdmECR',
+      orderBy: 11,
+      assessmentType: 'self'
+    });
+
+    this.afs.collection('/questions').add({
+      key: 'missionalExplain',
+      label: 'Explain, if necessary.',
+      showLabel: true,
+      type: 'long answer',
+      required: false,
+      placeholder: '',
+      sectionId: 'd5GZxKbEvq5wdcEdmECR',
+      orderBy: 12,
+      assessmentType: 'self'
+    });
+
+    this.afs.collection('/questions').add({
+      key: 'calling',
+      label: `Calling (Do you feel called to serve in your current role or the role you're pursing?)`,
+      showLabel: true,
+      type: 'rating',
+      required: true,
+      placeholder: '',
+      sectionId: 'd5GZxKbEvq5wdcEdmECR',
+      orderBy: 13,
+      assessmentType: 'self'
+    });
+
+    this.afs.collection('/questions').add({
+      key: 'callingExplain',
+      label: 'Explain, if necessary.',
+      showLabel: true,
+      type: 'long answer',
+      required: false,
+      placeholder: '',
+      sectionId: 'd5GZxKbEvq5wdcEdmECR',
+      orderBy: 14,
+      assessmentType: 'self'
+    });
+
   }
 
 /*
