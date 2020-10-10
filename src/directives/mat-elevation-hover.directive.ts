@@ -26,7 +26,7 @@ export class MatElevationHoverDirective implements OnChanges {
 
   private setElevation(amount: number) {
     // remove all elevation classes
-    const classesToRemove = Array.from((<HTMLElement>this.el.nativeElement).classList).filter(c => c.startsWith('mat-elevation-z'));
+    const classesToRemove = Array.from((this.el.nativeElement as HTMLElement).classList).filter(c => c.startsWith('mat-elevation-z'));
     classesToRemove.forEach((c) => {
       this.renderer.removeClass(this.el.nativeElement, c);
     });
