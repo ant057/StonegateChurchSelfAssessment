@@ -1,7 +1,7 @@
 <div class="" [formGroup]="form">
     <div *ngIf="question">
         <mat-card>
-            <strong [attr.for]="question.key">#{{question.orderBy}} {{question.label}}</strong>
+            <strong [attr.for]="question.key">{{question.label}}{{question.required && question.label !== '' ? ' *' : ''}}</strong>
             <div [ngSwitch]="question.type">
 
                 <mat-form-field *ngSwitchCase="'short answer'" class="full-width-field">

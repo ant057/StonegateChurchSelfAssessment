@@ -1,5 +1,13 @@
-<h2>{{section.text}}</h2>
-<p class="mat-small">{{section.subText}}</p>
+<mat-card class="section-card">
+    <mat-card-header>
+        <mat-card-title>{{section.text}}</mat-card-title>
+        <mat-card-subtitle class="section-card-subtitle">{{section.subText}}</mat-card-subtitle>
+    </mat-card-header>
+</mat-card>
+<br />
+
+<!-- <h2>{{section.text}}</h2>
+<p class="mat-small">{{section.subText}}</p> -->
 <div *ngIf="sectionQuestions">
     <div *ngFor="let question of sectionQuestions" class="form-row">
         <div class="col-12">
