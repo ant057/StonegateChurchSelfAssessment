@@ -23,6 +23,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
 
 // routing
 import { AppRoutingModule } from './app-routing.module';
@@ -59,6 +62,8 @@ import { PeerAssessmentComponent } from '../components/peer-assessment/peer-asse
 import { LandingComponent } from '../components/landing/landing.component';
 import { QuestionComponent } from '../components/question/question.component';
 import { SectionComponent } from '../components/section/section.component';
+import { AssessmentContactsComponent } from '../components/assessment-contacts/assessment-contacts.component';
+import { GenericDialogueComponent } from '../components/generic-dialogue/generic-dialogue.component';
 
 // directives
 import { MatElevationHoverDirective } from '../directives/mat-elevation-hover.directive';
@@ -83,6 +88,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     LandingComponent,
     QuestionComponent,
     SectionComponent,
+    AssessmentContactsComponent,
+    GenericDialogueComponent,
     MatElevationHoverDirective
   ],
   imports: [
@@ -112,6 +119,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     MatProgressSpinnerModule,
     MatBadgeModule,
     MatRadioModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatDialogModule,
     StoreDevtoolsModule.instrument({
       name: 'StoneGateAssessment Dev tools',
       maxAge: 25,

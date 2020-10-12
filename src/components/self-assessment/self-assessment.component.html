@@ -3,18 +3,23 @@
   <form (ngSubmit)="onSubmit()" [formGroup]="form">
     <div *ngIf="sections">
       <div *ngFor="let section of sections" class="form-row">
-        <div class="col-7">
+        <div class="col-md-7">
           <assessment-section [section]="section" [questions]="questions" [form]="form">
           </assessment-section>
         </div>
       </div>
     </div>
+    <div class="col-md-12">
+      <assessment-contacts></assessment-contacts>
+    </div>
+    <br /><br />
     <div class="form-row">
       <button mat-raised-button type="submit" [disabled]="!form.valid">Finish</button>
+      <button mat-raised-button type="submit">Finish</button>
     </div>
-    <br /><br /><br /><br /><br />
+    <br /><br /><br />
   </form>
   <div *ngIf="payLoad" class="form-row">
-    <strong>Saved the following values</strong><br>{{payLoad}}
+    <strong>Saved the following values</strong><br>{{contactsValid}}{{payLoad}}
   </div>
 </div>

@@ -23,7 +23,7 @@ import { FirebaseService } from '../services/firebase.service';
 export class AppComponent implements OnInit {
 
   user: any = null;
-  showLoader: boolean = true;
+  showLoader = true;
   questions$: Observable<Question[]>;
 
   constructor(private store: Store<fromApp.AppState>,

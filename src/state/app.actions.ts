@@ -11,12 +11,17 @@ export enum AppActionTypes {
     SignInUser = '[SignInUser] Successful',
     LogoutUser = '[LogoutUser] Successful',
     SelectQuestion = '[Select Question] Success',
-    LoadSelfAssessmentQuestions = '[Load Questions] Try',
-    LoadSelfAssessmentQuestionsSuccess = '[Load Questions] Successful',
-    LoadSelfAssessmentQuestionsError = '[Load Questions] Error',
-    LoadSelfAssessmentSections = '[Load Sections] Try',
-    LoadSelfAssessmentSectionsSuccess = '[Load Sections] Successful',
-    LoadSelfAssessmentSectionsError = '[Load Sections] Error'
+    LoadSelfAssessmentQuestions = '[Load Self Assessment Questions] Try',
+    LoadSelfAssessmentQuestionsSuccess = '[Load Self Assessment Questions] Successful',
+    LoadSelfAssessmentQuestionsError = '[Load Self Assessment Questions] Error',
+    LoadSelfAssessmentSections = '[Load Self Assessment Sections] Try',
+    LoadSelfAssessmentSectionsSuccess = '[Load Self Assessment Sections] Successful',
+    LoadSelfAssessmentSectionsError = '[Load Self Assessment Sections] Error',
+
+    // prob don tneed to store in state?
+    CreateSelfAssessment = '[Create Self Assessment] Try',
+    CreateSelfAssessmentSuccess = '[Create Self Assessment] Successful',
+    CreateSelfAssessmentError = '[Create Self Assessment] Error'
 }
 
 export class SignUpUser implements Action {
@@ -73,6 +78,24 @@ export class LoadSelfAssessmentSectionsError implements Action {
     constructor() { }
 }
 
+export class CreateSelfAssessment implements Action {
+    readonly type = AppActionTypes.CreateSelfAssessment;
+
+    constructor() { }
+}
+
+export class CreateSelfAssessmentSuccess implements Action {
+    readonly type = AppActionTypes.CreateSelfAssessmentSuccess;
+
+    constructor(public payload: string) { }
+}
+
+export class CreateSelfAssessmentError implements Action {
+    readonly type = AppActionTypes.CreateSelfAssessmentError;
+
+    constructor() { }
+}
+
 export type AppActions = SignUpUser
     | SignInUser
     | LogoutUser
@@ -81,4 +104,7 @@ export type AppActions = SignUpUser
     | LoadSelfAssessmentQuestionsSuccess
     | LoadSelfAssessmentSections
     | LoadSelfAssessmentSectionsError
-    | LoadSelfAssessmentSectionsSuccess;
+    | LoadSelfAssessmentSectionsSuccess
+    | CreateSelfAssessment
+    | CreateSelfAssessmentSuccess
+    | CreateSelfAssessmentError;

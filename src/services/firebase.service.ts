@@ -13,6 +13,7 @@ import { map, tap, take, switchMap, mergeMap, expand, takeWhile } from 'rxjs/ope
 // Models
 // import { Payment } from '../models/payment/payment';
 import { Section } from '../models/section';
+import { Question } from 'src/models/question';
 
 @Injectable()
 export class FirebaseService {
@@ -21,8 +22,18 @@ export class FirebaseService {
               private afstorage: AngularFireStorage) {
   }
 
-  getSelfAssessmentQuestions(): Observable<any[]> {
-    return this.afs.collection('/questions', ref => ref.orderBy('orderBy')).valueChanges();
+  getSelfAssessmentQuestions(): Observable<Question[]> {
+    return this.afs.collection('/questions', ref => ref.orderBy('orderBy')).snapshotChanges().pipe(
+      map(q => {
+        const data: Question[] = [];
+        q.forEach(x => {
+          const item = x.payload.doc.data() as Question;
+          item.questionId = x.payload.doc.id;
+          data.push(item);
+        });
+        return data;
+      })
+    );
   }
 
   getSelfAssessmentSections(): Observable<Section[]> {
@@ -42,6 +53,14 @@ export class FirebaseService {
   createQuestions(): void {
   }
 
+  createSelfAssessment(obj): any {
+    return this.afs.collection('/self-assessments').add({
+      createdAt: Date.now(),
+      selfUserId: obj.userId,
+      questionAnswers: obj.questionAnswers
+    });
+  }
+
   /*
     getPlants() {
       return this.afs.collection('/plants').snapshotChanges();
@@ -49,19 +68,6 @@ export class FirebaseService {
 
     getMyPlants(uid: string) {
       return this.afs.collection('/plants', ref => ref.where('uid' , '==', uid)).valueChanges();
-    }
-
-    createPlant(value, imageId) {
-      return this.afs.collection('/plants').add({
-        familyName: value.familyName,
-        scientificName: value.scientificName,
-        sunlightHoursDaily: value.sunlightHoursDaily,
-        waterWeekly: value.waterWeekly,
-        location: value.location,
-        uid: '123',
-        imageId: imageId ? imageId.toString() : '',
-        waterFrequency: value.waterFrequency
-      });
     }
 
     uploadImage(file, filename) {
