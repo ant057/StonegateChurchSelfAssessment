@@ -18,10 +18,10 @@ export enum AppActionTypes {
     LoadSelfAssessmentSections = '[Load Self Assessment Sections] Try',
     LoadSelfAssessmentSectionsSuccess = '[Load Self Assessment Sections] Successful',
     LoadSelfAssessmentSectionsError = '[Load Self Assessment Sections] Error',
-    // prob don tneed to store in state?
     CreateSelfAssessment = '[Create Self Assessment] Try',
     CreateSelfAssessmentSuccess = '[Create Self Assessment] Successful',
-    CreateSelfAssessmentError = '[Create Self Assessment] Error'
+    CreateSelfAssessmentError = '[Create Self Assessment] Error',
+    ReadSelfAssessmentSuccess = '[Read Self Assessment] Successful',
 }
 
 export class SignUpUser implements Action {
@@ -96,6 +96,12 @@ export class CreateSelfAssessmentError implements Action {
     constructor() { }
 }
 
+export class ReadSelfAssessmentSuccess implements Action {
+    readonly type = AppActionTypes.ReadSelfAssessmentSuccess;
+
+    constructor(public payload: boolean) { }
+}
+
 export type AppActions = SignUpUser
     | SignInUser
     | LogoutUser
@@ -107,4 +113,5 @@ export type AppActions = SignUpUser
     | LoadSelfAssessmentSectionsSuccess
     | CreateSelfAssessment
     | CreateSelfAssessmentSuccess
-    | CreateSelfAssessmentError;
+    | CreateSelfAssessmentError
+    | ReadSelfAssessmentSuccess;

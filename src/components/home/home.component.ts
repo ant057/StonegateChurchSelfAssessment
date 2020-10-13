@@ -20,6 +20,7 @@ import { GenericDialogueComponent } from '../generic-dialogue/generic-dialogue.c
 export class HomeComponent implements OnInit {
 
   user: User;
+  read = false;
 
   constructor(private store: Store<fromApp.AppState>,
               private router: Router,
@@ -36,9 +37,18 @@ export class HomeComponent implements OnInit {
       }
     );
 
+    this.store.pipe(select(fromApp.getReadSelfAssessmentSaved)).subscribe(
+      read => {
+        if (read) {
+          this.read = read;
+        }
+      }
+    );
+
     this.store.pipe(select(fromApp.getSelfAssessmentSaved)).subscribe(
       saved => {
-        if (saved === true) {
+        if (saved === true && !this.read) {
+          this.store.dispatch(new appActions.ReadSelfAssessmentSuccess(true));
           this.selfAssessmentSavedDialogue();
         }
       }
