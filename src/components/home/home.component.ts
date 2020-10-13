@@ -1,6 +1,7 @@
 // angular
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 // ngrx store
 import { Store, select } from '@ngrx/store';
@@ -9,6 +10,7 @@ import * as appActions from '../../state/app.actions';
 
 // models
 import { User } from '../../models/user';
+import { GenericDialogueComponent } from '../generic-dialogue/generic-dialogue.component';
 
 @Component({
   selector: 'assessment-home',
@@ -20,7 +22,9 @@ export class HomeComponent implements OnInit {
   user: User;
 
   constructor(private store: Store<fromApp.AppState>,
-              private router: Router) { }
+              private router: Router,
+              private route: ActivatedRoute,
+              public dialog: MatDialog) { }
 
   ngOnInit(): void {
 
@@ -32,10 +36,28 @@ export class HomeComponent implements OnInit {
       }
     );
 
+    this.store.pipe(select(fromApp.getSelfAssessmentSaved)).subscribe(
+      saved => {
+        if (saved === true) {
+          this.selfAssessmentSavedDialogue();
+        }
+      }
+    );
   }
 
   toAssessment(): void {
     this.router.navigate(['/selfassessment']);
+  }
+
+  selfAssessmentSavedDialogue(): void {
+    const dialogRef = this.dialog.open(GenericDialogueComponent, {
+      width: '450px',
+      data: {
+        title: 'Congratulations!',
+        showConfirm: false,
+        message: `Your self assessment has been successfully submitted! The peer assessments will be sent to the contacts provided. When all peer assessments 
+        are completed, your self-awareness assessment will be ready for your evaluator.`}
+    });
   }
 
 }

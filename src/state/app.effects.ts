@@ -13,14 +13,6 @@ export class AppEffects {
                 private firebase: FirebaseService) {
     }
 
-    // @Effect()
-    // loadLists$ = this.actions$.pipe(
-    //     ofType(appActions.AppActionTypes.LoadLists),
-    //     mergeMap((action: appActions.LoadLists) => this.firebase.getLists().pipe(
-    //         map((lists: Lists[]) => (new appActions.LoadListsSuccess(lists)))
-    //     ))
-    // );
-
     @Effect()
     loadSelfAssesementQuestions$ = this.actions$.pipe(
         ofType(appActions.AppActionTypes.LoadSelfAssessmentQuestions),
@@ -35,5 +27,13 @@ export class AppEffects {
         mergeMap((action: appActions.LoadSelfAssessmentSections) => this.firebase.getSelfAssessmentSections().pipe(
             map((Sections: Section[]) => (new appActions.LoadSelfAssessmentSectionsSuccess(Sections)))
         ))
+    );
+
+    @Effect()
+    createSelfAssessment$ = this.actions$.pipe(
+        ofType(appActions.AppActionTypes.CreateSelfAssessment),
+        mergeMap((action: appActions.CreateSelfAssessment) => this.firebase.createSelfAssessment(action.payload)
+        .then(res => new appActions.CreateSelfAssessmentSuccess(true))
+        .catch(err => new appActions.CreateSelfAssessmentError()))
     );
 }

@@ -27,8 +27,7 @@ export class AppComponent implements OnInit {
   questions$: Observable<Question[]>;
 
   constructor(private store: Store<fromApp.AppState>,
-              public afAuth: AngularFireAuth,
-              private fbs: FirebaseService) {
+              public afAuth: AngularFireAuth) {
   }
 
   ngOnInit(): void {

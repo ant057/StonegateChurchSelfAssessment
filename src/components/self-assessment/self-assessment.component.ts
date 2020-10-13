@@ -1,7 +1,8 @@
 // angular
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, Self } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 // ngrx store
 import { Store, select } from '@ngrx/store';
@@ -20,6 +21,8 @@ import { Section } from '../../models/section';
 import { AssessmentContactsComponent } from '../assessment-contacts/assessment-contacts.component';
 import { GenericDialogueComponent } from '../generic-dialogue/generic-dialogue.component';
 import { escapeRegExp } from '@angular/compiler/src/util';
+import { CreateSelfAssessment } from '../../state/app.actions';
+import { SelfAssessment } from '../../models/selfassessment';
 
 @Component({
   selector: 'assessment-self-assessment',
@@ -39,7 +42,8 @@ export class SelfAssessmentComponent implements OnInit {
   constructor(private store: Store<fromApp.AppState>,
               private questionControlService: QuestionControlService,
               public dialog: MatDialog,
-              private firebaseService: FirebaseService) { }
+              private firebaseService: FirebaseService,
+              private router: Router) { }
 
   ngOnInit(): void {
 
@@ -64,6 +68,7 @@ export class SelfAssessmentComponent implements OnInit {
         this.sections = sections;
       }
     );
+
   }
 
   contactsValid(): boolean {
@@ -117,7 +122,6 @@ export class SelfAssessmentComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result === true) {
         this.saveSelfAssessment();
       }
@@ -141,7 +145,8 @@ export class SelfAssessmentComponent implements OnInit {
       questionAnswers
     };
 
-    this.firebaseService.createSelfAssessment(selfAssessment);
+    this.store.dispatch(new appActions.CreateSelfAssessment(selfAssessment));
+    this.router.navigate(['./home']);
   }
 
 }

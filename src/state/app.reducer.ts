@@ -12,12 +12,14 @@ export interface AppState {
     user: User;
     selfAssessmentQuestions: Question[];
     selfAssessmentSections: Section[];
+    selfAssessmentSaved: boolean;
 }
 
 const initialState: AppState = {
     user: null,
     selfAssessmentQuestions: null,
-    selfAssessmentSections: null
+    selfAssessmentSections: null,
+    selfAssessmentSaved: false
 };
 
 const getAppFeatureState = createFeatureSelector<AppState>('app');
@@ -35,6 +37,11 @@ export const getSelfAssessmentQuestions = createSelector(
 export const getSelfAssessmentSections = createSelector(
     getAppFeatureState,
     state => state.selfAssessmentSections
+);
+
+export const getSelfAssessmentSaved = createSelector(
+    getAppFeatureState,
+    state => state.selfAssessmentSaved
 );
 
 export function reducer(state = initialState, action: AppActions): AppState {
@@ -90,12 +97,11 @@ export function reducer(state = initialState, action: AppActions): AppState {
                 ...state
             };
 
-
-        // case AppActionTypes.SelectQuestion:
-        //     return{
-        //         ...state,
-        //         selectedQuestion: action.payload
-        //     };
+        case AppActionTypes.CreateSelfAssessmentSuccess:
+            return {
+                ...state,
+                selfAssessmentSaved: true
+            };
 
         default:
             return state;

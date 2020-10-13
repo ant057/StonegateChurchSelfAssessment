@@ -1,6 +1,6 @@
 // angular
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument, DocumentReference } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
@@ -53,9 +53,9 @@ export class FirebaseService {
   createQuestions(): void {
   }
 
-  createSelfAssessment(obj): any {
+  createSelfAssessment(obj): Promise<DocumentReference> {
     return this.afs.collection('/self-assessments').add({
-      createdAt: Date.now(),
+      createdAt: new Date().toLocaleDateString(),
       selfUserId: obj.userId,
       questionAnswers: obj.questionAnswers
     });

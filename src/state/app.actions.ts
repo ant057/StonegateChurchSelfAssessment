@@ -5,6 +5,7 @@ import { Action } from '@ngrx/store';
 import { Question } from '../models/question';
 import { User } from '../models/user';
 import { Section } from '../models/section';
+import { SelfAssessment } from '../models/selfassessment';
 
 export enum AppActionTypes {
     SignUpUser = '[SignUpUser] Successful',
@@ -17,7 +18,6 @@ export enum AppActionTypes {
     LoadSelfAssessmentSections = '[Load Self Assessment Sections] Try',
     LoadSelfAssessmentSectionsSuccess = '[Load Self Assessment Sections] Successful',
     LoadSelfAssessmentSectionsError = '[Load Self Assessment Sections] Error',
-
     // prob don tneed to store in state?
     CreateSelfAssessment = '[Create Self Assessment] Try',
     CreateSelfAssessmentSuccess = '[Create Self Assessment] Successful',
@@ -81,13 +81,13 @@ export class LoadSelfAssessmentSectionsError implements Action {
 export class CreateSelfAssessment implements Action {
     readonly type = AppActionTypes.CreateSelfAssessment;
 
-    constructor() { }
+    constructor(public payload: object) { }
 }
 
 export class CreateSelfAssessmentSuccess implements Action {
     readonly type = AppActionTypes.CreateSelfAssessmentSuccess;
 
-    constructor(public payload: string) { }
+    constructor(public payload: boolean) { }
 }
 
 export class CreateSelfAssessmentError implements Action {
