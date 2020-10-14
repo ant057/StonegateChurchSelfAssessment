@@ -1,151 +1,182 @@
 <form [formGroup]="contactListForm">
     <div class="row">
-        <div class="mat-display-3 col-12" style="margin: 0px;">
+        <div class="mat-headline col-12">
             Peer Assessments
         </div>
         <div class="col-md-8 div-contacts-message-p">
             <p>
                 Please indicate below the name and email addresses of those who will take your peer review. You are
                 required to enter at least
-                one family member, spiritual leader, and peer or friend contact. You may add two additional contacts per
+                two family members, spiritual leaders, and peer or friend contacts. You may add an additional contacts per
                 type.
             </p>
         </div>
-        <br />
         <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <mat-form-field class="full-width-field">
-                <mat-label>Family Member #1 Name</mat-label>
-                <input type="text" matInput formControlName="familyOneName" required>
-            </mat-form-field>
-        </div>
-        <div class="col-md-4">
-            <mat-form-field class="full-width-field">
-                <mat-label>Family Member #1 Email</mat-label>
-                <input type="email" matInput formControlName="familyOneEmail" required>
-            </mat-form-field>
-        </div>
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <mat-form-field class="full-width-field">
-                <mat-label>Spiritual Leader #1 Name</mat-label>
-                <input type="text" matInput formControlName="spiritualOneName" required>
-            </mat-form-field>
-        </div>
-        <div class="col-md-4">
-            <mat-form-field class="full-width-field">
-                <mat-label>Spiritual Leader #1 Email</mat-label>
-                <input type="email" matInput formControlName="spiritualOneEmail" required>
-            </mat-form-field>
-        </div>
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <mat-form-field class="full-width-field">
-                <mat-label>Peer or Friend #1 Name</mat-label>
-                <input type="text" matInput formControlName="friendOneName" required>
-            </mat-form-field>
-        </div>
-        <div class="col-md-4">
-            <mat-form-field class="full-width-field">
-                <mat-label>Peer or Friend #1 Email</mat-label>
-                <input type="email" matInput formControlName="friendOneEmail" required>
-            </mat-form-field>
-        </div>
-        <div class="col-md-4"></div>
-        <div class="col-md-12">
-            <br />
-        </div>
-        
-        <div class="col-md-4">
-            <mat-form-field class="full-width-field">
-                <mat-label>Family Member #2 Name</mat-label>
-                <input type="text" matInput formControlName="familyTwoName" required>
-            </mat-form-field>
-        </div>
-        <div class="col-md-4">
-            <mat-form-field class="full-width-field">
-                <mat-label>Family Member #2 Email</mat-label>
-                <input type="email" matInput formControlName="familyTwoEmail" required>
-            </mat-form-field>
-        </div>
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <mat-form-field class="full-width-field">
-                <mat-label>Spiritual Leader #2 Name</mat-label>
-                <input type="text" matInput formControlName="spiritualTwoName" required>
-            </mat-form-field>
-        </div>
-        <div class="col-md-4">
-            <mat-form-field class="full-width-field">
-                <mat-label>Spiritual Leader #2 Email</mat-label>
-                <input type="email" matInput formControlName="spiritualTwoEmail" required>
-            </mat-form-field>
-        </div>
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <mat-form-field class="full-width-field">
-                <mat-label>Peer or Friend #2 Name</mat-label>
-                <input type="text" matInput formControlName="friendTwoName" required>
-            </mat-form-field>
-        </div>
-        <div class="col-md-4">
-            <mat-form-field class="full-width-field">
-                <mat-label>Peer or Friend #2 Email</mat-label>
-                <input type="email" matInput formControlName="friendTwoEmail" required>
-            </mat-form-field>
-        </div>
-        <div *ngIf="showAdditionalContacts" class="col-md-4"></div>
-
-        <div class="col-md-12">
-            <br />
-        </div>
-        
-
-        <div *ngIf="showAdditionalContacts" class="col-md-4">
-            <mat-form-field class="full-width-field">
-                <mat-label>Family Member #3 Name</mat-label>
-                <input type="text" matInput formControlName="familyThreeName">
-            </mat-form-field>
-        </div>
-        <div *ngIf="showAdditionalContacts" class="col-md-4">
-            <mat-form-field class="full-width-field">
-                <mat-label>Family Member #3 Email</mat-label>
-                <input type="email" matInput formControlName="familyThreeEmail">
-            </mat-form-field>
-        </div>
-        <div *ngIf="showAdditionalContacts" class="col-md-4"></div>
-        <div *ngIf="showAdditionalContacts" class="col-md-4">
-            <mat-form-field class="full-width-field">
-                <mat-label>Spiritual Leader #3 Name</mat-label>
-                <input type="text" matInput formControlName="spiritualThreeName">
-            </mat-form-field>
-        </div>
-        <div *ngIf="showAdditionalContacts" class="col-md-4">
-            <mat-form-field class="full-width-field">
-                <mat-label>Spiritual Leader #3 Email</mat-label>
-                <input type="email" matInput formControlName="spiritualThreeEmail">
-            </mat-form-field>
-        </div>
-        <div *ngIf="showAdditionalContacts" class="col-md-4"></div>
-        <div *ngIf="showAdditionalContacts" class="col-md-4">
-            <mat-form-field class="full-width-field">
-                <mat-label>Peer or Friend #3 Name</mat-label>
-                <input type="text" matInput formControlName="friendThreeName">
-            </mat-form-field>
-        </div>
-        <div *ngIf="showAdditionalContacts" class="col-md-4">
-            <mat-form-field class="full-width-field">
-                <mat-label>Peer or Friend #3 Email</mat-label>
-                <input type="email" matInput formControlName="friendThreeEmail">
-            </mat-form-field>
-        </div>
-        <div *ngIf="showAdditionalContacts" class="col-md-4"></div>
-
         <div class="col-md-12">
             <button mat-mini-fab color="primary" [disabled]="!contactListForm.valid" (click)="showAdditionalContacts = true;"
             matTooltip="Show additional contact group">
                 <mat-icon>add_circle</mat-icon>
-            </button>
+            </button><br><br>
         </div>
+        <div class="col-md-2">
+            <mat-card>Family Member #1</mat-card>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field class="full-width-field">
+                <mat-label>Name</mat-label>
+                <input type="text" matInput formControlName="familyOneName" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field class="full-width-field">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="familyOneEmail" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4"></div>
+
+        <div class="col-md-2">
+            <mat-card>Spiritual Leader #1</mat-card>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field class="full-width-field">
+                <mat-label>Name</mat-label>
+                <input type="text" matInput formControlName="spiritualOneName" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field class="full-width-field">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="spiritualOneEmail" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4"></div>
+        
+        <div class="col-md-2">
+            <mat-card>Peer or Friend #1</mat-card>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field class="full-width-field">
+                <mat-label>Name</mat-label>
+                <input type="text" matInput formControlName="friendOneName" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field class="full-width-field">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="friendOneEmail" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4"></div>
+        
+        <div class="col-md-12">
+            <br />
+        </div>
+        
+        <div class="col-md-2">
+            <mat-card>Family Member #2</mat-card>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field class="full-width-field">
+                <mat-label>Name</mat-label>
+                <input type="text" matInput formControlName="familyTwoName" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field class="full-width-field">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="familyTwoEmail" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4"></div>
+        
+        <div class="col-md-2">
+            <mat-card>Spiritual Leader #2</mat-card>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field class="full-width-field">
+                <mat-label>Name</mat-label>
+                <input type="text" matInput formControlName="spiritualTwoName" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field class="full-width-field">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="spiritualTwoEmail" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4"></div>
+        
+        <div class="col-md-2">
+            <mat-card>Peer or Friend #2</mat-card>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field class="full-width-field">
+                <mat-label>Name</mat-label>
+                <input type="text" matInput formControlName="friendTwoName" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field class="full-width-field">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="friendTwoEmail" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4"></div>
+
+        <div class="col-md-12">
+            <br />
+        </div>
+        
+        <div *ngIf="showAdditionalContacts" class="col-md-2">
+            <mat-card>Family Member #3</mat-card>
+        </div>
+        <div *ngIf="showAdditionalContacts" class="col-md-3">
+            <mat-form-field class="full-width-field">
+                <mat-label>Name</mat-label>
+                <input type="text" matInput formControlName="familyThreeName">
+            </mat-form-field>
+        </div>
+        <div *ngIf="showAdditionalContacts" class="col-md-3">
+            <mat-form-field class="full-width-field">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="familyThreeEmail">
+            </mat-form-field>
+        </div>
+        <div *ngIf="showAdditionalContacts" class="col-md-4"></div>
+
+        <div *ngIf="showAdditionalContacts" class="col-md-2">
+            <mat-card>Spiritual Leader #3</mat-card>
+        </div>
+        <div *ngIf="showAdditionalContacts" class="col-md-3">
+            <mat-form-field class="full-width-field">
+                <mat-label>Name</mat-label>
+                <input type="text" matInput formControlName="spiritualThreeName">
+            </mat-form-field>
+        </div>
+        <div *ngIf="showAdditionalContacts" class="col-md-3">
+            <mat-form-field class="full-width-field">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="spiritualThreeEmail">
+            </mat-form-field>
+        </div>
+        <div *ngIf="showAdditionalContacts" class="col-md-4"></div>
+
+        <div *ngIf="showAdditionalContacts" class="col-md-2">
+            <mat-card>Peer or Friend #3</mat-card>
+        </div>
+        <div *ngIf="showAdditionalContacts" class="col-md-3">
+            <mat-form-field class="full-width-field">
+                <mat-label>Name</mat-label>
+                <input type="text" matInput formControlName="friendThreeName">
+            </mat-form-field>
+        </div>
+        <div *ngIf="showAdditionalContacts" class="col-md-3">
+            <mat-form-field class="full-width-field">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="friendThreeEmail">
+            </mat-form-field>
+        </div>
+        <div *ngIf="showAdditionalContacts" class="col-md-4"></div>
     </div>
 </form>

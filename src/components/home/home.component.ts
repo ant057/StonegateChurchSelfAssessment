@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Store, select } from '@ngrx/store';
 import * as fromApp from '../../state/app.reducer';
 import * as appActions from '../../state/app.actions';
+import { filter, take, takeWhile } from 'rxjs/operators';
 
 // models
 import { User } from '../../models/user';
@@ -45,9 +46,10 @@ export class HomeComponent implements OnInit {
       }
     );
 
-    this.store.pipe(select(fromApp.getSelfAssessmentSaved)).subscribe(
+    this.store.pipe(select(fromApp.getSelfAssessmentSaved), takeWhile(saved => saved === false, true)).subscribe(
       saved => {
-        if (saved === true && !this.read) {
+        console.log(saved);
+        if (saved === true) {
           this.store.dispatch(new appActions.ReadSelfAssessmentSuccess(true));
           this.selfAssessmentSavedDialogue();
         }
