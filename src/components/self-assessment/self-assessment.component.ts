@@ -16,6 +16,7 @@ import { FirebaseService } from 'src/services/firebase.service';
 // models
 import { Question } from '../../models/question';
 import { Section } from '../../models/section';
+import { Contact } from 'src/models/contact';
 
 // components
 import { AssessmentContactsComponent } from '../assessment-contacts/assessment-contacts.component';
@@ -23,6 +24,7 @@ import { GenericDialogueComponent } from '../generic-dialogue/generic-dialogue.c
 import { escapeRegExp } from '@angular/compiler/src/util';
 import { CreateSelfAssessment } from '../../state/app.actions';
 import { SelfAssessment } from '../../models/selfassessment';
+
 
 @Component({
   selector: 'assessment-self-assessment',
@@ -73,6 +75,49 @@ export class SelfAssessmentComponent implements OnInit {
 
   contactsValid(): boolean {
     return this.assessmentContactsComponent.contactListForm.valid;
+  }
+
+  getContacts(): Contact[] {
+
+    const contacts: Contact[] = [];
+    contacts.push({
+      fullName: this.assessmentContactsComponent.contactListForm.get('familyOneName').value,
+      emailAddress: this.assessmentContactsComponent.contactListForm.get('familyOneEmail').value
+    });
+    contacts.push({
+      fullName: this.assessmentContactsComponent.contactListForm.get('spiritualOneName').value,
+      emailAddress: this.assessmentContactsComponent.contactListForm.get('spiritualOneEmail').value
+    });
+    contacts.push({
+      fullName: this.assessmentContactsComponent.contactListForm.get('friendOneName').value,
+      emailAddress: this.assessmentContactsComponent.contactListForm.get('friendOneEmail').value
+    });
+    contacts.push({
+      fullName: this.assessmentContactsComponent.contactListForm.get('familyTwoName').value,
+      emailAddress: this.assessmentContactsComponent.contactListForm.get('familyTwoEmail').value
+    });
+    contacts.push({
+      fullName: this.assessmentContactsComponent.contactListForm.get('spiritualTwoName').value,
+      emailAddress: this.assessmentContactsComponent.contactListForm.get('spiritualTwoEmail').value
+    });
+    contacts.push({
+      fullName: this.assessmentContactsComponent.contactListForm.get('friendTwoName').value,
+      emailAddress: this.assessmentContactsComponent.contactListForm.get('friendTwoEmail').value
+    });
+    contacts.push({
+      fullName: this.assessmentContactsComponent.contactListForm.get('familyThreeName').value,
+      emailAddress: this.assessmentContactsComponent.contactListForm.get('familyThreeEmail').value
+    });
+    contacts.push({
+      fullName: this.assessmentContactsComponent.contactListForm.get('spiritualThreeName').value,
+      emailAddress: this.assessmentContactsComponent.contactListForm.get('spiritualThreeEmail').value
+    });
+    contacts.push({
+      fullName: this.assessmentContactsComponent.contactListForm.get('friendThreeName').value,
+      emailAddress: this.assessmentContactsComponent.contactListForm.get('friendThreeEmail').value
+    });
+
+    return contacts;
   }
 
   onSubmit(): void {
@@ -129,6 +174,7 @@ export class SelfAssessmentComponent implements OnInit {
   }
 
   saveSelfAssessment(): void {
+
     const questionAnswers = [];
     this.questions.forEach(q => {
       const questionControl = this.form.get(q.key) as FormControl;
@@ -140,13 +186,24 @@ export class SelfAssessmentComponent implements OnInit {
 
     let userId;
     userId = this.userId;
+    const contacts = this.getContacts();
+
     const selfAssessment = {
       userId,
-      questionAnswers
+      questionAnswers,
+      contacts
     };
 
     this.store.dispatch(new appActions.CreateSelfAssessment(selfAssessment));
-    this.router.navigate(['./home']);
+
+    this.store.pipe(select(fromApp.getSelfAssessmentSaved)).subscribe(
+      saved => {
+        if (saved === true) {
+          this.store.dispatch(new appActions.ReadSelfAssessmentSuccess(true));
+          this.router.navigate(['./home']);
+        }
+      }
+    );
   }
 
 }
