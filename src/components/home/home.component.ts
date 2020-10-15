@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit {
       data: {
         title: 'Congratulations!',
         showConfirm: false,
-        message: `Your self assessment has been successfully submitted! The peer assessments will be sent to the contacts provided. When all peer assessments 
+        message: `Your self assessment has been successfully submitted! The peer assessments will be sent to the contacts provided. When all peer assessments
         are completed, your self-awareness assessment will be ready for your evaluator.`}
     });
   }

@@ -1,5 +1,5 @@
 // angular
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 // angular ui
@@ -25,7 +25,7 @@ import { map, tap, switchMap } from 'rxjs/operators';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
   user: User;
 
@@ -56,6 +56,10 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
       }
     );
+  }
+
+  ngAfterViewInit(): void {
+    document.getElementsByClassName('mat-card-header-text')[0].setAttribute('style', 'margin: 0 0');
   }
 
   successCallback(signInSuccessData: FirebaseUISignInSuccessWithAuthResult): void {

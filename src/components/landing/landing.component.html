@@ -1,19 +1,16 @@
-
-<mat-toolbar class="header">Tony Robinson pastor & life coach
+<mat-toolbar class="header">Self-Awareness Guide
     <span class="spacer"></span>
-    <button mat-raised-button *ngIf="user" (click)="logout()">Logout</button>
+    <button mat-button *ngIf="user" (click)="logout()"><mat-icon>power_settings_new</mat-icon> Logout</button>
 </mat-toolbar>
 
-<mat-sidenav-container class="sidenav-container" style="height: 100%;">
+<mat-sidenav-container class="sidenav-container">
     <mat-sidenav opened mode="side">
-        <mat-card class="sidenav-card">
+        <mat-card class="sidenav-card mat-nav-card">
             <assessment-nav></assessment-nav>
         </mat-card>
     </mat-sidenav>
-    <div style="height: 100%;">
-        <router-outlet></router-outlet>
-    </div>
-     
+    <router-outlet></router-outlet>
+
 </mat-sidenav-container>
 
 <mat-toolbar class="footer">Footer</mat-toolbar>

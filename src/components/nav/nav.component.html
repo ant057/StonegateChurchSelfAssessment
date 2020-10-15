@@ -1,3 +1,6 @@
 <mat-list *ngFor="let menu of menuLinks" role="list">
-    <mat-list-item role="listitem" (click)="navigate(menu.label)" style="cursor: pointer;">{{menu.label}}</mat-list-item>
+    <mat-list-item class="mat-nav-card-color" role="listitem" (click)="navigate(menu.label)" style="cursor: pointer;">
+      <mat-icon>home</mat-icon>
+      {{menu.label}}
+    </mat-list-item>
   </mat-list>

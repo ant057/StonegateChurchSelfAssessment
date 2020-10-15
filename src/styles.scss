@@ -10,7 +10,7 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif; 
     height: 100%;
     background-image: url("./assets/subtle-web-background-3.jpg");
-    background: #3AAFA9;
+    background: #1F2833;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -21,3 +21,133 @@ body {
 @import '@angular/material/prebuilt-themes/purple-green.css';
 @import '@angular/material/prebuilt-themes/pink-bluegrey.css';
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+.sidenav-container {
+    position: absolute;
+    top: 60px;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+  }
+
+  .sidenav-card {
+    max-width: 200px;
+    min-width: 150px;
+    min-height: -webkit-fill-available;
+    box-shadow: 6px 0 6px rgba(0,0,0,.1);
+  }
+  
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #1F2833;
+      color:white;
+    }
+    
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #0B0C10;
+      color:white;
+    }
+  
+    .logout {
+      padding: 0 14px;
+    }
+    
+    .spacer {
+      flex: 1 1 auto;
+    }
+    
+
+    .div-home-message {
+        width: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: #DEF2F1;
+        height: 400px;
+      }
+    
+      .div-container-background {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-image: url('./assets/getty_994786356_398509.png'); 
+        height: 100%;
+      }
+    
+      .align-center {
+        text-align: center;
+      }
+
+
+      .div-contacts-message-p {
+        padding-bottom: 15px;
+        padding-left: 0px;
+      }
+
+      .full-width-field {
+        width: 100%;
+      }
+    
+    .long-answer-field {
+        height: 65px
+    }
+
+
+    .full-width-field {
+        width: 100%;
+      }
+    
+      .div-contacts-message-p {
+        padding: 15px;
+      }
+      
+      .div-label-center {
+        display: flex;
+        justify-content: center; /* align horizontal */
+        align-items: center; /* align vertical */
+      }
+
+      .section-card {
+        background: #C5C6C7;
+        color: #0B0C10;
+      }
+    
+      .section-card-subtitle {
+        background: #C5C6C7;
+        color: #0B0C10;
+      }
+
+
+      .mat-card-header-text {
+        height: auto;
+        margin: 0;
+      }
+
+      .mat-card-login {
+          background: #0B0C10
+      }
+
+      .mat-card-p {
+          color: #C5C6C7;
+      }
+
+      .mat-nav-card {
+          background: #C5C6C7;
+      }
+
+      .mat-nav-card-color {
+          color: #0B0C10;
+          font-size: x-large;
+      }
+
+      .mat-drawer {
+        box-shadow: 6px 0 6px rgba(0,0,0,.1);
+      }
+
