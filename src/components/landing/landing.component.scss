@@ -1,6 +1,7 @@
 .sidenav-card {
     max-width: 200px;
     min-width: 100px;
+    min-height: -webkit-fill-available;
   }
   
   .sidenav-container {
@@ -16,7 +17,7 @@
       top: 0;
       left: 0;
       right: 0;
-      background: #33a69b;
+      background: #3AAFA9;
       color:white;
     }
     
@@ -25,7 +26,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: #262626;
+      background: #17252A;
       color:white;
     }
   

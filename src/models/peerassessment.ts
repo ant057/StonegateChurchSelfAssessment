@@ -4,11 +4,12 @@ import { Contact } from './contact';
 export interface PeerAssessment {
     peerAssessmentId: string;
     selfAssessmentId: string;
+    fullname: string;
+    emailAddress: string;
     createdAt: Date;
-    completedYN: boolean;
+    completed: boolean;
     completedDate: Date;
     questionAnswers: Array<Answer>;
     selfUserId: string;
-    contacts: Array<Contact>;
     linkToAssessment: string;
 }

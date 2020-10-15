@@ -1,32 +1,35 @@
-<div class="row h-100">
-    <div class="col-sm-4"></div>
-    <div class="col-sm-4">
-        <div class="h-50">
-            <div class="h-50"></div>
-            <div class="h-25">
-                <mat-card>
+<div class="container" style="height: 100%;">
+    <div class="row align-items-center" style="height: 100%;">
+        <div class="col">
+
+        </div>
+        <div class="col">
+            <div>
+                <mat-card assessmentMatElevationHover>
                     <mat-card-header>
-                        <p class="mat-subheading-2"><img src="../../assets/stonegate_logo_png.PNG">
-                        &nbsp;&nbsp;&nbsp;&nbsp;Self Awareness Assessment</p>
+                        <div class="mat-headline align-items-center">
+                            TONY ROBINSON <p class="small">&nbsp;&nbsp;pastor & life coach</p>
+                        </div>
                     </mat-card-header>
                     <mat-card-content>
-                        <mat-divider></mat-divider>
-                        <br /><br /><br />
+ 
                         <firebase-ui (signInSuccessWithAuthResult)="successCallback($event)"
                             (signInFailure)="errorCallback($event)">
                         </firebase-ui>
-                        <p class="mat-small"><br /><br /><mat-divider></mat-divider><br />
-                            If this is your first time logging in and you wish to use a non-Google email address, 
+                        <p class="mat-small"><br>
+                            If this is your first time logging in and you wish to use a non-Google email address,
                             you can register by clicking <b>Sign in with email</b>.
                             You will be asked to provide your full name and email address.
 
-                            <br /><br /><br />Visit our Privacy Policy <a href="https://www.privacypolicies.com/live/29eac93e-516e-40d1-a0e3-15514dd44810">Here.</a>
+                            <br /><br /><br />Visit our Privacy Policy <a
+                                href="https://www.privacypolicies.com/live/29eac93e-516e-40d1-a0e3-15514dd44810">Here.</a>
                         </p>
                     </mat-card-content>
                 </mat-card>
             </div>
-            <div class="h-25"></div>
+        </div>
+        <div class="col">
+
         </div>
     </div>
-    <div class="col-sm-4"></div>
 </div>

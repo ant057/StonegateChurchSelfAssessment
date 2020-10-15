@@ -1,5 +1,12 @@
 <div class="container" style="padding-top:15px;">
-  <div class="mat-headline" style="padding-bottom: 45px;">Self-Awareness Assessment</div>
+  <div class="mat-headline">Self-Awareness Assessment</div>
+  <div class="col-md-8 div-contacts-message-p">
+    <p>
+        Please fill out the self assessment. All answers with the 
+        exception of the explaination answers are required, however, they are greatly encouraged.
+    </p>
+</div>
+<div class="col-md-4"></div>
   <form (ngSubmit)="onSubmit()" [formGroup]="form">
     <div *ngIf="sections">
       <div *ngFor="let section of sections" class="form-row">

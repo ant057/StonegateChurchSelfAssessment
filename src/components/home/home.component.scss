@@ -42,11 +42,14 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: seashell;
+    background-color: #DEF2F1;
     height: 400px;
   }
 
-  .div-home-message-p {
-    padding: 15px;
+  .div-container-background {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('../../assets/getty_994786356_398509.jpg'); 
+    height: 100%;
   }
-  

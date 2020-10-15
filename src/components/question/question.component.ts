@@ -14,6 +14,7 @@ export class QuestionComponent implements OnInit {
 
   @Input() question: Question;
   @Input() form: FormGroup;
+  defaultElevation = 0;
 
   constructor() { }
 

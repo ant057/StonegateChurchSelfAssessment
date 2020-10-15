@@ -5,6 +5,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
 import { environment } from '../environments/environment';
+import { v4 as uuidv4 } from 'uuid';
 
 // rxjs
 import { Observable, from } from 'rxjs';
@@ -53,11 +54,12 @@ getSelfAssessmentSections(): Observable<Section[]> {
 createQuestions(): void {
 }
 
-createSelfAssessment(obj): Promise<void | DocumentReference> {
+createSelfAssessment(obj): any {
   // atomic transaction
+  const selfAssessmentId = uuidv4();
   const batch = this.afs.firestore.batch();
 
-  const saRef = this.afs.collection('/self-assessments').doc().ref;
+  const saRef = this.afs.collection('/self-assessments').doc(selfAssessmentId).ref;
   batch.set(saRef, {
     createdAt: new Date().toLocaleDateString(),
     selfUserId: obj.userId,
@@ -65,17 +67,26 @@ createSelfAssessment(obj): Promise<void | DocumentReference> {
     contacts: obj.contacts});
 
   obj.contacts.forEach(element => {
-    const peerRef = this.afs.collection('/peer-assessments').doc().ref;
-    batch.set(peerRef, {
-      fullName: element.fullName,
-      email: element.emailAddress,
-      createdAt: new Date().toLocaleDateString(),
-      completed: false
-    });
+    if (element.emailAddress) {
+      const peerAssessmentId = uuidv4();
+      const peerRef = this.afs.collection('/peer-assessments').doc(peerAssessmentId).ref;
+      batch.set(peerRef, {
+        selfAssessmentId,
+        fullName: element.fullName,
+        emailAddress: element.emailAddress,
+        createdAt: new Date().toLocaleDateString(),
+        completed: false,
+        selfUserId: obj.userId,
+        linkToAssessment: this.getPeerAssessmentUrlBase() + peerAssessmentId
+      });
+    }
   });
 
-  return batch.commit();
+  return from(batch.commit());
+}
 
+getPeerAssessmentUrlBase(): string {
+  return !environment.production ? 'localhost:4200/peerassessment/' : 'selfassessment.firebaseapp/peerassessment/';
 }
 
 /*

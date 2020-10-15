@@ -5,3 +5,9 @@
   .div-contacts-message-p {
     padding: 15px;
   }
+  
+  .div-label-center {
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+  }

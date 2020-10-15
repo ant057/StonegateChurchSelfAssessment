@@ -1,6 +1,6 @@
 <div class="" [formGroup]="form">
     <div *ngIf="question">
-        <mat-card>
+        <mat-card assessmentMatElevationHover>
             <strong [attr.for]="question.key">{{question.label}}{{question.required && question.label !== '' ? ' *' : ''}}</strong>
             <div [ngSwitch]="question.type">
 
