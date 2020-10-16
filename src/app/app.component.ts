@@ -1,5 +1,5 @@
 // angular
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 // ngrx store
@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 // models
 import { Question } from '../models/question';
 import { FirebaseService } from '../services/firebase.service';
+import { takeWhile } from 'rxjs/operators';
 
 
 @Component({
@@ -20,14 +21,19 @@ import { FirebaseService } from '../services/firebase.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
   user: any = null;
   showLoader = true;
   questions$: Observable<Question[]>;
+  componentActive = true;
 
   constructor(private store: Store<fromApp.AppState>,
               public afAuth: AngularFireAuth) {
+  }
+
+  ngOnDestroy(): void {
+    this.componentActive = false;
   }
 
   ngOnInit(): void {
@@ -36,7 +42,9 @@ export class AppComponent implements OnInit {
     setTimeout(() => this.showLoader = false, 1000);
     this.initalizeAppData();
 
-    this.afAuth.authState.subscribe({
+    this.afAuth.authState.pipe(
+      takeWhile(() => this.componentActive)
+    ).subscribe({
       next: (response) => {
         if (response) {
           this.store.dispatch(new appActions.SignInUser(

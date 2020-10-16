@@ -1,5 +1,5 @@
 // angular
-import { Component, Input, OnInit, ViewChild, Self } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, Self, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -25,13 +25,17 @@ import { escapeRegExp } from '@angular/compiler/src/util';
 import { CreateSelfAssessment } from '../../state/app.actions';
 import { SelfAssessment } from '../../models/selfassessment';
 
+// rxjs
+import { pipe } from 'rxjs';
+import { map, tap, switchMap, takeWhile } from 'rxjs/operators';
+
 
 @Component({
   selector: 'assessment-self-assessment',
   templateUrl: './self-assessment.component.html',
   styleUrls: ['./self-assessment.component.scss']
 })
-export class SelfAssessmentComponent implements OnInit {
+export class SelfAssessmentComponent implements OnInit, OnDestroy {
 
   @ViewChild(AssessmentContactsComponent) assessmentContactsComponent: AssessmentContactsComponent;
 
@@ -40,6 +44,7 @@ export class SelfAssessmentComponent implements OnInit {
   form: FormGroup;
   payLoad = '';
   userId: string;
+  componentActive = true;
 
   constructor(private store: Store<fromApp.AppState>,
               private questionControlService: QuestionControlService,
@@ -47,29 +52,36 @@ export class SelfAssessmentComponent implements OnInit {
               private firebaseService: FirebaseService,
               private router: Router) { }
 
+  ngOnDestroy(): void {
+    this.componentActive = false;
+  }
+
   ngOnInit(): void {
 
-    this.store.pipe(select(fromApp.getSignedInUser)).subscribe(
-      user => {
-        this.userId = user.userId;
-      }
-    );
+    this.store.pipe(select(fromApp.getSignedInUser),
+      takeWhile(() => this.componentActive)).subscribe(
+        user => {
+          this.userId = user.userId;
+        }
+      );
 
-    this.store.pipe(select(fromApp.getSelfAssessmentQuestions)).subscribe(
-      questions => {
-        this.questions = questions;
-      }
-    );
+    this.store.pipe(select(fromApp.getSelfAssessmentQuestions),
+      takeWhile(() => this.componentActive)).subscribe(
+        questions => {
+          this.questions = questions;
+        }
+      );
 
     if (this.questions) {
       this.form = this.questionControlService.toFormGroup(this.questions);
     }
 
-    this.store.pipe(select(fromApp.getSelfAssessmentSections)).subscribe(
-      sections => {
-        this.sections = sections;
-      }
-    );
+    this.store.pipe(select(fromApp.getSelfAssessmentSections),
+      takeWhile(() => this.componentActive)).subscribe(
+        sections => {
+          this.sections = sections;
+        }
+      );
 
   }
 
@@ -151,7 +163,8 @@ export class SelfAssessmentComponent implements OnInit {
       data: {
         title: 'Verify Contacts',
         showConfirm: false,
-        message: 'Please verify all requried contact names and email addresses are entered.'}
+        message: 'Please verify all requried contact names and email addresses are entered.'
+      }
     });
   }
 
@@ -196,14 +209,14 @@ export class SelfAssessmentComponent implements OnInit {
 
     this.store.dispatch(new appActions.CreateSelfAssessment(selfAssessment));
 
-    this.store.pipe(select(fromApp.getSelfAssessmentSaved)).subscribe(
-      saved => {
-        if (saved === true) {
-          this.store.dispatch(new appActions.ReadSelfAssessmentSuccess(true));
-          this.router.navigate(['./home']);
+    this.store.pipe(select(fromApp.getSelfAssessmentSaved),
+      takeWhile(() => this.componentActive)).subscribe(
+        saved => {
+          if (saved === true) {
+            this.router.navigate(['./home']);
+          }
         }
-      }
-    );
+      );
   }
 
 }

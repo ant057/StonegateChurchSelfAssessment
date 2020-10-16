@@ -17,7 +17,7 @@ import { auth } from 'firebase/app';
 
 // rxjs
 import { pipe } from 'rxjs';
-import { map, tap, switchMap } from 'rxjs/operators';
+import { map, tap, switchMap, takeWhile } from 'rxjs/operators';
 
 
 @Component({
@@ -28,34 +28,25 @@ import { map, tap, switchMap } from 'rxjs/operators';
 export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
   user: User;
+  componentActive = true;
 
   constructor(public afAuth: AngularFireAuth,
               private store: Store<fromApp.AppState>,
               private router: Router) { }
 
+  ngOnDestroy(): void {
+    this.componentActive = false;
+  }
+
   ngOnInit(): void {
-
-    // this.afAuth.authState.pipe(
-    //   map(response => {
-    //     if (response) {
-    //       console.log(response);
-    //       this.store.dispatch(new appActions.SignInUser(
-    //         {
-    //           userId: response.uid,
-    //           emailAddress: response.email,
-    //           fullName: response.displayName
-    //         }));
-    //     }
-    //   }
-    //   )).subscribe();
-
-    this.store.pipe(select(fromApp.getSignedInUser)).subscribe(
-      user => {
-        if (user) {
-          this.user = user;
+    this.store.pipe(select(fromApp.getSignedInUser),
+      takeWhile(() => this.componentActive)).subscribe(
+        user => {
+          if (user) {
+            this.user = user;
+          }
         }
-      }
-    );
+      );
   }
 
   ngAfterViewInit(): void {
@@ -76,10 +67,6 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
   errorCallback(errorData: FirebaseUISignInFailure): void {
     console.warn('fail callback');
-  }
-
-  ngOnDestroy(): void {
-
   }
 
 }

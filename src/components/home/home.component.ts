@@ -1,5 +1,5 @@
 // angular
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -18,40 +18,50 @@ import { GenericDialogueComponent } from '../generic-dialogue/generic-dialogue.c
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   user: User;
   read: boolean;
+  componentActive = true;
 
   constructor(private store: Store<fromApp.AppState>,
               private router: Router,
               private route: ActivatedRoute,
               public dialog: MatDialog) { }
 
+  ngOnDestroy(): void {
+    this.componentActive = false;
+  }
+
   ngOnInit(): void {
 
-    this.store.pipe(select(fromApp.getSignedInUser)).subscribe(
-      user => {
-        if (user) {
-          this.user = user;
-        }
-      }
-    );
+    this.store.pipe(
+      select(fromApp.getSignedInUser),
+        takeWhile(() => this.componentActive)).subscribe(
+          user => {
+            if (user) {
+              this.user = user;
+            }
+          }
+        );
 
-    this.store.pipe(select(fromApp.getReadSelfAssessmentSaved)).subscribe(
-      read => {
-        this.read = read;
-      }
-    );
+    this.store.pipe(select(fromApp.getReadSelfAssessmentSaved),
+        takeWhile(() => this.componentActive)).subscribe(
+          read => {
+            this.read = read;
+          }
+        );
 
-    this.store.pipe(select(fromApp.getSelfAssessmentSaved)).subscribe(
-      saved => {
-        if (saved === true  && !this.read) {
-          this.store.dispatch(new appActions.ReadSelfAssessmentSuccess(true));
-          this.selfAssessmentSavedDialogue();
-        }
-      }
-    );
+    this.store.pipe(select(fromApp.getSelfAssessmentSaved),
+        takeWhile(() => this.componentActive)).subscribe(
+          saved => {
+            if (saved === true && !this.read) {
+              console.warn('i got here');
+              this.store.dispatch(new appActions.ReadSelfAssessmentSuccess(true));
+              this.selfAssessmentSavedDialogue();
+            }
+          }
+      );
   }
 
   toAssessment(): void {
