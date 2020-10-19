@@ -16,7 +16,8 @@ import { FirebaseService } from 'src/services/firebase.service';
 // models
 import { Question } from '../../models/question';
 import { Section } from '../../models/section';
-import { Contact } from 'src/models/contact';
+import { Contact } from '../../models/contact';
+import { User } from '../../models/user';
 
 // components
 import { AssessmentContactsComponent } from '../assessment-contacts/assessment-contacts.component';
@@ -43,7 +44,7 @@ export class SelfAssessmentComponent implements OnInit, OnDestroy {
   sections: Section[] = [];
   form: FormGroup;
   payLoad = '';
-  userId: string;
+  user: User;
   componentActive = true;
 
   constructor(private store: Store<fromApp.AppState>,
@@ -61,7 +62,7 @@ export class SelfAssessmentComponent implements OnInit, OnDestroy {
     this.store.pipe(select(fromApp.getSignedInUser),
       takeWhile(() => this.componentActive)).subscribe(
         user => {
-          this.userId = user.userId;
+          this.user = user;
         }
       );
 
@@ -133,22 +134,6 @@ export class SelfAssessmentComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    const questionAnswers = [];
-    this.questions.forEach(q => {
-      const questionControl = this.form.get(q.key) as FormControl;
-      questionAnswers.push({
-        questionid: q.questionId,
-        answerValue: questionControl.value
-      });
-    });
-
-    let userId;
-    userId = this.userId;
-    const selfAssessment = {
-      userId,
-      questionAnswers
-    };
-
     if (!this.contactsValid()) {
       this.openValidationDialogue();
     }
@@ -198,11 +183,14 @@ export class SelfAssessmentComponent implements OnInit, OnDestroy {
     });
 
     let userId;
-    userId = this.userId;
+    let fullName;
+    userId = this.user.userId;
+    fullName = this.user.fullName;
     const contacts = this.getContacts();
 
     const selfAssessment = {
       userId,
+      fullName,
       questionAnswers,
       contacts
     };

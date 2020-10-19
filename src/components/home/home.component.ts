@@ -56,7 +56,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         takeWhile(() => this.componentActive)).subscribe(
           saved => {
             if (saved === true && !this.read) {
-              console.warn('i got here');
               this.store.dispatch(new appActions.ReadSelfAssessmentSuccess(true));
               this.selfAssessmentSavedDialogue();
             }

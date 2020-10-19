@@ -54,7 +54,6 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   successCallback(signInSuccessData: FirebaseUISignInSuccessWithAuthResult): void {
-    console.log('success callback');
     this.store.dispatch(new appActions.SignInUser(
       {
         userId: signInSuccessData.authResult.user.uid,

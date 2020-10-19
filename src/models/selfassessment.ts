@@ -6,5 +6,6 @@ export interface SelfAssessment {
     questionAnswers: Array<Answer>;
     createdAt: Date;
     selfUserId: string;
+    selfUserFullName: string;
     contacts: Array<Contact>;
 }

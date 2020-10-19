@@ -1,1 +1,22 @@
-<p>admin works!</p>
+<div class="container" style="padding-top:15px;">
+    <div class="mat-headline">Self Assessments List</div>
+    <div class="row">
+        <div class="col-md-12" *ngIf="selfAssessments">
+            <mat-accordion class="example-headers-align" *ngFor="let assessment of selfAssessments" multi>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            {{assessment.selfUserFullName}}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Created: {{assessment.createdAt}}
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="col-md-6" *ngFor="let peerAssessment of peerAssessments | filterArray:assessment.selfAssessmentId">
+                        {{peerAssessment.fullName}}
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+</div>

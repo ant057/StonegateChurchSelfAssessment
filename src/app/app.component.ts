@@ -25,7 +25,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   user: any = null;
   showLoader = true;
-  questions$: Observable<Question[]>;
   componentActive = true;
 
   constructor(private store: Store<fromApp.AppState>,
@@ -59,13 +58,12 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.store.pipe(select(fromApp.getSignedInUser)).subscribe(
+    this.store.pipe(select(fromApp.getSignedInUser),
+    takeWhile(() => this.componentActive)).subscribe(
       user => {
         this.user = user;
       }
     );
-
-    this.questions$ = this.store.pipe(select(fromApp.getSelfAssessmentQuestions));
   }
 
   initalizeAppData(): void {

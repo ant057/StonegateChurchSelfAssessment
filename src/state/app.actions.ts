@@ -6,6 +6,7 @@ import { Question } from '../models/question';
 import { User } from '../models/user';
 import { Section } from '../models/section';
 import { SelfAssessment } from '../models/selfassessment';
+import { PeerAssessment } from '../models/peerassessment';
 
 export enum AppActionTypes {
     SignUpUser = '[SignUpUser] Successful',
@@ -22,6 +23,12 @@ export enum AppActionTypes {
     CreateSelfAssessmentSuccess = '[Create Self Assessment] Successful',
     CreateSelfAssessmentError = '[Create Self Assessment] Error',
     ReadSelfAssessmentSuccess = '[Read Self Assessment] Successful',
+    LoadSelfAssessments = '[Load Self Assessments] Try',
+    LoadSelfAssessmentsSuccess = '[Load Self Assessments] Successful',
+    LoadSelfAssessmentsError = '[Load Self Assessments] Error',
+    LoadPeerAssessments = '[Load Peer Assessments] Try',
+    LoadPeerAssessmentsSuccess = '[Load Peer Assessments] Successful',
+    LoadPeerAssessmentsError = '[Load Peer Assessments] Error',
 }
 
 export class SignUpUser implements Action {
@@ -102,6 +109,42 @@ export class ReadSelfAssessmentSuccess implements Action {
     constructor(public payload: boolean) { }
 }
 
+export class LoadSelfAssessments implements Action {
+    readonly type = AppActionTypes.LoadSelfAssessments;
+
+    constructor() { }
+}
+
+export class LoadSelfAssessmentsSuccess implements Action {
+    readonly type = AppActionTypes.LoadSelfAssessmentsSuccess;
+
+    constructor(public payload: SelfAssessment[]) { }
+}
+
+export class LoadSelfAssessmentsError implements Action {
+    readonly type = AppActionTypes.LoadSelfAssessmentsError;
+
+    constructor() { }
+}
+
+export class LoadPeerAssessments implements Action {
+    readonly type = AppActionTypes.LoadPeerAssessments;
+
+    constructor() { }
+}
+
+export class LoadPeerAssessmentsSuccess implements Action {
+    readonly type = AppActionTypes.LoadPeerAssessmentsSuccess;
+
+    constructor(public payload: PeerAssessment[]) { }
+}
+
+export class LoadPeerAssessmentsError implements Action {
+    readonly type = AppActionTypes.LoadPeerAssessmentsError;
+
+    constructor() { }
+}
+
 export type AppActions = SignUpUser
     | SignInUser
     | LogoutUser
@@ -114,4 +157,10 @@ export type AppActions = SignUpUser
     | CreateSelfAssessment
     | CreateSelfAssessmentSuccess
     | CreateSelfAssessmentError
-    | ReadSelfAssessmentSuccess;
+    | ReadSelfAssessmentSuccess
+    | LoadSelfAssessments
+    | LoadSelfAssessmentsSuccess
+    | LoadSelfAssessmentsError
+    | LoadPeerAssessments
+    | LoadPeerAssessmentsSuccess
+    | LoadPeerAssessmentsError;

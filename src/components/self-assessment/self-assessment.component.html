@@ -1,32 +1,34 @@
 <div class="container" style="padding-top:15px;">
   <div class="mat-headline">Self-Awareness Assessment</div>
-  <div class="col-md-8 div-contacts-message-p">
-    <p>
-        Please fill out the self assessment. All answers with the 
-        exception of the explaination answers are required, however, they are greatly encouraged.
-    </p>
-</div>
-<div class="col-md-4"></div>
-  <form (ngSubmit)="onSubmit()" [formGroup]="form">
-    <div *ngIf="sections">
-      <div *ngFor="let section of sections" class="form-row">
-        <div class="col-md-7">
-          <assessment-section [section]="section" [questions]="questions" [form]="form">
-          </assessment-section>
+  <div class="row">
+    <div class="col-md-8 div-contacts-message-p">
+      <p>
+          Please fill out the self assessment. All answers with the 
+          exception of the explaination answers are required, however, they are greatly encouraged.
+      </p>
+  </div>
+  <div class="col-md-4"></div>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+      <div *ngIf="sections">
+        <div *ngFor="let section of sections" class="form-row">
+          <div class="col-md-7">
+            <assessment-section [section]="section" [questions]="questions" [form]="form">
+            </assessment-section>
+          </div>
         </div>
       </div>
+      <div class="col-md-12">
+        <assessment-contacts></assessment-contacts>
+      </div>
+      <br /><br />
+      <div class="form-row">
+        <button mat-raised-button type="submit" [disabled]="!form.valid">Finish</button>
+        <button mat-raised-button type="submit">Finish</button>
+      </div>
+      <br /><br /><br />
+    </form>
+    <div *ngIf="payLoad" class="form-row">
+      <strong>Saved the following values</strong><br>{{contactsValid}}{{payLoad}}
     </div>
-    <div class="col-md-12">
-      <assessment-contacts></assessment-contacts>
-    </div>
-    <br /><br />
-    <div class="form-row">
-      <button mat-raised-button type="submit" [disabled]="!form.valid">Finish</button>
-      <button mat-raised-button type="submit">Finish</button>
-    </div>
-    <br /><br /><br />
-  </form>
-  <div *ngIf="payLoad" class="form-row">
-    <strong>Saved the following values</strong><br>{{contactsValid}}{{payLoad}}
   </div>
 </div>

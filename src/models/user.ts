@@ -4,5 +4,5 @@ export interface User {
     fullName?: string;
     firstName?: string;
     lastName?: string;
-    adminYN?: boolean;
+    admin?: boolean;
 }

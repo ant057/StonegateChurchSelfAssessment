@@ -7,6 +7,8 @@ import { act } from '@ngrx/effects';
 import { User } from '../models/user';
 import { Question } from '../models/question';
 import { Section } from '../models/section';
+import { SelfAssessment } from '../models/selfassessment';
+import { PeerAssessment } from '../models/peerassessment';
 
 export interface AppState {
     user: User;
@@ -14,6 +16,8 @@ export interface AppState {
     selfAssessmentSections: Section[];
     selfAssessmentSaved: boolean;
     readSelfAssessmentSaved: boolean;
+    selfAssessments: SelfAssessment[];
+    peerAssessments: PeerAssessment[];
 }
 
 const initialState: AppState = {
@@ -21,7 +25,9 @@ const initialState: AppState = {
     selfAssessmentQuestions: null,
     selfAssessmentSections: null,
     selfAssessmentSaved: false,
-    readSelfAssessmentSaved: false
+    readSelfAssessmentSaved: false,
+    selfAssessments: null,
+    peerAssessments: null
 };
 
 const getAppFeatureState = createFeatureSelector<AppState>('app');
@@ -49,6 +55,16 @@ export const getSelfAssessmentSaved = createSelector(
 export const getReadSelfAssessmentSaved = createSelector(
     getAppFeatureState,
     state => state.readSelfAssessmentSaved
+);
+
+export const getSelfAssessments = createSelector(
+    getAppFeatureState,
+    state => state.selfAssessments
+);
+
+export const getPeerAssessments = createSelector(
+    getAppFeatureState,
+    state => state.peerAssessments
 );
 
 export function reducer(state = initialState, action: AppActions): AppState {
@@ -114,6 +130,38 @@ export function reducer(state = initialState, action: AppActions): AppState {
             return {
                 ...state,
                 readSelfAssessmentSaved: action.payload
+            };
+
+        case AppActionTypes.LoadSelfAssessments:
+            return {
+                ...state
+            };
+
+        case AppActionTypes.LoadSelfAssessmentsSuccess:
+            return {
+                ...state,
+                selfAssessments: action.payload
+            };
+
+        case AppActionTypes.LoadSelfAssessmentsError:
+            return {
+                ...state
+            };
+
+        case AppActionTypes.LoadPeerAssessments:
+            return {
+                ...state
+            };
+
+        case AppActionTypes.LoadPeerAssessmentsSuccess:
+            return {
+                ...state,
+                peerAssessments: action.payload
+            };
+
+        case AppActionTypes.LoadPeerAssessmentsError:
+            return {
+                ...state
             };
 
         default:

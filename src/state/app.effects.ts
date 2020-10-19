@@ -6,6 +6,8 @@ import { mergeMap, map } from 'rxjs/operators';
 import { Question } from '../models/question';
 import { Section } from '../models/section';
 import { pipe } from 'rxjs';
+import { SelfAssessment } from '../models/selfassessment';
+import { PeerAssessment } from '../models/peerassessment';
 
 @Injectable()
 export class AppEffects {
@@ -35,6 +37,22 @@ export class AppEffects {
         ofType(appActions.AppActionTypes.CreateSelfAssessment),
         mergeMap((action: appActions.CreateSelfAssessment) => this.firebase.createSelfAssessment(action.payload).pipe(
             map(res => new appActions.CreateSelfAssessmentSuccess(true))
+        ))
+    );
+
+    @Effect()
+    loadSelfAssesements$ = this.actions$.pipe(
+        ofType(appActions.AppActionTypes.LoadSelfAssessments),
+        mergeMap((action: appActions.LoadSelfAssessments) => this.firebase.getSelfAssessments().pipe(
+            map((selfAssessments: SelfAssessment[]) => (new appActions.LoadSelfAssessmentsSuccess(selfAssessments)))
+        ))
+    );
+
+    @Effect()
+    loadPeerAssesements$ = this.actions$.pipe(
+        ofType(appActions.AppActionTypes.LoadPeerAssessments),
+        mergeMap((action: appActions.LoadPeerAssessments) => this.firebase.getPeerAssessments().pipe(
+            map((PeerAssessments: PeerAssessment[]) => (new appActions.LoadPeerAssessmentsSuccess(PeerAssessments)))
         ))
     );
 

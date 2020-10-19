@@ -15,6 +15,8 @@ import { map, tap, take, switchMap, mergeMap, expand, takeWhile } from 'rxjs/ope
 // import { Payment } from '../models/payment/payment';
 import { Section } from '../models/section';
 import { Question } from 'src/models/question';
+import { PeerAssessment } from 'src/models/peerassessment';
+import { SelfAssessment } from 'src/models/selfassessment';
 
 @Injectable()
 export class FirebaseService {
@@ -51,6 +53,35 @@ getSelfAssessmentSections(): Observable<Section[]> {
   );
 }
 
+getSelfAssessments(): Observable<SelfAssessment[]> {
+  return this.afs.collection('/self-assessments', ref => ref.orderBy('createdAt')).snapshotChanges().pipe(
+    map(q => {
+      const data: SelfAssessment[] = [];
+      q.forEach(x => {
+        const item = x.payload.doc.data() as SelfAssessment;
+        item.selfAssessmentId = x.payload.doc.id;
+        data.push(item);
+        console.log(item);
+      });
+      return data;
+    })
+  );
+}
+
+getPeerAssessments(): Observable<PeerAssessment[]> {
+  return this.afs.collection('/peer-assessments').snapshotChanges().pipe(
+    map(q => {
+      const data: PeerAssessment[] = [];
+      q.forEach(x => {
+        const item = x.payload.doc.data() as PeerAssessment;
+        item.peerAssessmentId = x.payload.doc.id;
+        data.push(item);
+      });
+      return data;
+    })
+  );
+}
+
 createQuestions(): void {
 }
 
@@ -63,6 +94,7 @@ createSelfAssessment(obj): any {
   batch.set(saRef, {
     createdAt: new Date().toLocaleDateString(),
     selfUserId: obj.userId,
+    selfUserFullName: obj.fullName,
     questionAnswers: obj.questionAnswers,
     contacts: obj.contacts});
 

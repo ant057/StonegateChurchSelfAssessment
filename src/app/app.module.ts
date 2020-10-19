@@ -26,6 +26,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 // routing
 import { AppRoutingModule } from './app-routing.module';
@@ -50,6 +51,9 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 // firebase ui
 import { FirebaseUIModule } from 'firebaseui-angular';
 import { firebaseUiAuthConfig } from '../firebase/firebaseui.config';
+
+// pipes
+import { FilterArrayPipe } from '../pipes/filter-array.pipe';
 
 // components
 import { AppComponent } from './app.component';
@@ -90,7 +94,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     SectionComponent,
     AssessmentContactsComponent,
     GenericDialogueComponent,
-    MatElevationHoverDirective
+    MatElevationHoverDirective,
+    FilterArrayPipe
   ],
   imports: [
     BrowserModule,
@@ -122,6 +127,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     MatIconModule,
     MatTooltipModule,
     MatDialogModule,
+    MatExpansionModule,
     StoreDevtoolsModule.instrument({
       name: 'StoneGateAssessment Dev tools',
       maxAge: 25,
