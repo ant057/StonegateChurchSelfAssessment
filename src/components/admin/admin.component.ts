@@ -35,23 +35,33 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.initalizeAdminData();
 
     this.store.pipe(select(fromApp.getSelfAssessments),
-    takeWhile(() => this.componentActive)).subscribe(
-      assessments => {
-        this.selfAssessments = assessments;
-      }
-    );
+      takeWhile(() => this.componentActive)).subscribe(
+        assessments => {
+          this.selfAssessments = assessments;
+        }
+      );
 
     this.store.pipe(select(fromApp.getPeerAssessments),
-    takeWhile(() => this.componentActive)).subscribe(
-      assessments => {
-        this.peerAssessments = assessments;
-      }
-    );
+      takeWhile(() => this.componentActive)).subscribe(
+        assessments => {
+          this.peerAssessments = assessments;
+        }
+      );
   }
 
   initalizeAdminData(): void {
     this.store.dispatch(new appActions.LoadSelfAssessments());
     this.store.dispatch(new appActions.LoadPeerAssessments());
+  }
+
+  isAssessmentComplete(selfAssessmentId: string): boolean {
+    if (this.peerAssessments) {
+      const assessments = this.peerAssessments.filter(x => x.selfAssessmentId.indexOf(selfAssessmentId) !== -1);
+      const completed = assessments.find(x => x.completed === false);
+      if (!completed) {
+        return true;
+      }
+    }
   }
 
 }

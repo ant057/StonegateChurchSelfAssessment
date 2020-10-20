@@ -51,7 +51,7 @@ body {
       bottom: 0;
       left: 0;
       right: 0;
-      background: #0B0C10;
+      background: #1F2833;
       color:white;
     }
   
@@ -77,7 +77,7 @@ body {
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        background-image: url('./assets/getty_994786356_398509.png'); 
+        background-image: url('./assets/getty_994786356_398509_.png'); 
         height: 100%;
       }
     
@@ -222,16 +222,29 @@ body {
   font: 700 1.2rem 'Roboto Slab', sans-serif;
   padding: 1em 2em;
   letter-spacing: 0.05rem;
-  
-  &:focus { outline: 2px dotted #1F2833; }
 }
 
-//=== Pen styling, ignore
-body { 
-  background: #1f1a25;
-  display: flex; 
+
+
+.example-action-buttons {
+  padding-bottom: 20px;
+}
+
+.accordion-headers-align .mat-expansion-panel-header-title,
+.accordion-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.accordion-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  min-height: 100vh;
 }
 
+
+.linked-in-img {
+  background-image: url("./assets/linkedin.png");
+}
+
+.mat-icon {
+   vertical-align: middle;
+}

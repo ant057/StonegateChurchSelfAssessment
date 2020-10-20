@@ -1,20 +1,50 @@
 <div class="container" style="padding-top:15px;">
     <div class="mat-headline">Self Assessments List</div>
     <div class="row">
+        <div class="col-md-12">
+            <mat-form-field>
+                <input type="text" matInput placeholder="Name">
+            </mat-form-field>
+            <button mat-button>
+                <mat-icon>search</mat-icon> Search
+            </button>
+        </div>
         <div class="col-md-12" *ngIf="selfAssessments">
-            <mat-accordion class="example-headers-align" *ngFor="let assessment of selfAssessments" multi>
-                <mat-expansion-panel>
+            <mat-accordion class="accordion-headers-align">
+                <mat-expansion-panel *ngFor="let assessment of selfAssessments">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
+                            <mat-icon>account_circle</mat-icon>
                             {{assessment.selfUserFullName}}
                         </mat-panel-title>
                         <mat-panel-description>
-                            Created: {{assessment.createdAt}}
+                            <div>
+                                <mat-icon>today</mat-icon>
+                                Created {{assessment.createdAt}}
+                            </div>
+                            <div>
+                                <div style="color:green" *ngIf="isAssessmentComplete(assessment.selfAssessmentId)"><mat-icon>done</mat-icon> Completed</div>
+                                <div style="color:orange" *ngIf="!isAssessmentComplete(assessment.selfAssessmentId)"><mat-icon>pending_actions</mat-icon> Pending</div>
+                            </div>
                         </mat-panel-description>
                     </mat-expansion-panel-header>
-                    <div class="col-md-6" *ngFor="let peerAssessment of peerAssessments | filterArray:assessment.selfAssessmentId">
-                        {{peerAssessment.fullName}}
+                    <div class="row">
+                        <div class="col-md-6"
+                            *ngFor="let peerAssessment of peerAssessments | filterArray:assessment.selfAssessmentId">
+                            <p>
+                                {{peerAssessment.fullName}} | {{peerAssessment.emailAddress}} |
+                                {{peerAssessment.completed ? 'Complete' : 'Pending'}}
+                            </p>
+                        </div>
                     </div>
+                    <mat-action-row>
+                        <button mat-button color="warn">
+                            <mat-icon>email</mat-icon> Send Reminder
+                        </button>
+                        <button mat-button>
+                            <mat-icon>assessment</mat-icon> Generate Self-Awareness Report
+                        </button>
+                    </mat-action-row>
                 </mat-expansion-panel>
             </mat-accordion>
         </div>
