@@ -3,9 +3,9 @@
     <div class="row">
         <div class="col-md-12">
             <mat-form-field>
-                <input type="text" matInput placeholder="Name">
+                <input type="text" matInput placeholder="Name" [(ngModel)]="searchCriteria">
             </mat-form-field>
-            <button mat-button>
+            <button mat-button (click)="searchAssessments()">
                 <mat-icon>search</mat-icon> Search
             </button>
         </div>
@@ -23,25 +23,34 @@
                                 Created {{assessment.createdAt}}
                             </div>
                             <div>
-                                <div style="color:green" *ngIf="isAssessmentComplete(assessment.selfAssessmentId)"><mat-icon>done</mat-icon> Completed</div>
-                                <div style="color:orange" *ngIf="!isAssessmentComplete(assessment.selfAssessmentId)"><mat-icon>pending_actions</mat-icon> Pending</div>
+                                <div style="color:green" *ngIf="isAssessmentComplete(assessment.selfAssessmentId)">
+                                    <mat-icon>done</mat-icon> Completed
+                                </div>
+                                <div style="color:orange" *ngIf="!isAssessmentComplete(assessment.selfAssessmentId)">
+                                    <mat-icon>pending_actions</mat-icon> Pending
+                                </div>
                             </div>
                         </mat-panel-description>
                     </mat-expansion-panel-header>
                     <div class="row">
-                        <div class="col-md-6"
+                        <div class="col-md-6 mat-chip-wrapper"
                             *ngFor="let peerAssessment of peerAssessments | filterArray:assessment.selfAssessmentId">
-                            <p>
-                                {{peerAssessment.fullName}} | {{peerAssessment.emailAddress}} |
-                                {{peerAssessment.completed ? 'Complete' : 'Pending'}}
-                            </p>
+                                <p>{{peerAssessment.fullName}} | {{peerAssessment.emailAddress}}&nbsp;&nbsp;</p>
+                                <mat-chip-list>
+                                    <div style="color:green" *ngIf="peerAssessment.completed">
+                                        <mat-icon>done</mat-icon>
+                                    </div>
+                                    <div style="color:orange" *ngIf="!peerAssessment.completed">
+                                        <mat-icon>pending_actions</mat-icon>
+                                    </div>
+                                </mat-chip-list>
                         </div>
                     </div>
                     <mat-action-row>
                         <button mat-button color="warn">
                             <mat-icon>email</mat-icon> Send Reminder
                         </button>
-                        <button mat-button>
+                        <button mat-button (click)="generateSelfAssessmentReport()">
                             <mat-icon>assessment</mat-icon> Generate Self-Awareness Report
                         </button>
                     </mat-action-row>

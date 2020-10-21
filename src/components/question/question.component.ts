@@ -19,10 +19,6 @@ export class QuestionComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    // console.log(this.form);
-    // this.form.statusChanges.subscribe(
-    //   result => console.log(result)
-    // );
   }
 
   get isValid(): boolean { return this.form.controls[this.question.key].valid; }

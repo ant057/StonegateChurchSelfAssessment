@@ -2,7 +2,7 @@
 import { environment } from '../environments/environment';
 
 // angular
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -27,6 +27,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatChipsModule } from '@angular/material/chips';
 
 // routing
 import { AppRoutingModule } from './app-routing.module';
@@ -34,6 +35,7 @@ import { AppRoutingModule } from './app-routing.module';
 // services
 import { FirebaseService } from '../services/firebase.service';
 import { QuestionControlService } from '../services/question-control.service';
+import { PDFService } from '../services/pdf.service';
 
 // ngrx store
 import { StoreModule } from '@ngrx/store';
@@ -68,6 +70,7 @@ import { QuestionComponent } from '../components/question/question.component';
 import { SectionComponent } from '../components/section/section.component';
 import { AssessmentContactsComponent } from '../components/assessment-contacts/assessment-contacts.component';
 import { GenericDialogueComponent } from '../components/generic-dialogue/generic-dialogue.component';
+import { SelfAssessmentReportComponent } from '../components/self-assessment-report/self-assessment-report.component';
 
 // directives
 import { MatElevationHoverDirective } from '../directives/mat-elevation-hover.directive';
@@ -94,6 +97,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     SectionComponent,
     AssessmentContactsComponent,
     GenericDialogueComponent,
+    SelfAssessmentReportComponent,
     MatElevationHoverDirective,
     FilterArrayPipe
   ],
@@ -102,6 +106,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    FormsModule,
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
@@ -128,6 +133,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     MatTooltipModule,
     MatDialogModule,
     MatExpansionModule,
+    MatChipsModule,
     StoreDevtoolsModule.instrument({
       name: 'StoneGateAssessment Dev tools',
       maxAge: 25,
@@ -135,8 +141,11 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     })
   ],
   providers:
-    [FirebaseService,
-    QuestionControlService],
+    [
+    FirebaseService,
+    QuestionControlService,
+    PDFService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

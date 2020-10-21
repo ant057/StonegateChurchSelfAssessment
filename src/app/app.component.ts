@@ -36,8 +36,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.fbs.createQuestions();
-
     setTimeout(() => this.showLoader = false, 1000);
     this.initalizeAppData();
 

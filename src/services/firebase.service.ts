@@ -61,7 +61,6 @@ getSelfAssessments(): Observable<SelfAssessment[]> {
         const item = x.payload.doc.data() as SelfAssessment;
         item.selfAssessmentId = x.payload.doc.id;
         data.push(item);
-        console.log(item);
       });
       return data;
     })

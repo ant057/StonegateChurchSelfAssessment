@@ -28,6 +28,7 @@
     "firebase": "^7.22.0",
     "firebaseui": "^4.6.1",
     "firebaseui-angular": "^5.0.1",
+    "pdfmake": "^0.1.68",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "uuid": "^8.3.1",

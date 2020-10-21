@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 // ngrx store
 import { Store, select } from '@ngrx/store';
@@ -22,9 +23,12 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   componentActive = true;
   selfAssessments: SelfAssessment[];
+  selfAssessmentsBkup: SelfAssessment[];
   peerAssessments: PeerAssessment[];
+  searchCriteria = '';
 
-  constructor(private store: Store<fromApp.AppState>) { }
+  constructor(private store: Store<fromApp.AppState>,
+              private router: Router) { }
 
   ngOnDestroy(): void {
     this.componentActive = false;
@@ -38,6 +42,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       takeWhile(() => this.componentActive)).subscribe(
         assessments => {
           this.selfAssessments = assessments;
+          this.selfAssessmentsBkup = assessments;
         }
       );
 
@@ -62,6 +67,19 @@ export class AdminComponent implements OnInit, OnDestroy {
         return true;
       }
     }
+  }
+
+  searchAssessments(): void {
+    this.selfAssessments = this.selfAssessmentsBkup;
+    if (this.searchCriteria !== '') {
+      this.selfAssessments = this.selfAssessments.filter(
+        a => a.selfUserFullName.toLocaleLowerCase().includes(this.searchCriteria.toLocaleLowerCase())
+      );
+    }
+  }
+
+  generateSelfAssessmentReport(): void {
+    this.router.navigate(['/selfassessmentreport']);
   }
 
 }
