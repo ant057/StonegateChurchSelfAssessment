@@ -6,7 +6,7 @@
 
                 <mat-form-field *ngSwitchCase="'short answer'" class="full-width-field">
                     <mat-label>{{question.placeholder}}</mat-label>
-                    <textarea matInput [formControlName]="question.key" [id]="question.key" [type]="text"></textarea>
+                    <textarea matInput [formControlName]="question.key" [id]="question.key" [type]="text" maxlength="100"></textarea>
                 </mat-form-field>
 
                 <mat-form-field *ngSwitchCase="'long answer'" class="full-width-field">

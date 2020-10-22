@@ -14,6 +14,9 @@ import { takeWhile } from 'rxjs/operators';
 import { SelfAssessment } from 'src/models/selfassessment';
 import { PeerAssessment } from 'src/models/peerassessment';
 
+// services
+import { PDFService } from '../../services/pdf.service';
+
 @Component({
   selector: 'assessment-admin',
   templateUrl: './admin.component.html',
@@ -28,7 +31,8 @@ export class AdminComponent implements OnInit, OnDestroy {
   searchCriteria = '';
 
   constructor(private store: Store<fromApp.AppState>,
-              private router: Router) { }
+              private router: Router,
+              private pdfService: PDFService) { }
 
   ngOnDestroy(): void {
     this.componentActive = false;
@@ -78,8 +82,10 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  generateSelfAssessmentReport(): void {
-    this.router.navigate(['/selfassessmentreport']);
+  generateSelfAssessmentReport(selfAssessment: SelfAssessment): void {
+    const peerAssessments = this.peerAssessments.filter(x => x.selfAssessmentId.indexOf(selfAssessment.selfAssessmentId) !== -1);
+    this.pdfService.generatePdf(selfAssessment, peerAssessments);
+    // this.router.navigate(['/selfassessmentreport']);
   }
 
 }

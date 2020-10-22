@@ -83,7 +83,6 @@ export class SelfAssessmentComponent implements OnInit, OnDestroy {
           this.sections = sections;
         }
       );
-
   }
 
   contactsValid(): boolean {

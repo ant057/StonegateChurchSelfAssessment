@@ -6,14 +6,14 @@ export const environment = {
   production: false,
   // Initialize Firebase
   firebase: {
-    apiKey: 'AIzaSyDm_alV36a6Cg32AfVlpPvKG8S8ugI07iA',
-    authDomain: 'stonegateselfassessment-dfcba.firebaseapp.com',
-    databaseURL: 'https://stonegateselfassessment-dfcba.firebaseio.com',
-    projectId: 'stonegateselfassessment-dfcba',
-    storageBucket: 'stonegateselfassessment-dfcba.appspot.com',
-    messagingSenderId: '780967869255',
-    appId: '1:780967869255:web:7aafb2a89ad281ab822a62',
-    measurementId: 'G-RW7MN3TB14'
+    apiKey: 'AIzaSyCw0E_FhtIvaQjZmm_METJSOOj0LpphErg',
+    authDomain: 'tony-robinson-self-awareness.firebaseapp.com',
+    databaseURL: 'https://tony-robinson-self-awareness.firebaseio.com',
+    projectId: 'tony-robinson-self-awareness',
+    storageBucket: 'tony-robinson-self-awareness.appspot.com',
+    messagingSenderId: '861276784040',
+    appId: '1:861276784040:web:7e40ee2085e596c690c99d',
+    measurementId: 'G-EYW89YT0GC'
   }
 };
 

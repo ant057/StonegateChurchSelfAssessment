@@ -5,9 +5,6 @@ import { Store, select } from '@ngrx/store';
 import * as fromApp from '../../state/app.reducer';
 import * as appActions from '../../state/app.actions';
 
-import { pdfMake } from 'pdfmake/build/pdfmake';
-import { pdfFonts } from 'pdfmake/build/vfs_fonts';
-
 // services
 import { PDFService } from '../../services/pdf.service';
 
@@ -26,7 +23,7 @@ export class SelfAssessmentReportComponent implements OnInit {
   }
 
   generatePdf(): void{
-    this.pdfService.generatePdf();
+    // this.pdfService.generatePdf('test');
   }
 
 }
