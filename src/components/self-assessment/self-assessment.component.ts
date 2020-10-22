@@ -58,7 +58,6 @@ export class SelfAssessmentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     this.store.pipe(select(fromApp.getSignedInUser),
       takeWhile(() => this.componentActive)).subscribe(
         user => {

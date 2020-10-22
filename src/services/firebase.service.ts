@@ -931,7 +931,6 @@ export class FirebaseService {
       const storageRef = this.afstorage.ref(filename);
       const task = storageRef.put(file);
     }
-
     getImageURL(filename) {
       const storageRef = this.afstorage.ref(filename);
       const URL = storageRef.getDownloadURL();

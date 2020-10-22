@@ -33,7 +33,7 @@
                         </mat-panel-description>
                     </mat-expansion-panel-header>
                     <div class="row">
-                        <div class="col-md-6 mat-chip-wrapper"
+                        <div class="col-md-6"
                             *ngFor="let peerAssessment of peerAssessments | filterArray:assessment.selfAssessmentId">
                             <p>{{peerAssessment.fullName}} | {{peerAssessment.emailAddress}}&nbsp;&nbsp;</p>
                             <div style="color:green" *ngIf="peerAssessment.completed">
