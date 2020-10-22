@@ -33,24 +33,22 @@
                         </mat-panel-description>
                     </mat-expansion-panel-header>
                     <div class="row">
-                        <div class="col-md-6 mat-chip-wrapper"
+                        <div class="col-md-6"
                             *ngFor="let peerAssessment of peerAssessments | filterArray:assessment.selfAssessmentId">
-                                <p>{{peerAssessment.fullName}} | {{peerAssessment.emailAddress}}&nbsp;&nbsp;</p>
-                                <mat-chip-list>
-                                    <div style="color:green" *ngIf="peerAssessment.completed">
-                                        <mat-icon>done</mat-icon>
-                                    </div>
-                                    <div style="color:orange" *ngIf="!peerAssessment.completed">
-                                        <mat-icon>pending_actions</mat-icon>
-                                    </div>
-                                </mat-chip-list>
+                            <p>{{peerAssessment.fullName}} | {{peerAssessment.emailAddress}}&nbsp;&nbsp;</p>
+                            <div style="color:green" *ngIf="peerAssessment.completed">
+                                <mat-icon>done</mat-icon>
+                            </div>
+                            <div style="color:orange" *ngIf="!peerAssessment.completed">
+                                <mat-icon>pending_actions</mat-icon>
+                            </div>
                         </div>
                     </div>
                     <mat-action-row>
                         <button mat-button color="warn">
                             <mat-icon>email</mat-icon> Send Reminder
                         </button>
-                        <button mat-button (click)="generateSelfAssessmentReport()">
+                        <button mat-button (click)="generateSelfAssessmentReport(assessment.selfAssessmentId)">
                             <mat-icon>assessment</mat-icon> Generate Self-Awareness Report
                         </button>
                     </mat-action-row>
