@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'app', component: AppComponent },
   { path: 'home', component: HomeComponent },
   { path: 'selfassessment', component: SelfAssessmentComponent },
-  { path: 'peerassessment/:peerassessmentid', component: PeerAssessmentComponent },
+  { path: 'peerassessment', component: PeerAssessmentComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'selfassessmentreport', component: SelfAssessmentReportComponent },
   { path: '', redirectTo: '/app', pathMatch: 'full' },

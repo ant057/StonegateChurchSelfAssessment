@@ -26,7 +26,7 @@ export class FirebaseService {
   }
 
   getSelfAssessmentQuestions(): Observable<Question[]> {
-    return this.afs.collection('/questions', ref => ref.where('type', '==', 'self').orderBy('orderBy')).snapshotChanges().pipe(
+    return this.afs.collection('/questions', ref => ref.where('assessmentType', '==', 'self').orderBy('orderBy')).snapshotChanges().pipe(
       map(q => {
         const data: Question[] = [];
         q.forEach(x => {
@@ -54,7 +54,7 @@ export class FirebaseService {
   }
 
   getPeerAssessmentQuestions(): Observable<Question[]> {
-    return this.afs.collection('/questions', ref => ref.where('type', '==', 'peer').orderBy('orderBy')).snapshotChanges().pipe(
+    return this.afs.collection('/questions', ref => ref.where('assessmentType', '==', 'peer').orderBy('orderBy')).snapshotChanges().pipe(
       map(q => {
         const data: Question[] = [];
         q.forEach(x => {

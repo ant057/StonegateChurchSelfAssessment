@@ -33,6 +33,22 @@ export class AppEffects {
     );
 
     @Effect()
+    loadPeerAssesementQuestions$ = this.actions$.pipe(
+        ofType(appActions.AppActionTypes.LoadPeerAssessmentQuestions),
+        mergeMap((action: appActions.LoadPeerAssessmentQuestions) => this.firebase.getPeerAssessmentQuestions().pipe(
+            map((questions: Question[]) => (new appActions.LoadPeerAssessmentQuestionsSuccess(questions)))
+        ))
+    );
+
+    @Effect()
+    loadPeerAssesementSections$ = this.actions$.pipe(
+        ofType(appActions.AppActionTypes.LoadPeerAssessmentSections),
+        mergeMap((action: appActions.LoadPeerAssessmentSections) => this.firebase.getPeerAssessmentSections().pipe(
+            map((Sections: Section[]) => (new appActions.LoadPeerAssessmentSectionsSuccess(Sections)))
+        ))
+    );
+
+    @Effect()
     createSelfAssessment$ = this.actions$.pipe(
         ofType(appActions.AppActionTypes.CreateSelfAssessment),
         mergeMap((action: appActions.CreateSelfAssessment) => this.firebase.createSelfAssessment(action.payload).pipe(

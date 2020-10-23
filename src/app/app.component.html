@@ -5,13 +5,17 @@
   </div>
 </div>
 <div *ngIf="!showLoader" style="height: 100%;">
-  <router-outlet name="peerassessmentoutlet"></router-outlet>
-  <div *ngIf="user; else showLogin">
-    <assessment-landing></assessment-landing>
+  <div *ngIf="showPeerAssessment">
+    <assessment-peer-assessment></assessment-peer-assessment>
   </div>
-  <div>
-    <ng-template #showLogin>
-        <assessment-login></assessment-login>
-    </ng-template>
+  <div *ngIf="!showPeerAssessment" style="height: 100%;">
+    <div *ngIf="user; else showLogin">
+      <assessment-landing></assessment-landing>
+    </div>
+    <div>
+      <ng-template #showLogin>
+          <assessment-login></assessment-login>
+      </ng-template>
+    </div>
   </div>
 </div>

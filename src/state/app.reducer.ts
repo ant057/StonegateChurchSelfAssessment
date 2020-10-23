@@ -14,6 +14,8 @@ export interface AppState {
     user: User;
     selfAssessmentQuestions: Question[];
     selfAssessmentSections: Section[];
+    peerAssessmentQuestions: Question[];
+    peerAssessmentSections: Section[];
     selfAssessmentSaved: boolean;
     readSelfAssessmentSaved: boolean;
     selfAssessments: SelfAssessment[];
@@ -24,6 +26,8 @@ const initialState: AppState = {
     user: null,
     selfAssessmentQuestions: null,
     selfAssessmentSections: null,
+    peerAssessmentQuestions: null,
+    peerAssessmentSections: null,
     selfAssessmentSaved: false,
     readSelfAssessmentSaved: false,
     selfAssessments: null,
@@ -45,6 +49,16 @@ export const getSelfAssessmentQuestions = createSelector(
 export const getSelfAssessmentSections = createSelector(
     getAppFeatureState,
     state => state.selfAssessmentSections
+);
+
+export const getPeerAssessmentQuestions = createSelector(
+    getAppFeatureState,
+    state => state.peerAssessmentQuestions
+);
+
+export const getPeerAssessmentSections = createSelector(
+    getAppFeatureState,
+    state => state.peerAssessmentSections
 );
 
 export const getSelfAssessmentSaved = createSelector(
@@ -116,6 +130,38 @@ export function reducer(state = initialState, action: AppActions): AppState {
             };
 
         case AppActionTypes.LoadSelfAssessmentSectionsError:
+            return {
+                ...state
+            };
+
+        case AppActionTypes.LoadPeerAssessmentQuestions:
+            return {
+                ...state
+            };
+
+        case AppActionTypes.LoadPeerAssessmentQuestionsSuccess:
+            return {
+                ...state,
+                peerAssessmentQuestions: action.payload
+            };
+
+        case AppActionTypes.LoadPeerAssessmentQuestionsError:
+            return {
+                ...state
+            };
+
+        case AppActionTypes.LoadPeerAssessmentSections:
+            return {
+                ...state
+            };
+
+        case AppActionTypes.LoadPeerAssessmentSectionsSuccess:
+            return {
+                ...state,
+                peerAssessmentSections: action.payload
+            };
+
+        case AppActionTypes.LoadPeerAssessmentSectionsError:
             return {
                 ...state
             };

@@ -19,6 +19,12 @@ export enum AppActionTypes {
     LoadSelfAssessmentSections = '[Load Self Assessment Sections] Try',
     LoadSelfAssessmentSectionsSuccess = '[Load Self Assessment Sections] Successful',
     LoadSelfAssessmentSectionsError = '[Load Self Assessment Sections] Error',
+    LoadPeerAssessmentQuestions = '[Load Peer Assessment Questions] Try',
+    LoadPeerAssessmentQuestionsSuccess = '[Load Peer Assessment Questions] Successful',
+    LoadPeerAssessmentQuestionsError = '[Load Peer Assessment Questions] Error',
+    LoadPeerAssessmentSections = '[Load Peer Assessment Sections] Try',
+    LoadPeerAssessmentSectionsSuccess = '[Load Peer Assessment Sections] Successful',
+    LoadPeerAssessmentSectionsError = '[Load Peer Assessment Sections] Error',
     CreateSelfAssessment = '[Create Self Assessment] Try',
     CreateSelfAssessmentSuccess = '[Create Self Assessment] Successful',
     CreateSelfAssessmentError = '[Create Self Assessment] Error',
@@ -81,6 +87,42 @@ export class LoadSelfAssessmentSectionsSuccess implements Action {
 
 export class LoadSelfAssessmentSectionsError implements Action {
     readonly type = AppActionTypes.LoadSelfAssessmentSectionsError;
+
+    constructor() { }
+}
+
+export class LoadPeerAssessmentQuestions implements Action {
+    readonly type = AppActionTypes.LoadPeerAssessmentQuestions;
+
+    constructor() { }
+}
+
+export class LoadPeerAssessmentQuestionsSuccess implements Action {
+    readonly type = AppActionTypes.LoadPeerAssessmentQuestionsSuccess;
+
+    constructor(public payload: Question[]) { }
+}
+
+export class LoadPeerAssessmentQuestionsError implements Action {
+    readonly type = AppActionTypes.LoadPeerAssessmentQuestionsError;
+
+    constructor() { }
+}
+
+export class LoadPeerAssessmentSections implements Action {
+    readonly type = AppActionTypes.LoadPeerAssessmentSections;
+
+    constructor() { }
+}
+
+export class LoadPeerAssessmentSectionsSuccess implements Action {
+    readonly type = AppActionTypes.LoadPeerAssessmentSectionsSuccess;
+
+    constructor(public payload: Section[]) { }
+}
+
+export class LoadPeerAssessmentSectionsError implements Action {
+    readonly type = AppActionTypes.LoadPeerAssessmentSectionsError;
 
     constructor() { }
 }
@@ -154,6 +196,12 @@ export type AppActions = SignUpUser
     | LoadSelfAssessmentSections
     | LoadSelfAssessmentSectionsError
     | LoadSelfAssessmentSectionsSuccess
+    | LoadPeerAssessmentQuestions
+    | LoadPeerAssessmentQuestionsError
+    | LoadPeerAssessmentQuestionsSuccess
+    | LoadPeerAssessmentSections
+    | LoadPeerAssessmentSectionsError
+    | LoadPeerAssessmentSectionsSuccess
     | CreateSelfAssessment
     | CreateSelfAssessmentSuccess
     | CreateSelfAssessmentError

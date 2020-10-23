@@ -1,32 +1,29 @@
-<div class="container" style="padding-top:15px;">
-    <div class="mat-headline">Peer Self-Assessment</div>
-    <div class="row">
-      <div class="col-md-8 div-contacts-message-p">
-        <p>
-            Congratulations! You've been selected to help [ins name here] understand who they are just a little bit better. 
-            To do so, please fill out the peer assessment. All answers with the 
-            exception of the explaination answers are required, however, they are greatly encouraged.
-        </p>
-    </div>
-    <div class="col-md-4"></div>
-      <form (ngSubmit)="onSubmit()" [formGroup]="form">
-        <div *ngIf="sections">
-          <div *ngFor="let section of sections" class="form-row">
-            <div class="col-md-7">
-              <assessment-section [section]="section" [questions]="questions" [form]="form">
-              </assessment-section>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-12">
-          <assessment-contacts></assessment-contacts>
-        </div>
-        <br /><br />
-        <div class="form-row">
-          <button mat-raised-button type="submit" [disabled]="!form.valid">Finish</button>
-          <button mat-raised-button type="submit">Finish</button>
-        </div>
-        <br /><br /><br />
-      </form>
+<div class="container-fluid" style="padding-top:15px; background: white;">
+  <div class="row justify-content-center">
+    <div class="col-md-7 mat-headline">Peer Self-Assessment</div>
+    <div class="col-md-7 div-contacts-message-p">
+      <p>
+        Congratulations! You've been selected to help [ins name here] understand who they are just a little bit better.
+        To do so, please fill out the peer assessment. All answers with the
+        exception of the explaination answers are required, however, they are greatly encouraged.
+      </p>
     </div>
   </div>
+
+  <form (ngSubmit)="onSubmit()" *ngIf="form" [formGroup]="form">
+    <div>
+      <div *ngFor="let section of sections" class="form-row justify-content-center">
+        <div class="col-md-5">
+          <assessment-section [section]="section" [questions]="questions" [form]="form">
+          </assessment-section>
+        </div>
+      </div>
+    </div>
+    <br /><br />
+    <div class="form-row">
+      <button mat-raised-button type="submit" [disabled]="!form.valid">Finish</button>
+      <button mat-raised-button type="submit">Finish</button>
+    </div>
+    <br /><br /><br />
+  </form>
+</div>

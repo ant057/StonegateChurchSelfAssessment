@@ -22,9 +22,6 @@ import { User } from '../../models/user';
 // components
 import { AssessmentContactsComponent } from '../assessment-contacts/assessment-contacts.component';
 import { GenericDialogueComponent } from '../generic-dialogue/generic-dialogue.component';
-import { escapeRegExp } from '@angular/compiler/src/util';
-import { CreateSelfAssessment } from '../../state/app.actions';
-import { SelfAssessment } from '../../models/selfassessment';
 
 // rxjs
 import { pipe } from 'rxjs';
@@ -43,7 +40,6 @@ export class SelfAssessmentComponent implements OnInit, OnDestroy {
   questions: Question[] = [];
   sections: Section[] = [];
   form: FormGroup;
-  payLoad = '';
   user: User;
   componentActive = true;
 
@@ -69,12 +65,11 @@ export class SelfAssessmentComponent implements OnInit, OnDestroy {
       takeWhile(() => this.componentActive)).subscribe(
         questions => {
           this.questions = questions;
+          if (this.questions) {
+            this.form = this.questionControlService.toFormGroup(this.questions);
+          }
         }
       );
-
-    if (this.questions) {
-      this.form = this.questionControlService.toFormGroup(this.questions);
-    }
 
     this.store.pipe(select(fromApp.getSelfAssessmentSections),
       takeWhile(() => this.componentActive)).subscribe(
