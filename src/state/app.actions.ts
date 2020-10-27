@@ -35,6 +35,9 @@ export enum AppActionTypes {
     LoadPeerAssessments = '[Load Peer Assessments] Try',
     LoadPeerAssessmentsSuccess = '[Load Peer Assessments] Successful',
     LoadPeerAssessmentsError = '[Load Peer Assessments] Error',
+    CompletePeerAssessment = '[Complete Peer Assessment] Try',
+    CompletePeerAssessmentSuccess = '[Complete Peer Assessment] Successful',
+    CompletePeerAssessmentError = '[Complete Peer Self Assessment] Error',
 }
 
 export class SignUpUser implements Action {
@@ -187,6 +190,24 @@ export class LoadPeerAssessmentsError implements Action {
     constructor() { }
 }
 
+export class CompletePeerAssessment implements Action {
+    readonly type = AppActionTypes.CompletePeerAssessment;
+
+    constructor(public payload: object) { }
+}
+
+export class CompletePeerAssessmentSuccess implements Action {
+    readonly type = AppActionTypes.CompletePeerAssessmentSuccess;
+
+    constructor(public payload: boolean) { }
+}
+
+export class CompletePeerAssessmentError implements Action {
+    readonly type = AppActionTypes.CompletePeerAssessmentError;
+
+    constructor() { }
+}
+
 export type AppActions = SignUpUser
     | SignInUser
     | LogoutUser
@@ -205,6 +226,9 @@ export type AppActions = SignUpUser
     | CreateSelfAssessment
     | CreateSelfAssessmentSuccess
     | CreateSelfAssessmentError
+    | CompletePeerAssessment
+    | CompletePeerAssessmentSuccess
+    | CompletePeerAssessmentError
     | ReadSelfAssessmentSuccess
     | LoadSelfAssessments
     | LoadSelfAssessmentsSuccess

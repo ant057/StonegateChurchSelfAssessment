@@ -1,7 +1,7 @@
-<div class="container-fluid" style="padding-top:15px; background: white;">
+<div class="container" style="padding-top:15px; background: white;">
   <div class="row justify-content-center">
-    <div class="col-md-7 mat-headline">Peer Self-Assessment</div>
-    <div class="col-md-7 div-contacts-message-p">
+    <div class="col-md-12 mat-headline">Peer Self-Assessment</div>
+    <div class="col-md-12 div-contacts-message-p">
       <p>
         Congratulations! You've been selected to help [ins name here] understand who they are just a little bit better.
         To do so, please fill out the peer assessment. All answers with the
@@ -13,16 +13,18 @@
   <form (ngSubmit)="onSubmit()" *ngIf="form" [formGroup]="form">
     <div>
       <div *ngFor="let section of sections" class="form-row justify-content-center">
-        <div class="col-md-5">
+        <div class="col-md-7">
           <assessment-section [section]="section" [questions]="questions" [form]="form">
           </assessment-section>
         </div>
       </div>
     </div>
     <br /><br />
-    <div class="form-row">
-      <button mat-raised-button type="submit" [disabled]="!form.valid">Finish</button>
-      <button mat-raised-button type="submit">Finish</button>
+    <div class="form-row justify-content-center">
+      <div class="col-md-7">
+        <button mat-raised-button type="submit" [disabled]="!form.valid">Finish</button>
+        <button mat-raised-button type="submit">Finish</button>
+      </div>
     </div>
     <br /><br /><br />
   </form>

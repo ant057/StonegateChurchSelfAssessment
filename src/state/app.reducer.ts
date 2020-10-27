@@ -20,6 +20,7 @@ export interface AppState {
     readSelfAssessmentSaved: boolean;
     selfAssessments: SelfAssessment[];
     peerAssessments: PeerAssessment[];
+    peerAssessmentCompleted: boolean;
 }
 
 const initialState: AppState = {
@@ -31,7 +32,8 @@ const initialState: AppState = {
     selfAssessmentSaved: false,
     readSelfAssessmentSaved: false,
     selfAssessments: null,
-    peerAssessments: null
+    peerAssessments: null,
+    peerAssessmentCompleted: false
 };
 
 const getAppFeatureState = createFeatureSelector<AppState>('app');
@@ -79,6 +81,11 @@ export const getSelfAssessments = createSelector(
 export const getPeerAssessments = createSelector(
     getAppFeatureState,
     state => state.peerAssessments
+);
+
+export const getPeerAssessmentCompleted = createSelector(
+    getAppFeatureState,
+    state => state.peerAssessmentCompleted
 );
 
 export function reducer(state = initialState, action: AppActions): AppState {
@@ -170,6 +177,12 @@ export function reducer(state = initialState, action: AppActions): AppState {
             return {
                 ...state,
                 selfAssessmentSaved: true
+            };
+
+        case AppActionTypes.CompletePeerAssessmentSuccess:
+            return {
+                ...state,
+                peerAssessmentCompleted: true
             };
 
         case AppActionTypes.ReadSelfAssessmentSuccess:

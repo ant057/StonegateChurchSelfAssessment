@@ -27,6 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
   showLoader = true;
   componentActive = true;
   showPeerAssessment = false;
+  peerAssessmentId = '';
 
   constructor(private store: Store<fromApp.AppState>,
               private afAuth: AngularFireAuth,
@@ -37,7 +38,8 @@ export class AppComponent implements OnInit, OnDestroy {
       filter(event => event instanceof NavigationEnd),
       takeWhile(() => this.componentActive)
     ).subscribe((event: NavigationEnd) => {
-      if (event.url === '/peerassessment') {
+      if (event.url.indexOf('peerassessment') !== -1) {
+        this.peerAssessmentId = event.url.substring(event.url.lastIndexOf('/'), event.url.length);
         this.showPeerAssessment = true;
       }
     });

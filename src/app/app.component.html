@@ -1,4 +1,3 @@
-
 <div *ngIf="showLoader" class="row align-items-center justify-content-center" style="height: 100%;">
   <div>
     <mat-spinner [color]="'accent'"></mat-spinner>
@@ -6,7 +5,7 @@
 </div>
 <div *ngIf="!showLoader" style="height: 100%;">
   <div *ngIf="showPeerAssessment">
-    <assessment-peer-assessment></assessment-peer-assessment>
+    <assessment-peer-assessment [peerAssessmentId]="peerAssessmentId"></assessment-peer-assessment>
   </div>
   <div *ngIf="!showPeerAssessment" style="height: 100%;">
     <div *ngIf="user; else showLogin">
@@ -14,7 +13,7 @@
     </div>
     <div>
       <ng-template #showLogin>
-          <assessment-login></assessment-login>
+        <assessment-login></assessment-login>
       </ng-template>
     </div>
   </div>

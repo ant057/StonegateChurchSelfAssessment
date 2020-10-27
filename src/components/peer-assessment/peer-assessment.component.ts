@@ -1,5 +1,5 @@
 // angular
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -21,7 +21,7 @@ import { Question } from '../../models/question';
 import { Section } from '../../models/section';
 
 // rxjs
-import { pipe } from 'rxjs';
+import { Observable, pipe } from 'rxjs';
 import { map, tap, switchMap, takeWhile } from 'rxjs/operators';
 
 @Component({
@@ -31,24 +31,23 @@ import { map, tap, switchMap, takeWhile } from 'rxjs/operators';
 })
 export class PeerAssessmentComponent implements OnInit, OnDestroy {
 
-  peerAssessmentId: string;
   questions: Question[] = [];
   sections: Section[] = [];
   form: FormGroup;
   componentActive = true;
+  @Input() peerAssessmentId: string;
 
   constructor(private store: Store<fromApp.AppState>,
               private route: ActivatedRoute,
               private questionControlService: QuestionControlService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog) {
+              }
 
   ngOnDestroy(): void {
     this.componentActive = false;
   }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('peerassessmentid');
-
     this.initalizeAppData();
 
     this.store.pipe(select(fromApp.getPeerAssessmentQuestions),
@@ -57,7 +56,6 @@ export class PeerAssessmentComponent implements OnInit, OnDestroy {
           this.questions = questions;
           if (this.questions) {
             this.form = this.questionControlService.toFormGroup(this.questions);
-            console.warn(this.form);
           }
         }
       );
@@ -71,7 +69,69 @@ export class PeerAssessmentComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
+    this.openConfirmDialogue();
+  }
 
+  openConfirmDialogue(): void {
+    const dialogRef = this.dialog.open(GenericDialogueComponent, {
+      width: '450px',
+      data: {
+        title: 'Submit Peer Assessment',
+        showConfirm: true,
+        message: `Well done! Are you ready to submit your peer assessment?`}
+    });
+
+    dialogRef.afterClosed().pipe(takeWhile(() => this.componentActive)).subscribe(result => {
+      if (result === true) {
+        this.savePeerAssessment();
+      }
+    });
+  }
+
+  openCompletedDialogue(): void {
+    const dialogRef = this.dialog.open(GenericDialogueComponent, {
+      width: '450px',
+      data: {
+        title: 'Congratulations!',
+        showConfirm: false,
+        message: `Your peer assessment has been successfully completed! Thank you!`}
+    });
+
+    dialogRef.afterClosed().pipe(takeWhile(() => this.componentActive)).subscribe(result => {
+      if (result === true) {
+        this.savePeerAssessment();
+      }
+    });
+  }
+
+  savePeerAssessment(): void {
+
+    const questionAnswers = [];
+    this.questions.forEach(q => {
+      const questionControl = this.form.get(q.key) as FormControl;
+      questionAnswers.push({
+        questionid: q.questionId,
+        answerValue: questionControl.value
+      });
+    });
+
+    const peerAssessment = {
+      peerAssessmentId: this.peerAssessmentId.replace('/', ''),
+      completed: true,
+      completedDate: new Date().toLocaleDateString(),
+      questionAnswers
+    };
+
+    this.store.dispatch(new appActions.CompletePeerAssessment(peerAssessment));
+
+    this.store.pipe(select(fromApp.getPeerAssessmentCompleted),
+      takeWhile(() => this.componentActive)).subscribe(
+        saved => {
+          if (saved === true) {
+            this.openCompletedDialogue();
+          }
+        }
+      );
   }
 
   initalizeAppData(): void {

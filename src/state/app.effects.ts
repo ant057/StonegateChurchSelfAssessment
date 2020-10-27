@@ -57,6 +57,14 @@ export class AppEffects {
     );
 
     @Effect()
+    completePeerAssessment$ = this.actions$.pipe(
+        ofType(appActions.AppActionTypes.CompletePeerAssessment),
+        mergeMap((action: appActions.CompletePeerAssessment) => this.firebase.completePeerAssessment(action.payload).pipe(
+            map(res => new appActions.CompletePeerAssessmentSuccess(true))
+        ))
+    );
+
+    @Effect()
     loadSelfAssesements$ = this.actions$.pipe(
         ofType(appActions.AppActionTypes.LoadSelfAssessments),
         mergeMap((action: appActions.LoadSelfAssessments) => this.firebase.getSelfAssessments().pipe(

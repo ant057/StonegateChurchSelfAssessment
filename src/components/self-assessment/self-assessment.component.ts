@@ -150,14 +150,14 @@ export class SelfAssessmentComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(GenericDialogueComponent, {
       width: '450px',
       data: {
-        title: 'Confirm Self Assessment',
+        title: 'Submit Self Assessment',
         showConfirm: true,
         message: `Well done! Are you ready to submit your self assessment?
         Your results will be available to your evaluator, and instructions will be emailed to
         the contacts provided to complete their peer evaluation.`}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().pipe(takeWhile(() => this.componentActive)).subscribe(result => {
       if (result === true) {
         this.saveSelfAssessment();
       }
