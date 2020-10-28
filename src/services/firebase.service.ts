@@ -149,7 +149,9 @@ export class FirebaseService {
   completePeerAssessment(obj): any {
     const peerAssessmentRef = this.afs.collection('/peer-assessments').doc(obj.peerAssessmentId);
     return from(peerAssessmentRef.set({
-      obj
+      completed: obj.completed,
+      completedDate: obj.completedDate,
+      questionAnswers: obj.questionAnswers
     }, { merge: true }));
   }
 
