@@ -138,6 +138,7 @@ export class FirebaseService {
           createdAt: new Date().toLocaleDateString(),
           completed: false,
           selfUserId: obj.userId,
+          selfUserFullName: obj.fullName,
           linkToAssessment: this.getPeerAssessmentUrlBase() + peerAssessmentId
         });
       }
