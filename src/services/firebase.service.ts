@@ -10,10 +10,9 @@ import { v4 as uuidv4 } from 'uuid';
 
 // rxjs
 import { Observable, from } from 'rxjs';
-import { map, tap, take, switchMap, mergeMap, expand, takeWhile } from 'rxjs/operators';
+import { map, tap, take, switchMap, mergeMap, expand, takeWhile, catchError } from 'rxjs/operators';
 
 // Models
-// import { Payment } from '../models/payment/payment';
 import { Section } from '../models/section';
 import { Question } from 'src/models/question';
 import { PeerAssessment } from 'src/models/peerassessment';
@@ -22,9 +21,17 @@ import { SelfAssessment } from 'src/models/selfassessment';
 @Injectable()
 export class FirebaseService {
 
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    })
+  };
+
   constructor(private afs: AngularFirestore,
               private afstorage: AngularFireStorage,
-              private fns: AngularFireFunctions) {
+              private fns: AngularFireFunctions,
+              private http: HttpClient) {
   }
 
   getSelfAssessmentQuestions(): Observable<Question[]> {
@@ -120,8 +127,8 @@ export class FirebaseService {
   }
 
   sendReminderEmails(reminders: PeerAssessment[]): Observable<any> {
-    const callable = this.fns.httpsCallable('emailPeerAssessmentContactsReminder');
-    return callable({ reminders });
+    return this.http.post(environment.firebaseFunctionsUrl + 'emailPeerAssessmentContactsReminder',
+    JSON.stringify(reminders), this.httpOptions);
   }
 
   // createQuestions(): void {
@@ -175,23 +182,4 @@ export class FirebaseService {
     return !environment.production ? 'localhost:4200/peerassessment/' : 'selfassessment.firebaseapp/peerassessment/';
   }
 
-  /*
-    getPlants() {
-      return this.afs.collection('/plants').snapshotChanges();
-    }
-
-    getMyPlants(uid: string) {
-      return this.afs.collection('/plants', ref => ref.where('uid' , '==', uid)).valueChanges();
-    }
-
-    uploadImage(file, filename) {
-      const storageRef = this.afstorage.ref(filename);
-      const task = storageRef.put(file);
-    }
-    getImageURL(filename) {
-      const storageRef = this.afstorage.ref(filename);
-      const URL = storageRef.getDownloadURL();
-      return URL;
-    }
-    */
 }

@@ -98,13 +98,13 @@ export class AdminComponent implements OnInit, OnDestroy {
     // }).catch(err => {
     //   console.error(err);
     // });
-
-    this.firebaseService.sendReminderEmails(peerAssessments.filter(x => !x.completed)).subscribe(
+    const reminders = peerAssessments.filter(x => !x.completed);
+    this.firebaseService.sendReminderEmails(reminders).subscribe(
       x => {
         console.warn(x);
         console.warn('i got here');
       },
-      (err) => {
+      err => {
         console.warn(err);
         console.warn('i got here 2');
       }

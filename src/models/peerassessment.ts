@@ -11,6 +11,7 @@ export interface PeerAssessment {
     completedDate: Date;
     questionAnswers: Array<Answer>;
     selfUserId: string;
+    selfUserFullName: string;
     linkToAssessment: string;
     lastMailError: string;
     lastMailDate: Date;
