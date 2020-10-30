@@ -10,12 +10,13 @@ import * as appActions from '../../state/app.actions';
 import { Observable } from 'rxjs';
 
 // models
-import { takeWhile } from 'rxjs/operators';
+import { takeWhile, map } from 'rxjs/operators';
 import { SelfAssessment } from 'src/models/selfassessment';
 import { PeerAssessment } from 'src/models/peerassessment';
 
 // services
 import { PDFService } from '../../services/pdf.service';
+import { FirebaseService } from '../../services/firebase.service';
 
 @Component({
   selector: 'assessment-admin',
@@ -32,7 +33,8 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<fromApp.AppState>,
               private router: Router,
-              private pdfService: PDFService) { }
+              private pdfService: PDFService,
+              private firebaseService: FirebaseService) { }
 
   ngOnDestroy(): void {
     this.componentActive = false;
@@ -86,6 +88,27 @@ export class AdminComponent implements OnInit, OnDestroy {
     const peerAssessments = this.peerAssessments.filter(x => x.selfAssessmentId.indexOf(selfAssessment.selfAssessmentId) !== -1);
     // this.pdfService.generatePdf(selfAssessment, peerAssessments);
     // this.router.navigate(['/selfassessmentreport']);
+  }
+
+  sendReminders(selfAssessment: SelfAssessment): void {
+    const peerAssessments = this.peerAssessments.filter(x => x.selfAssessmentId.indexOf(selfAssessment.selfAssessmentId) !== -1);
+    // this.firebaseService.sendReminderEmails(peerAssessments.filter(x => !x.completed)).toPromise()
+    // .then(res => {
+    //   console.warn(res);
+    // }).catch(err => {
+    //   console.error(err);
+    // });
+
+    this.firebaseService.sendReminderEmails(peerAssessments.filter(x => !x.completed)).subscribe(
+      x => {
+        console.warn(x);
+        console.warn('i got here');
+      },
+      (err) => {
+        console.warn(err);
+        console.warn('i got here 2');
+      }
+    );
   }
 
 }

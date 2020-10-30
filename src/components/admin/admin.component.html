@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <mat-action-row>
-                        <button mat-button color="warn">
+                        <button mat-button color="warn" (click)="sendReminders(assessment.selfAssessmentId)">
                             <mat-icon>email</mat-icon> Send Reminder
                         </button>
                         <button mat-button (click)="generateSelfAssessmentReport(assessment.selfAssessmentId)">
@@ -55,5 +55,6 @@
                 </mat-expansion-panel>
             </mat-accordion>
         </div>
+        <div class="col-md-12"><br><br></div>
     </div>
 </div>

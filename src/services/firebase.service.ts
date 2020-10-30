@@ -1,7 +1,8 @@
 // angular
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument, DocumentReference } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { AngularFireFunctions } from '@angular/fire/functions';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
 import { environment } from '../environments/environment';
@@ -22,7 +23,8 @@ import { SelfAssessment } from 'src/models/selfassessment';
 export class FirebaseService {
 
   constructor(private afs: AngularFirestore,
-              private afstorage: AngularFireStorage) {
+              private afstorage: AngularFireStorage,
+              private fns: AngularFireFunctions) {
   }
 
   getSelfAssessmentQuestions(): Observable<Question[]> {
@@ -109,9 +111,22 @@ export class FirebaseService {
     );
   }
 
-  createQuestions(): void {
-
+  getPeerAssessment(peerAssessmentId: string): Observable<PeerAssessment> {
+    return this.afs.doc(`/peer-assessments/${peerAssessmentId}`).valueChanges().pipe(
+      map(p => {
+        return p as PeerAssessment;
+      })
+    );
   }
+
+  sendReminderEmails(reminders: PeerAssessment[]): Observable<any> {
+    const callable = this.fns.httpsCallable('emailPeerAssessmentContactsReminder');
+    return callable({ reminders });
+  }
+
+  // createQuestions(): void {
+
+  // }
 
   createSelfAssessment(obj): any {
     // atomic transaction

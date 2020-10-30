@@ -19,6 +19,7 @@ import { GenericDialogueComponent } from '../generic-dialogue/generic-dialogue.c
 // models
 import { Question } from '../../models/question';
 import { Section } from '../../models/section';
+import { PeerAssessment } from '../../models/peerassessment';
 
 // rxjs
 import { Observable, pipe } from 'rxjs';
@@ -34,13 +35,15 @@ export class PeerAssessmentComponent implements OnInit, OnDestroy {
   questions: Question[] = [];
   sections: Section[] = [];
   form: FormGroup;
+  peerAssessment: PeerAssessment;
   componentActive = true;
   @Input() peerAssessmentId: string;
 
   constructor(private store: Store<fromApp.AppState>,
               private route: ActivatedRoute,
               private questionControlService: QuestionControlService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              private firebaseService: FirebaseService) {
               }
 
   ngOnDestroy(): void {
@@ -49,6 +52,15 @@ export class PeerAssessmentComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initalizeAppData();
+
+    this.firebaseService.getPeerAssessment(this.peerAssessmentId.replace('/', '')).pipe(
+      takeWhile(() => this.componentActive)).subscribe(
+        peerAssessment => {
+          if (peerAssessment) {
+            this.peerAssessment = peerAssessment;
+          }
+        }
+      );
 
     this.store.pipe(select(fromApp.getPeerAssessmentQuestions),
       takeWhile(() => this.componentActive)).subscribe(

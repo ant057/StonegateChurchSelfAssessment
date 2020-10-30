@@ -42,6 +42,7 @@ export class SelfAssessmentComponent implements OnInit, OnDestroy {
   form: FormGroup;
   user: User;
   componentActive = true;
+  submitted = false;
 
   constructor(private store: Store<fromApp.AppState>,
               private questionControlService: QuestionControlService,
@@ -160,6 +161,7 @@ export class SelfAssessmentComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().pipe(takeWhile(() => this.componentActive)).subscribe(result => {
       if (result === true) {
         this.saveSelfAssessment();
+        this.submitted = true;
       }
     });
   }
@@ -194,6 +196,7 @@ export class SelfAssessmentComponent implements OnInit, OnDestroy {
       takeWhile(() => this.componentActive)).subscribe(
         saved => {
           if (saved === true) {
+            this.submitted = false;
             this.router.navigate(['./home']);
           }
         }

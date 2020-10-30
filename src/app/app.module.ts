@@ -49,6 +49,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
 
 // firebase ui
 import { FirebaseUIModule } from 'firebaseui-angular';
@@ -112,6 +113,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
+    AngularFireFunctionsModule,
     StoreModule.forRoot({ app: reducer}),
     EffectsModule.forRoot([AppEffects]),
     MatSliderModule,
