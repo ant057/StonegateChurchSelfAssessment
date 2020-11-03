@@ -9,12 +9,13 @@ import * as fromApp from '../state/app.reducer';
 import * as appActions from '../state/app.actions';
 
 // rxjs
-import { Observable } from 'rxjs';
-import { takeWhile, map, filter } from 'rxjs/operators';
+import { from, Observable, empty } from 'rxjs';
+import { takeWhile, map, filter, mergeMap } from 'rxjs/operators';
 
 // models
 import { Question } from '../models/question';
 import { FirebaseService } from '../services/firebase.service';
+import { User } from '../models/user';
 
 @Component({
   selector: 'assessment-root',
@@ -23,7 +24,7 @@ import { FirebaseService } from '../services/firebase.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  user: any = null;
+  user: User = null;
   showLoader = true;
   componentActive = true;
   showPeerAssessment = false;
@@ -32,7 +33,8 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private store: Store<fromApp.AppState>,
               private afAuth: AngularFireAuth,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private firebaseService: FirebaseService) {
 
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
@@ -58,24 +60,39 @@ export class AppComponent implements OnInit, OnDestroy {
       takeWhile(() => this.componentActive)
     ).subscribe({
       next: (response) => {
+        // signed in
         if (response) {
-          this.store.dispatch(new appActions.SignInUser(
-            {
-              userId: response.uid,
-              emailAddress: response.email,
-              fullName: response.displayName
-            }));
-        } else {
-
+          this.store.dispatch(new appActions.SignInUser({
+            userId: response.uid,
+            emailAddress: response.email,
+            fullName: response.displayName,
+            admin: false
+          }));
         }
       }
     });
 
     this.store.pipe(select(fromApp.getSignedInUser),
-    takeWhile(() => this.componentActive)).subscribe(
-      user => {
-        this.user = user;
-      }
+      takeWhile(() => this.componentActive),
+      map(u => {
+        this.user = u;
+        return u;
+      }),
+      mergeMap(user => {
+        if (user) {
+          return this.firebaseService.getIsUserAdmin(user.userId);
+        } else {
+          return empty();
+        }
+      })
+    ).subscribe(res => {
+      this.store.dispatch(new appActions.SignInUser({
+        userId: this.user.userId,
+        emailAddress: this.user.emailAddress,
+        fullName: this.user.fullName,
+        admin: res.admin
+      }));
+    }
     );
   }
 

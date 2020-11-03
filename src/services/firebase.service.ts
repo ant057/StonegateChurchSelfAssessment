@@ -127,9 +127,7 @@ export class FirebaseService {
   }
 
   getIsUserAdmin(uid: string): Observable<any> {
-    const obs = this.afs.doc(`/users/${uid}`).valueChanges();
-    console.warn(obs);
-    return obs;
+    return this.afs.doc(`/users/${uid}`).valueChanges();
   }
 
   sendReminderEmails(reminders: PeerAssessment[]): Observable<any> {
