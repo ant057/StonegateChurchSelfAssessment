@@ -1,5 +1,7 @@
+// angular
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 // ngrx store
 import { Store, select } from '@ngrx/store';
@@ -18,6 +20,9 @@ import { PeerAssessment } from 'src/models/peerassessment';
 import { PDFService } from '../../services/pdf.service';
 import { FirebaseService } from '../../services/firebase.service';
 
+// components
+import { GenericDialogueComponent } from '../generic-dialogue/generic-dialogue.component';
+
 @Component({
   selector: 'assessment-admin',
   templateUrl: './admin.component.html',
@@ -34,7 +39,8 @@ export class AdminComponent implements OnInit, OnDestroy {
   constructor(private store: Store<fromApp.AppState>,
               private router: Router,
               private pdfService: PDFService,
-              private firebaseService: FirebaseService) { }
+              private firebaseService: FirebaseService,
+              public dialog: MatDialog) { }
 
   ngOnDestroy(): void {
     this.componentActive = false;
@@ -92,23 +98,31 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   sendReminders(selfAssessment: SelfAssessment): void {
     const peerAssessments = this.peerAssessments.filter(x => x.selfAssessmentId.indexOf(selfAssessment.selfAssessmentId) !== -1);
-    // this.firebaseService.sendReminderEmails(peerAssessments.filter(x => !x.completed)).toPromise()
-    // .then(res => {
-    //   console.warn(res);
-    // }).catch(err => {
-    //   console.error(err);
-    // });
     const reminders = peerAssessments.filter(x => !x.completed);
     this.firebaseService.sendReminderEmails(reminders).subscribe(
       x => {
         console.warn(x);
-        console.warn('i got here');
       },
       err => {
         console.warn(err);
-        console.warn('i got here 2');
       }
     );
+  }
+
+  openReminderDialogue(selfAssessment: SelfAssessment): void {
+    const dialogRef = this.dialog.open(GenericDialogueComponent, {
+      width: '450px',
+      data: {
+        title: 'Send Reminder E-mail?',
+        showConfirm: true,
+        message: `Reminders will be emailed to all incomplete peer assessments.`}
+    });
+
+    dialogRef.afterClosed().pipe(takeWhile(() => this.componentActive)).subscribe(result => {
+      if (result === true) {
+        this.sendReminders(selfAssessment);
+      }
+    });
   }
 
 }

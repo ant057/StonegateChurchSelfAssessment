@@ -42,10 +42,13 @@
                             <div style="color:orange" *ngIf="!peerAssessment.completed">
                                 <mat-icon>pending_actions</mat-icon>
                             </div>
+                            <div style="color:red" *ngIf="peerAssessment.lastMailError !== ''">
+                                <mat-icon matTooltip="{{peerAssessment.lastMailError}}">error</mat-icon>
+                            </div>
                         </div>
                     </div>
                     <mat-action-row>
-                        <button mat-button color="warn" (click)="sendReminders(assessment)">
+                        <button mat-button color="warn" (click)="openReminderDialogue(assessment)">
                             <mat-icon>email</mat-icon> Send Reminder
                         </button>
                         <button mat-button (click)="generateSelfAssessmentReport(assessment.selfAssessmentId)">

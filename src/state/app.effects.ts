@@ -44,7 +44,7 @@ export class AppEffects {
     loadPeerAssesementSections$ = this.actions$.pipe(
         ofType(appActions.AppActionTypes.LoadPeerAssessmentSections),
         mergeMap((action: appActions.LoadPeerAssessmentSections) => this.firebase.getPeerAssessmentSections().pipe(
-            map((Sections: Section[]) => (new appActions.LoadPeerAssessmentSectionsSuccess(Sections)))
+            map((sections: Section[]) => (new appActions.LoadPeerAssessmentSectionsSuccess(sections)))
         ))
     );
 
@@ -76,7 +76,7 @@ export class AppEffects {
     loadPeerAssesements$ = this.actions$.pipe(
         ofType(appActions.AppActionTypes.LoadPeerAssessments),
         mergeMap((action: appActions.LoadPeerAssessments) => this.firebase.getPeerAssessments().pipe(
-            map((PeerAssessments: PeerAssessment[]) => (new appActions.LoadPeerAssessmentsSuccess(PeerAssessments)))
+            map((peerAssessments: PeerAssessment[]) => (new appActions.LoadPeerAssessmentsSuccess(peerAssessments)))
         ))
     );
 

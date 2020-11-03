@@ -126,6 +126,12 @@ export class FirebaseService {
     );
   }
 
+  getIsUserAdmin(uid: string): Observable<any> {
+    const obs = this.afs.doc(`/users/${uid}`).valueChanges();
+    console.warn(obs);
+    return obs;
+  }
+
   sendReminderEmails(reminders: PeerAssessment[]): Observable<any> {
     return this.http.post(environment.firebaseFunctionsUrl + 'emailPeerAssessmentContactsReminder',
     JSON.stringify(reminders), this.httpOptions);
@@ -169,7 +175,15 @@ export class FirebaseService {
     return from(batch.commit());
   }
 
-  completePeerAssessment(obj): any {
+  createNewUser(uid: string, name: string): Observable<any> {
+    const userRef = this.afs.collection('/users').doc(uid);
+    return from(userRef.set({
+      admin: false,
+      fullName: name
+    }));
+  }
+
+  completePeerAssessment(obj): Observable<any> {
     const peerAssessmentRef = this.afs.collection('/peer-assessments').doc(obj.peerAssessmentId);
     return from(peerAssessmentRef.set({
       completed: obj.completed,

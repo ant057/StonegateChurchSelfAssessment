@@ -15,6 +15,9 @@ import * as appActions from '../../state/app.actions';
 import { User } from '../../models/user';
 import { auth } from 'firebase/app';
 
+// services
+import { FirebaseService } from '../../services/firebase.service';
+
 // rxjs
 import { pipe } from 'rxjs';
 import { map, tap, switchMap, takeWhile } from 'rxjs/operators';
@@ -32,7 +35,8 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(public afAuth: AngularFireAuth,
               private store: Store<fromApp.AppState>,
-              private router: Router) { }
+              private router: Router,
+              private firebaseService: FirebaseService) { }
 
   ngOnDestroy(): void {
     this.componentActive = false;
@@ -54,18 +58,42 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   successCallback(signInSuccessData: FirebaseUISignInSuccessWithAuthResult): void {
+
+    let isAdmin = false;
+    console.warn(signInSuccessData.authResult.user.uid);
+    this.firebaseService.getIsUserAdmin(signInSuccessData.authResult.user.uid).pipe(
+      takeWhile(() => this.componentActive)).subscribe(res => {
+        if (res) {
+          console.warn(res);
+        }
+      }, err => console.warn(err),
+      () =>
+      console.warn('completed?')
+    );
+
     this.store.dispatch(new appActions.SignInUser(
       {
         userId: signInSuccessData.authResult.user.uid,
         emailAddress: signInSuccessData.authResult.user.email,
-        fullName: signInSuccessData.authResult.user.displayName
+        fullName: signInSuccessData.authResult.user.displayName,
+        admin: false
       }));
+
+    // new user check.. add user
+    if (signInSuccessData.authResult.additionalUserInfo.isNewUser) {
+      this.createNewUser(signInSuccessData.authResult.user.uid,
+                        signInSuccessData.authResult.user.displayName);
+    }
 
     this.router.navigate(['/home']);
   }
 
   errorCallback(errorData: FirebaseUISignInFailure): void {
     console.warn('fail callback');
+  }
+
+  createNewUser(uid: string, name: string): void {
+    this.firebaseService.createNewUser(uid, name);
   }
 
 }

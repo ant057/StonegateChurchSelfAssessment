@@ -11,7 +11,7 @@ import * as appActions from '../../state/app.actions';
 
 // services
 import { QuestionControlService } from '../../services/question-control.service';
-import { FirebaseService } from 'src/services/firebase.service';
+import { FirebaseService } from '../../services/firebase.service';
 
 // components
 import { GenericDialogueComponent } from '../generic-dialogue/generic-dialogue.component';
