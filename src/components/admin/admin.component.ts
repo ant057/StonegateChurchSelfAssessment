@@ -104,14 +104,14 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   generateSelfAssessmentReport(selfAssessment: SelfAssessment): void {
-    const peerAssessments = this.peerAssessments.filter(x => x.selfAssessmentId.indexOf(selfAssessment.selfAssessmentId) !== -1);
-    this.pdfService.generatePdf(selfAssessment, peerAssessments);
+    const peerAssessments = this.getPeerAssessmentsBySelfId(selfAssessment.selfAssessmentId);
+    this.pdfService.generatePdf(selfAssessment, this.getCompletedPeerAssessments(peerAssessments));
     // this.router.navigate(['/selfassessmentreport']);
   }
 
   sendReminders(selfAssessment: SelfAssessment): void {
-    const peerAssessments = this.peerAssessments.filter(x => x.selfAssessmentId.indexOf(selfAssessment.selfAssessmentId) !== -1);
-    const reminders = peerAssessments.filter(x => !x.completed);
+    const peerAssessments = this.getPeerAssessmentsBySelfId(selfAssessment.selfAssessmentId);
+    const reminders = this.getCompletedPeerAssessments(peerAssessments, false);
     this.firebaseService.sendReminderEmails(reminders).subscribe(
       x => {
         console.warn(x);
@@ -136,6 +136,15 @@ export class AdminComponent implements OnInit, OnDestroy {
         this.sendReminders(selfAssessment);
       }
     });
+  }
+
+  getPeerAssessmentsBySelfId(selfAssessmentId: string): PeerAssessment[] {
+    return this.peerAssessments.filter(x => x.selfAssessmentId.indexOf(selfAssessmentId) !== -1);
+  }
+
+  getCompletedPeerAssessments(peerAssessments: PeerAssessment[], complete?: boolean): PeerAssessment[] {
+    if (!complete) { complete = true; }
+    return complete ? peerAssessments.filter(x => x.completed) : peerAssessments.filter(x => !x.completed);
   }
 
 }

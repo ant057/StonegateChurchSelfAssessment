@@ -29,24 +29,38 @@ export class PDFService {
   }
 
   getDocumentDefinition(selfAssessment: SelfAssessment, peerAssessments: PeerAssessment[]): object {
-
-    const strengths = selfAssessment.questionAnswers.filter(
+    console.warn(peerAssessments);
+    const strengthsSelf = selfAssessment.questionAnswers.filter(
       q => q.section === 'Short Answers' && q.questionOrder < 4);
-    const hindrances = selfAssessment.questionAnswers.filter(
+    const hindrancesSelf = selfAssessment.questionAnswers.filter(
       q => q.section === 'Short Answers' && (q.questionOrder > 3 && q.questionOrder < 7 ));
+
+    let strengthsPeer = [];
+    peerAssessments.forEach(p => {
+      strengthsPeer = p.questionAnswers.filter(
+        q => q.section === 'Short Answers' && q.questionOrder < 4);
+    });
+    let hindrancesPeer = [];
+    peerAssessments.forEach(p => {
+      hindrancesPeer = p.questionAnswers.filter(
+        q => q.section === 'Short Answers' && (q.questionOrder > 3 && q.questionOrder < 7));
+    });
+
+    const strengths = strengthsSelf.concat(strengthsPeer);
+    const hindrances = hindrancesSelf.concat(hindrancesPeer);
 
     return {
       content: [
         {
           text: selfAssessment.selfUserFullName,
-          style: 'header',
+          style: 'title',
           bold: true,
           fontSize: 20
         },
 
         {
           text: 'SELF-AWARENESS ASSESSMENT',
-          style: 'name',
+          style: 'headerone',
           bold: false,
         },
 
@@ -61,52 +75,39 @@ export class PDFService {
 
         {
           text: 'Gifts',
-          style: 'name'
+          style: 'headerone'
         },
 
         {
           columns: [
-            // get the Gifts array
             {
-              ul: [
-                strengths.filter((value, index) => index % 3 === 0).map(s => s.answerValue)
-              ]
+              ul: strengths.filter((value, index) => index % 3 === 0).map(s => s.answerValue)
             },
             {
-              ul: [
-                strengths.filter((value, index) => index % 3 === 1).map(s => s.answerValue)
-              ]
+              ul: strengths.filter((value, index) => index % 3 === 1).map(s => s.answerValue)
             },
             {
-              ul: [
-                strengths.filter((value, index) => index % 3 === 2).map(s => s.answerValue)
-              ]
+              ul: strengths.filter((value, index) => index % 3 === 2).map(s => s.answerValue)
             }
           ]
         },
 
         {
           text: 'Hindrances',
-          style: 'name'
+          style: 'headerone'
         },
 
         {
           columns: [
             // get the Hindrances array
             {
-              ul: [
-                hindrances.filter((value, index) => index % 3 === 0).map(s => s.answerValue)
-              ]
+              ul: hindrances.filter((value, index) => index % 3 === 0).map(s => s.answerValue)
             },
             {
-              ul: [
-                hindrances.filter((value, index) => index % 3 === 1).map(s => s.answerValue)
-              ]
+              ul: hindrances.filter((value, index) => index % 3 === 1).map(s => s.answerValue)
             },
             {
-              ul: [
-                hindrances.filter((value, index) => index % 3 === 2).map(s => s.answerValue)
-              ]
+              ul: hindrances.filter((value, index) => index % 3 === 2).map(s => s.answerValue)
             }
           ]
         },
@@ -145,27 +146,15 @@ export class PDFService {
         keywords: 'SELF-AWARENESS ASSESSMENT',
       },
       styles: {
-        header: {
+        title: {
           fontSize: 18,
           bold: true,
           margin: [0, 20, 0, 10]
         },
-        name: {
+        headerone: {
           fontSize: 16,
-          bold: true
-        },
-        jobTitle: {
-          fontSize: 14,
           bold: true,
-          italics: true
-        },
-        sign: {
-          margin: [0, 50, 0, 10],
-          alignment: 'right',
-          italics: true
-        },
-        tableHeader: {
-          bold: true,
+          margin: [0, 10, 0, 10]
         }
       }
     };

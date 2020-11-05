@@ -9,7 +9,7 @@ export interface PeerAssessment {
     createdAt: Date;
     completed: boolean;
     completedDate: Date;
-    questionAnswers: Array<Answer>;
+    questionAnswers: Answer[];
     selfUserId: string;
     selfUserFullName: string;
     linkToAssessment: string;
