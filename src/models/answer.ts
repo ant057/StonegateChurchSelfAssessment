@@ -1,5 +1,9 @@
 export interface Answer {
-    answerId: string;
     questionId: string;
+    questionType: string;
+    questionOrder: number;
+    questionKey: string;
+    section: string;
+    assessmentType: string;
     answerValue: string;
 }

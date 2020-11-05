@@ -122,7 +122,12 @@ export class PeerAssessmentComponent implements OnInit, OnDestroy {
     this.questions.forEach(q => {
       const questionControl = this.form.get(q.key) as FormControl;
       questionAnswers.push({
-        questionid: q.questionId,
+        questionId: q.questionId,
+        questionType: q.type,
+        questionKey: q.key,
+        questionOrder: q.orderBy,
+        assessmentType: q.assessmentType,
+        section: this.sections.find(s => s.sectionId === q.sectionId).text,
         answerValue: questionControl.value
       });
     });

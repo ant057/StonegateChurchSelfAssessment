@@ -106,7 +106,9 @@ export function reducer(state = initialState, action: AppActions): AppState {
         case AppActionTypes.LogoutUser:
             return {
                 ...state,
-                user: null
+                user: null,
+                selfAssessmentSaved: false,
+                readSelfAssessmentSaved: false
             };
 
         case AppActionTypes.LoadSelfAssessmentQuestions:

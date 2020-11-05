@@ -58,41 +58,29 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.afAuth.authState.pipe(
       takeWhile(() => this.componentActive)
-    ).subscribe({
-      next: (response) => {
+    ).subscribe(response => {
+      if (response) {
         // signed in
-        if (response) {
-          this.store.dispatch(new appActions.SignInUser({
-            userId: response.uid,
-            emailAddress: response.email,
-            fullName: response.displayName,
-            admin: false
-          }));
-        }
+        this.firebaseService.getIsUserAdmin(response.uid).pipe(
+          takeWhile(() => this.componentActive)
+        ).subscribe(u => {
+          if (u) {
+            this.store.dispatch(new appActions.SignInUser({
+              userId: response.uid,
+              emailAddress: response.email,
+              fullName: response.displayName,
+              admin: u.admin
+            }));
+          }
+        });
       }
     });
 
     this.store.pipe(select(fromApp.getSignedInUser),
-      takeWhile(() => this.componentActive),
-      map(u => {
-        this.user = u;
-        return u;
-      }),
-      mergeMap(user => {
-        if (user) {
-          return this.firebaseService.getIsUserAdmin(user.userId);
-        } else {
-          return empty();
-        }
-      })
-    ).subscribe(res => {
-      this.store.dispatch(new appActions.SignInUser({
-        userId: this.user.userId,
-        emailAddress: this.user.emailAddress,
-        fullName: this.user.fullName,
-        admin: res.admin
-      }));
-    }
+    takeWhile(() => this.componentActive)).subscribe(
+      user => {
+        this.user = user;
+      }
     );
   }
 

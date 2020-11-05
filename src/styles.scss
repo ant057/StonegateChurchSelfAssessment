@@ -255,3 +255,7 @@ body {
   flex-flow: row;
   flex-wrap: wrap;
 }
+
+.mat-action-row {
+  justify-content: left !important;
+}

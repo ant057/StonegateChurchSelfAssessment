@@ -13,8 +13,9 @@ import { Observable } from 'rxjs';
 
 // models
 import { takeWhile, map } from 'rxjs/operators';
-import { SelfAssessment } from 'src/models/selfassessment';
-import { PeerAssessment } from 'src/models/peerassessment';
+import { SelfAssessment } from '../../models/selfassessment';
+import { PeerAssessment } from '../../models/peerassessment';
+import { User } from '../../models/user';
 
 // services
 import { PDFService } from '../../services/pdf.service';
@@ -30,6 +31,7 @@ import { GenericDialogueComponent } from '../generic-dialogue/generic-dialogue.c
 })
 export class AdminComponent implements OnInit, OnDestroy {
 
+  user: User = null;
   componentActive = true;
   selfAssessments: SelfAssessment[];
   selfAssessmentsBkup: SelfAssessment[];
@@ -64,6 +66,17 @@ export class AdminComponent implements OnInit, OnDestroy {
           this.peerAssessments = assessments;
         }
       );
+
+    this.store.pipe(select(fromApp.getSignedInUser),
+      takeWhile(() => this.componentActive)).subscribe(
+        user => {
+          if (user) {
+            if (!user.admin) {
+              this.router.navigate(['/home']);
+            }
+          }
+        }
+      );
   }
 
   initalizeAdminData(): void {
@@ -92,7 +105,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   generateSelfAssessmentReport(selfAssessment: SelfAssessment): void {
     const peerAssessments = this.peerAssessments.filter(x => x.selfAssessmentId.indexOf(selfAssessment.selfAssessmentId) !== -1);
-    // this.pdfService.generatePdf(selfAssessment, peerAssessments);
+    this.pdfService.generatePdf(selfAssessment, peerAssessments);
     // this.router.navigate(['/selfassessmentreport']);
   }
 
