@@ -29,7 +29,7 @@ export class PDFService {
   }
 
   getDocumentDefinition(selfAssessment: SelfAssessment, peerAssessments: PeerAssessment[]): object {
-    // console.warn(peerAssessments);
+
     const giftsSelf = selfAssessment.questionAnswers.filter(
       q => q.section === 'Short Answers' && q.questionOrder < 4);
     const hindrancesSelf = selfAssessment.questionAnswers.filter(
@@ -59,16 +59,16 @@ export class PDFService {
         q => q.questionType === 'rating'));
     });
 
-    const strengths = [];
-    const growths = [];
-    const misreadplus = [];
-    const misreadneg = [];
+    let strengths = [];
+    let growths = [];
+    let misreadplus = [];
+    let misreadneg = [];
 
     ratingAnswersSelf.forEach(q => {
       // find corresponding questions in rating answers peer
       // calculate average between all peers
       // then?
-      const selfRating = q.answerValue;
+      const selfRating = +q.answerValue;
       const peerRatings = [];
       const questionRatings = ratingAnswersPeer.filter(x => x.questionKey === q.questionKey);
       questionRatings.forEach(f => {
@@ -86,22 +86,40 @@ export class PDFService {
         strengths.push(q.questionLabel);
       }
 
-      // console.warn(`question ${q.questionKey}.. self rating: ${selfRating} | peer ratings avg: ${peerAverage}`);
+      strengths = strengths.sort((a, b) => (b - a)).slice(0, 4);
 
-      // determine strengths
+      if (peerSelfAverage <= 3) {
+        growths.push(q.questionLabel);
+      }
 
-      // determine growths
+      growths = growths.sort((a, b) => (b - a)).slice(0, 4);
 
+      if (selfRating <= 3 && peerAverage >= 4.5) {
+        misreadplus.push(q.questionLabel);
+      }
 
-      // determine misread+
+      misreadplus = misreadplus.sort((a, b) => (b - a)).slice(0, 4);
 
+      if (selfRating >= 4.5 && peerAverage < 3) {
+        misreadneg.push(q.questionLabel);
+      }
 
-      // determine misread-
+      misreadneg = misreadneg.sort((a, b) => (b - a)).slice(0, 4);
     });
 
-    console.warn(strengths);
+    console.warn(misreadplus);
+    console.warn(misreadneg);
 
     return {
+      background: {
+        image: AegleBase64,
+        width: 200,
+        opacity: 0.05,
+        absolutePosition: { x: 150, y: 250 },
+      },
+      background: (currentPage, pageSize) {
+        return `page ${currentPage} with size ${pageSize.width} x ${pageSize.height}`
+      },
       content: [
         {
           text: selfAssessment.selfUserFullName,
@@ -163,12 +181,50 @@ export class PDFService {
             }
           ]
         },
-
-        // {
-        //   text: 'Education',
-        //   style: 'header'
-        // },
-
+        {
+          text: 'Strengths',
+          style: 'headerone'
+        },
+        {
+          columns: [
+            {
+              ol: strengths.map(s => s)
+            }
+          ]
+        },
+        {
+          text: 'Growths',
+          style: 'headerone'
+        },
+        {
+          columns: [
+            {
+              ol: growths.map(s => s)
+            }
+          ]
+        },
+        {
+          text: 'Misread + (affirmation needed)',
+          style: 'headerone'
+        },
+        {
+          columns: [
+            {
+              ol: misreadplus.map(s => s)
+            }
+          ]
+        },
+        {
+          text: 'Misread - (humility needed)',
+          style: 'headerone'
+        },
+        {
+          columns: [
+            {
+              ol: misreadneg.map(s => s)
+            }
+          ]
+        }
         // this.getEducationObject(this.resume.educations),
         // {
         //   text: 'Other Details',
