@@ -3,6 +3,7 @@ export interface Answer {
     questionType: string;
     questionOrder: number;
     questionKey: string;
+    questionLabel: string;
     section: string;
     assessmentType: string;
     answerValue: string;

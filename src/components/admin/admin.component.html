@@ -48,11 +48,11 @@
                         </div>
                     </div>
                     <mat-action-row class="mat-action-row">
-                        <button mat-button color="warn" (click)="openReminderDialogue(assessment)">
-                            <mat-icon>email</mat-icon> Send Reminder
-                        </button>
                         <button mat-button (click)="generateSelfAssessmentReport(assessment)">
                             <mat-icon>assessment</mat-icon> Generate Self-Awareness Report
+                        </button>
+                        <button mat-button color="warn" (click)="openReminderDialogue(assessment)">
+                            <mat-icon>email</mat-icon> Send Reminder
                         </button>
                     </mat-action-row>
                 </mat-expansion-panel>

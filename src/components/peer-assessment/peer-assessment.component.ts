@@ -126,6 +126,7 @@ export class PeerAssessmentComponent implements OnInit, OnDestroy {
         questionType: q.type,
         questionKey: q.key,
         questionOrder: q.orderBy,
+        questionLabel: q.label,
         assessmentType: q.assessmentType,
         section: this.sections.find(s => s.sectionId === q.sectionId).text,
         answerValue: questionControl.value

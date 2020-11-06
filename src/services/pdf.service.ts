@@ -29,25 +29,77 @@ export class PDFService {
   }
 
   getDocumentDefinition(selfAssessment: SelfAssessment, peerAssessments: PeerAssessment[]): object {
-    console.warn(peerAssessments);
-    const strengthsSelf = selfAssessment.questionAnswers.filter(
+    // console.warn(peerAssessments);
+    const giftsSelf = selfAssessment.questionAnswers.filter(
       q => q.section === 'Short Answers' && q.questionOrder < 4);
     const hindrancesSelf = selfAssessment.questionAnswers.filter(
       q => q.section === 'Short Answers' && (q.questionOrder > 3 && q.questionOrder < 7 ));
 
-    let strengthsPeer = [];
+    let giftsPeer = [];
     peerAssessments.forEach(p => {
-      strengthsPeer = p.questionAnswers.filter(
-        q => q.section === 'Short Answers' && q.questionOrder < 4);
+      giftsPeer = giftsPeer.concat(p.questionAnswers.filter(
+        q => q.section === 'Short Answers' && q.questionOrder < 4));
     });
     let hindrancesPeer = [];
     peerAssessments.forEach(p => {
-      hindrancesPeer = p.questionAnswers.filter(
-        q => q.section === 'Short Answers' && (q.questionOrder > 3 && q.questionOrder < 7));
+      hindrancesPeer = hindrancesPeer.concat(p.questionAnswers.filter(
+        q => q.section === 'Short Answers' && (q.questionOrder > 3 && q.questionOrder < 7)));
     });
 
-    const strengths = strengthsSelf.concat(strengthsPeer);
+    const gifts = giftsSelf.concat(giftsPeer);
     const hindrances = hindrancesSelf.concat(hindrancesPeer);
+
+    const ratingAnswersSelf = selfAssessment.questionAnswers.filter(
+      q => q.questionType === 'rating'
+    );
+
+    let ratingAnswersPeer = [];
+    peerAssessments.forEach(p => {
+      ratingAnswersPeer = ratingAnswersPeer.concat(p.questionAnswers.filter(
+        q => q.questionType === 'rating'));
+    });
+
+    const strengths = [];
+    const growths = [];
+    const misreadplus = [];
+    const misreadneg = [];
+
+    ratingAnswersSelf.forEach(q => {
+      // find corresponding questions in rating answers peer
+      // calculate average between all peers
+      // then?
+      const selfRating = q.answerValue;
+      const peerRatings = [];
+      const questionRatings = ratingAnswersPeer.filter(x => x.questionKey === q.questionKey);
+      questionRatings.forEach(f => {
+        peerRatings.push(f.answerValue);
+      });
+      // console.warn('peer ratings:' + peerRatings);
+
+      const peerAverage = peerRatings.reduce((a, b) => (+a + +b)) / peerRatings.length;
+
+      peerRatings.push(selfRating);
+      const peerSelfAverage = peerRatings.reduce((a, b) => (+a + +b)) / peerRatings.length;
+
+      console.warn(peerSelfAverage);
+      if (peerSelfAverage >= 4) {
+        strengths.push(q.questionLabel);
+      }
+
+      // console.warn(`question ${q.questionKey}.. self rating: ${selfRating} | peer ratings avg: ${peerAverage}`);
+
+      // determine strengths
+
+      // determine growths
+
+
+      // determine misread+
+
+
+      // determine misread-
+    });
+
+    console.warn(strengths);
 
     return {
       content: [
@@ -81,13 +133,13 @@ export class PDFService {
         {
           columns: [
             {
-              ul: strengths.filter((value, index) => index % 3 === 0).map(s => s.answerValue)
+              ul: gifts.filter((value, index) => index % 3 === 0).map(s => s.answerValue)
             },
             {
-              ul: strengths.filter((value, index) => index % 3 === 1).map(s => s.answerValue)
+              ul: gifts.filter((value, index) => index % 3 === 1).map(s => s.answerValue)
             },
             {
-              ul: strengths.filter((value, index) => index % 3 === 2).map(s => s.answerValue)
+              ul: gifts.filter((value, index) => index % 3 === 2).map(s => s.answerValue)
             }
           ]
         },
