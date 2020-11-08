@@ -111,7 +111,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   sendReminders(selfAssessment: SelfAssessment): void {
     const peerAssessments = this.getPeerAssessmentsBySelfId(selfAssessment.selfAssessmentId);
-    const reminders = this.getCompletedPeerAssessments(peerAssessments, false);
+    const reminders = peerAssessments.filter(x => !x.completed);
     this.firebaseService.sendReminderEmails(reminders).subscribe(
       x => {
         console.warn(x);
