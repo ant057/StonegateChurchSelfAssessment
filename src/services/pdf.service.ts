@@ -106,7 +106,7 @@ export class PDFService {
         });
       }
 
-      misreadplus = misreadplus.sort(this.compareAverages).slice(0, 5);
+      misreadplus = misreadplus.sort(this.compareAverages).slice(0, 5); // up to 5 midreads
 
       if (selfRating >= 4.5 && peerAverage < 3) {
         misreadneg.push({
@@ -115,7 +115,7 @@ export class PDFService {
         });
       }
 
-      misreadneg = misreadneg.sort((a, b) => (b - a)).slice(0, 5);
+      misreadneg = misreadneg.sort(this.compareAverages).slice(0, 5); // up to 5 misreads
     });
 
     return {
