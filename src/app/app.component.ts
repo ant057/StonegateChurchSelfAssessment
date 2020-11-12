@@ -2,6 +2,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 // ngrx store
 import { Store, select } from '@ngrx/store';
@@ -29,12 +30,14 @@ export class AppComponent implements OnInit, OnDestroy {
   componentActive = true;
   showPeerAssessment = false;
   peerAssessmentId = '';
+  applicationError = '';
 
   constructor(private store: Store<fromApp.AppState>,
               private afAuth: AngularFireAuth,
               private route: ActivatedRoute,
               private router: Router,
-              private firebaseService: FirebaseService) {
+              private firebaseService: FirebaseService,
+              private snackBar: MatSnackBar) {
 
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
@@ -82,6 +85,14 @@ export class AppComponent implements OnInit, OnDestroy {
         this.user = user;
       }
     );
+
+    this.store.pipe(select(fromApp.getError),
+      takeWhile(() => this.componentActive)).subscribe(
+        err => {
+          if (err !== '') {
+            this.snackBar.open(err, 'Close', null);
+          }
+      });
   }
 
   initalizeAppData(): void {

@@ -29,6 +29,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 // routing
 import { AppRoutingModule } from './app-routing.module';
@@ -138,8 +139,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     MatDialogModule,
     MatExpansionModule,
     MatChipsModule,
+    MatSnackBarModule,
     StoreDevtoolsModule.instrument({
-      name: 'StoneGateAssessment Dev tools',
+      name: 'Tony Robinson Coaching Dev tools',
       maxAge: 25,
       logOnly: environment.production
     })

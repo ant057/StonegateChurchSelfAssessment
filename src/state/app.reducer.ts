@@ -21,6 +21,7 @@ export interface AppState {
     selfAssessments: SelfAssessment[];
     peerAssessments: PeerAssessment[];
     peerAssessmentCompleted: boolean;
+    error: string;
 }
 
 const initialState: AppState = {
@@ -33,7 +34,8 @@ const initialState: AppState = {
     readSelfAssessmentSaved: false,
     selfAssessments: null,
     peerAssessments: null,
-    peerAssessmentCompleted: false
+    peerAssessmentCompleted: false,
+    error: ''
 };
 
 const getAppFeatureState = createFeatureSelector<AppState>('app');
@@ -41,6 +43,11 @@ const getAppFeatureState = createFeatureSelector<AppState>('app');
 export const getSignedInUser = createSelector(
     getAppFeatureState,
     state => state.user
+);
+
+export const getError = createSelector(
+    getAppFeatureState,
+    state => state.error
 );
 
 export const getSelfAssessmentQuestions = createSelector(
@@ -124,7 +131,8 @@ export function reducer(state = initialState, action: AppActions): AppState {
 
         case AppActionTypes.LoadSelfAssessmentQuestionsError:
             return {
-                ...state
+                ...state,
+                error: action.payload
             };
 
         case AppActionTypes.LoadSelfAssessmentSections:
@@ -140,7 +148,8 @@ export function reducer(state = initialState, action: AppActions): AppState {
 
         case AppActionTypes.LoadSelfAssessmentSectionsError:
             return {
-                ...state
+                ...state,
+                error: action.payload
             };
 
         case AppActionTypes.LoadPeerAssessmentQuestions:
@@ -156,7 +165,8 @@ export function reducer(state = initialState, action: AppActions): AppState {
 
         case AppActionTypes.LoadPeerAssessmentQuestionsError:
             return {
-                ...state
+                ...state,
+                error: action.payload
             };
 
         case AppActionTypes.LoadPeerAssessmentSections:
@@ -172,7 +182,8 @@ export function reducer(state = initialState, action: AppActions): AppState {
 
         case AppActionTypes.LoadPeerAssessmentSectionsError:
             return {
-                ...state
+                ...state,
+                error: action.payload
             };
 
         case AppActionTypes.CreateSelfAssessmentSuccess:
@@ -206,7 +217,8 @@ export function reducer(state = initialState, action: AppActions): AppState {
 
         case AppActionTypes.LoadSelfAssessmentsError:
             return {
-                ...state
+                ...state,
+                error: action.payload
             };
 
         case AppActionTypes.LoadPeerAssessments:
@@ -222,7 +234,8 @@ export function reducer(state = initialState, action: AppActions): AppState {
 
         case AppActionTypes.LoadPeerAssessmentsError:
             return {
-                ...state
+                ...state,
+                error: action.payload
             };
 
         default:

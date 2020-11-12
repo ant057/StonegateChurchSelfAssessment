@@ -73,7 +73,7 @@ export class LoadSelfAssessmentQuestionsSuccess implements Action {
 export class LoadSelfAssessmentQuestionsError implements Action {
     readonly type = AppActionTypes.LoadSelfAssessmentQuestionsError;
 
-    constructor() { }
+    constructor(public payload: string) { }
 }
 
 export class LoadSelfAssessmentSections implements Action {
@@ -91,7 +91,7 @@ export class LoadSelfAssessmentSectionsSuccess implements Action {
 export class LoadSelfAssessmentSectionsError implements Action {
     readonly type = AppActionTypes.LoadSelfAssessmentSectionsError;
 
-    constructor() { }
+    constructor(public payload: string) { }
 }
 
 export class LoadPeerAssessmentQuestions implements Action {
@@ -109,7 +109,7 @@ export class LoadPeerAssessmentQuestionsSuccess implements Action {
 export class LoadPeerAssessmentQuestionsError implements Action {
     readonly type = AppActionTypes.LoadPeerAssessmentQuestionsError;
 
-    constructor() { }
+    constructor(public payload: string) { }
 }
 
 export class LoadPeerAssessmentSections implements Action {
@@ -127,7 +127,7 @@ export class LoadPeerAssessmentSectionsSuccess implements Action {
 export class LoadPeerAssessmentSectionsError implements Action {
     readonly type = AppActionTypes.LoadPeerAssessmentSectionsError;
 
-    constructor() { }
+    constructor(public payload: string) { }
 }
 
 export class CreateSelfAssessment implements Action {
@@ -145,7 +145,7 @@ export class CreateSelfAssessmentSuccess implements Action {
 export class CreateSelfAssessmentError implements Action {
     readonly type = AppActionTypes.CreateSelfAssessmentError;
 
-    constructor() { }
+    constructor(public payload: string) { }
 }
 
 export class ReadSelfAssessmentSuccess implements Action {
@@ -169,7 +169,7 @@ export class LoadSelfAssessmentsSuccess implements Action {
 export class LoadSelfAssessmentsError implements Action {
     readonly type = AppActionTypes.LoadSelfAssessmentsError;
 
-    constructor() { }
+    constructor(public payload: string) { }
 }
 
 export class LoadPeerAssessments implements Action {
@@ -187,7 +187,7 @@ export class LoadPeerAssessmentsSuccess implements Action {
 export class LoadPeerAssessmentsError implements Action {
     readonly type = AppActionTypes.LoadPeerAssessmentsError;
 
-    constructor() { }
+    constructor(public payload: string) { }
 }
 
 export class CompletePeerAssessment implements Action {
@@ -205,7 +205,7 @@ export class CompletePeerAssessmentSuccess implements Action {
 export class CompletePeerAssessmentError implements Action {
     readonly type = AppActionTypes.CompletePeerAssessmentError;
 
-    constructor() { }
+    constructor(public payload: string) { }
 }
 
 export type AppActions = SignUpUser
