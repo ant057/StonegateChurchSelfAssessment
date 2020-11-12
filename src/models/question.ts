@@ -9,4 +9,5 @@ export interface Question {
     sectionId: string;
     orderBy: number;
     assessmentType: string;
+    reportSection?: string;
 }

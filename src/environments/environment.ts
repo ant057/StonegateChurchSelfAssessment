@@ -15,7 +15,8 @@ export const environment = {
     appId: '1:861276784040:web:7e40ee2085e596c690c99d',
     measurementId: 'G-EYW89YT0GC'
   },
-  firebaseFunctionsUrl: 'https://us-central1-tony-robinson-self-awareness.cloudfunctions.net/'
+  firebaseFunctionsUrl: 'https://us-central1-tony-robinson-self-awareness.cloudfunctions.net/',
+  peerAssessmentUrlBase: 'localhost:4200/peerassessment/'
 };
 
 /*

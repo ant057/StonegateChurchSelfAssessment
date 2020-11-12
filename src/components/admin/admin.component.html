@@ -14,8 +14,10 @@
                 <mat-expansion-panel *ngFor="let assessment of selfAssessments">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            <mat-icon>account_circle</mat-icon>
-                            {{assessment.selfUserFullName}}
+                            <div>
+                                <mat-icon>account_circle</mat-icon>
+                                {{assessment.selfUserFullName}}
+                            </div>
                         </mat-panel-title>
                         <mat-panel-description>
                             <div>
@@ -37,12 +39,15 @@
                             *ngFor="let peerAssessment of peerAssessments | filterArray:assessment.selfAssessmentId">
                             <p>{{peerAssessment.fullName}} | {{peerAssessment.emailAddress}}&nbsp;&nbsp;</p>
                             <div style="color:green" *ngIf="peerAssessment.completed">
-                                <mat-icon matTooltip="Most Recent Mail: {{peerAssessment?.lastMailDate}}">done</mat-icon>
+                                <mat-icon matTooltip="Most Recent Mail: {{peerAssessment?.lastMailDate}}">done
+                                </mat-icon>
                             </div>
                             <div style="color:orange" *ngIf="!peerAssessment.completed">
-                                <mat-icon matTooltip="Most Recent Mail: {{peerAssessment?.lastMailDate}}">pending_actions</mat-icon>
+                                <mat-icon matTooltip="Most Recent Mail: {{peerAssessment?.lastMailDate}}">
+                                    pending_actions</mat-icon>
                             </div>
-                            <div style="color:red" *ngIf="peerAssessment.lastMailError && peerAssessment.lastMailError !== ''">
+                            <div style="color:red"
+                                *ngIf="peerAssessment.lastMailError && peerAssessment.lastMailError !== ''">
                                 <mat-icon matTooltip="{{peerAssessment.lastMailError}}">error</mat-icon>
                             </div>
                         </div>

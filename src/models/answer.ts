@@ -7,4 +7,5 @@ export interface Answer {
     section: string;
     assessmentType: string;
     answerValue: string;
+    reportSection?: string;
 }

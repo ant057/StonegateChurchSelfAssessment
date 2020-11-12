@@ -129,7 +129,8 @@ export class PeerAssessmentComponent implements OnInit, OnDestroy {
         questionLabel: q.label,
         assessmentType: q.assessmentType,
         section: this.sections.find(s => s.sectionId === q.sectionId).text,
-        answerValue: questionControl.value
+        answerValue: questionControl.value,
+        reportSection: q.reportSection ? q.reportSection : ''
       });
     });
 

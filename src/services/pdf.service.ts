@@ -31,19 +31,19 @@ export class PDFService {
   getDocumentDefinition(selfAssessment: SelfAssessment, peerAssessments: PeerAssessment[]): object {
 
     const giftsSelf = selfAssessment.questionAnswers.filter(
-      q => q.section === 'Short Answers' && q.questionOrder < 4);
+      q => q.reportSection === 'gifts');
     const hindrancesSelf = selfAssessment.questionAnswers.filter(
-      q => q.section === 'Short Answers' && (q.questionOrder > 3 && q.questionOrder < 7 ));
+      q => q.reportSection === 'hindrances');
 
     let giftsPeer = [];
     peerAssessments.forEach(p => {
       giftsPeer = giftsPeer.concat(p.questionAnswers.filter(
-        q => q.section === 'Short Answers' && q.questionOrder < 4));
+        q => q.reportSection === 'gifts'));
     });
     let hindrancesPeer = [];
     peerAssessments.forEach(p => {
       hindrancesPeer = hindrancesPeer.concat(p.questionAnswers.filter(
-        q => q.section === 'Short Answers' && (q.questionOrder > 3 && q.questionOrder < 7)));
+        q => q.reportSection === 'hindrances'));
     });
 
     const gifts = giftsSelf.concat(giftsPeer);
@@ -90,7 +90,7 @@ export class PDFService {
 
       strengths = strengths.sort(this.compareAverages).slice(strengths.length - 5, strengths.length); // up to 5 strs
 
-      if (peerSelfAverage <= 3) {
+      if (peerSelfAverage > 0 && peerSelfAverage <= 3) {
         growths.push({
           questionLabel: q.questionLabel,
           average: peerSelfAverage
@@ -102,16 +102,16 @@ export class PDFService {
       if (selfRating <= 3 && peerAverage >= 4.5) {
         misreadplus.push({
           questionLabel: q.questionLabel,
-          average: peerSelfAverage
+          average: selfRating
         });
       }
 
       misreadplus = misreadplus.sort(this.compareAverages).slice(0, 5); // up to 5 midreads
 
-      if (selfRating >= 4.5 && peerAverage < 3) {
+      if (selfRating >= 4.5 && (peerAverage > 0 && peerAverage < 3)) {
         misreadneg.push({
           questionLabel: q.questionLabel,
-          average: peerSelfAverage
+          average: selfRating
         });
       }
 

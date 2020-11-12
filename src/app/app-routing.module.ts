@@ -7,6 +7,7 @@ import { PeerAssessmentComponent } from 'src/components/peer-assessment/peer-ass
 import { AdminComponent } from 'src/components/admin/admin.component';
 import { LandingComponent } from 'src/components/landing/landing.component';
 import { SelfAssessmentReportComponent } from 'src/components/self-assessment-report/self-assessment-report.component';
+import { FourofournotfoundComponent } from 'src/components/fourofournotfound/fourofournotfound.component';
 
 const routes: Routes = [
   { path: 'app', component: AppComponent },
@@ -15,8 +16,8 @@ const routes: Routes = [
   { path: 'peerassessment/:peerassessmentid', component: PeerAssessmentComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'selfassessmentreport', component: SelfAssessmentReportComponent },
-  { path: '', redirectTo: '/app', pathMatch: 'full' },
-  // { path: '**', component: PageNotFoundComponent}
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', component: FourofournotfoundComponent }
 ];
 
 @NgModule({

@@ -191,7 +191,7 @@ export class FirebaseService {
   }
 
   getPeerAssessmentUrlBase(): string {
-    return !environment.production ? 'localhost:4200/peerassessment/' : 'selfassessment.firebaseapp/peerassessment/';
+    return environment.peerAssessmentUrlBase;
   }
 
 }
