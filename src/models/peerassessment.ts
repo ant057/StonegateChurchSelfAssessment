@@ -4,7 +4,7 @@ import { Contact } from './contact';
 export interface PeerAssessment {
     peerAssessmentId: string;
     selfAssessmentId: string;
-    fullname: string;
+    fullName: string;
     emailAddress: string;
     createdAt: Date;
     completed: boolean;

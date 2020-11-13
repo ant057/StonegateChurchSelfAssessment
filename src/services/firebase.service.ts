@@ -91,7 +91,7 @@ export class FirebaseService {
   }
 
   getSelfAssessments(): Observable<SelfAssessment[]> {
-    return this.afs.collection('/self-assessments', ref => ref.orderBy('createdAt')).snapshotChanges().pipe(
+    return this.afs.collection('/self-assessments', ref => ref.orderBy('createdAt', 'desc')).snapshotChanges().pipe(
       map(q => {
         const data: SelfAssessment[] = [];
         q.forEach(x => {

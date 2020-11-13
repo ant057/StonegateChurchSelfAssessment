@@ -30,6 +30,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
 
 // routing
 import { AppRoutingModule } from './app-routing.module';
@@ -74,6 +75,8 @@ import { SectionComponent } from '../components/section/section.component';
 import { AssessmentContactsComponent } from '../components/assessment-contacts/assessment-contacts.component';
 import { GenericDialogueComponent } from '../components/generic-dialogue/generic-dialogue.component';
 import { SelfAssessmentReportComponent } from '../components/self-assessment-report/self-assessment-report.component';
+import { FourofournotfoundComponent } from '../components/fourofournotfound/fourofournotfound.component';
+import { AllAnswersComponent } from '../components/all-answers/all-answers.component';
 
 // directives
 import { MatElevationHoverDirective } from '../directives/mat-elevation-hover.directive';
@@ -102,7 +105,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     GenericDialogueComponent,
     SelfAssessmentReportComponent,
     MatElevationHoverDirective,
-    FilterArrayPipe
+    FilterArrayPipe,
+    FourofournotfoundComponent,
+    AllAnswersComponent
   ],
   imports: [
     BrowserModule,
@@ -140,6 +145,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     MatExpansionModule,
     MatChipsModule,
     MatSnackBarModule,
+    MatTableModule,
     StoreDevtoolsModule.instrument({
       name: 'Tony Robinson Coaching Dev tools',
       maxAge: 25,
