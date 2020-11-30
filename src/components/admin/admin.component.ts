@@ -145,6 +145,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   openAllAnswers(selfAssessment: SelfAssessment): void {
     const peerAssessments = this.getPeerAssessmentsBySelfId(selfAssessment.selfAssessmentId);
     const completedPeerAssessment = this.getCompletedPeerAssessments(peerAssessments);
+
     let answersData = [];
 
     const peer1 = completedPeerAssessment[0] ? completedPeerAssessment[0].fullName : 'peer1';
@@ -166,13 +167,13 @@ export class AdminComponent implements OnInit, OnDestroy {
         [self1]: i.answerValue,
         [peer1]: completedPeerAssessment[0]?.questionAnswers.find(x => x.questionKey === i.questionKey).answerValue,
         [peer2]: completedPeerAssessment[1]?.questionAnswers.find(x => x.questionKey === i.questionKey).answerValue,
-        [peer3]: completedPeerAssessment[2]?.questionAnswers.find(x => x.questionId === i.questionId).answerValue,
-        [peer4]: completedPeerAssessment[3]?.questionAnswers.find(x => x.questionId === i.questionId).answerValue,
-        [peer5]: completedPeerAssessment[4]?.questionAnswers.find(x => x.questionId === i.questionId).answerValue,
-        [peer6]: completedPeerAssessment[5]?.questionAnswers.find(x => x.questionId === i.questionId).answerValue,
-        [peer7]: completedPeerAssessment[6]?.questionAnswers.find(x => x.questionId === i.questionId).answerValue,
-        [peer8]: completedPeerAssessment[7]?.questionAnswers.find(x => x.questionId === i.questionId).answerValue,
-        [peer9]: completedPeerAssessment[8]?.questionAnswers.find(x => x.questionId === i.questionId).answerValue
+        [peer3]: completedPeerAssessment[2]?.questionAnswers.find(x => x.questionKey === i.questionKey).answerValue,
+        [peer4]: completedPeerAssessment[3]?.questionAnswers.find(x => x.questionKey === i.questionKey).answerValue,
+        [peer5]: completedPeerAssessment[4]?.questionAnswers.find(x => x.questionKey === i.questionKey).answerValue,
+        [peer6]: completedPeerAssessment[5]?.questionAnswers.find(x => x.questionKey === i.questionKey).answerValue,
+        [peer7]: completedPeerAssessment[6]?.questionAnswers.find(x => x.questionKey === i.questionKey).answerValue,
+        [peer8]: completedPeerAssessment[7]?.questionAnswers.find(x => x.questionKey === i.questionKey).answerValue,
+        [peer9]: completedPeerAssessment[8]?.questionAnswers.find(x => x.questionKey === i.questionKey).answerValue
       });
     }
 
